@@ -1,0 +1,32 @@
+{
+  "name": "gamabank-accenture",
+  "version": "1.0.0",
+  "description": "<p align=\"center\">\r   <img src=\"https://media.tenor.com/images/63dc70b43a949617fdfa3447868d534d/tenor.gif\" alt=\"Hulk Smart\"/>\r </p>",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/diogoalexandria/gamabank-accenture.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/diogoalexandria/gamabank-accenture/issues"
+  },
+  "homepage": "https://github.com/diogoalexandria/gamabank-accenture#readme",
+  "devDependencies": {
+    "chai": "^4.3.3",
+    "cross-env": "^7.0.3",
+    "dotenv": "^8.2.0",
+    "faker": "^5.4.0",
+    "mocha": "^8.3.1",
+    "nodemon": "^2.0.7"
+  },
+  "dependencies": {
+    "@hapi/hapi": "^20.1.0",
+    "bcrypt": "^5.0.1"
+  }
+}
