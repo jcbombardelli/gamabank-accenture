@@ -1,7 +1,8 @@
 {
   "compilerOptions": {
     "target": "es5",                                
-    "module": "commonjs",                           
+    "module": "commonjs",
+    "outDir": "./dist",                       
     "strict": true,                                 
     "esModuleInterop": true,                        
     "skipLibCheck": true,                          
