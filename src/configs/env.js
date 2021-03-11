@@ -1,0 +1,36 @@
+const dotenv = require('dotenv')
+
+const env = process.env.NODE_ENV
+
+let path
+
+switch (env) {
+    case 'test':
+        path = '.env.test'
+    break;
+
+    case 'development':
+        path = '.env.development'
+    break;
+
+    default:
+        path = '.env'
+}
+
+dotenv.config({
+    path:path
+})
+
+module.exports = {
+    env,
+    secret: process.env.JWT_SECRET,
+    salt: process.env.SALT,
+    database: {
+        host: process.env.DB_HOST,
+        user: process.env.DB_USER,
+        pass: process.env.DB_PASS,
+        name: process.env.DB_NAME,
+        port: process.env.DB_PORT,
+    }
+
+}
