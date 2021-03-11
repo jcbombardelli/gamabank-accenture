@@ -1,7 +1,7 @@
-const Hapi = require('@hapi/hapi')
-require('./configs/env')
+const Hapi = require('@hapi/hapi');
+require('./configs/env');
 
-const routes = require('./routes')
+const routes = require('./routes');
 
 const server = () => {
 
@@ -14,12 +14,12 @@ const server = () => {
 
     return hapiServer
 
-}
+};
 
 process.on('unhandledRejection', err => {
     console.log('---->  Error !')
     console.error(err)
     process.exit(1)
-})
+});
 
-module.exports = server()
+module.exports = server();
