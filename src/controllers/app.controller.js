@@ -1,7 +1,8 @@
 const status = (request, h) => {
     return {
         status: 'running',
-        timestamp: new Date()
+        timestamp: new Date(), 
+        teste: "teste"
     }
 }
 
