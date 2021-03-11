@@ -4,7 +4,10 @@
   "description": "Projeto final para o treinamento da Gama Academy oferecido pela Accenture",
   "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node dist/index.js",
+    "start_dev": "nodemon dist/index.js",
+    "compile": "tsc",
+    "compile_dev": "tsc -w"
   },
   "repository": {
     "type": "git",
