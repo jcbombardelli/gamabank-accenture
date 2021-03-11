@@ -1,0 +1,27 @@
+{
+  "name": "projeto-final-gamabank",
+  "version": "0.0.1",
+  "description": "Projeto final para o treinamento da Gama Academy oferecido pela Accenture",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sampaiorafael/gamabank-accenture.git"
+  },
+  "keywords": [
+    "projeto",
+    "final",
+    "accenture",
+    "gamabank",
+    "gama",
+    "academy"
+  ],
+  "author": "Alexander de Oliveira, Nivaldo Júnior, Rafael Sampaio, Stênio Amorim, Wallace Rooger, Yahnn",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sampaiorafael/gamabank-accenture/issues"
+  },
+  "homepage": "https://github.com/sampaiorafael/gamabank-accenture#readme"
+}
