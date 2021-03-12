@@ -2,9 +2,9 @@
   "name": "gamabank-accenture",
   "version": "1.0.0",
   "description": "<p align=\"center\">\r   <img src=\"https://media.tenor.com/images/63dc70b43a949617fdfa3447868d534d/tenor.gif\" alt=\"Hulk Smart\"/>\r </p>",
-  "main": "./src/app.js",
+  "main": "./src/server.js",
   "scripts": {
-    "start:dev": "cross-env NODE_ENV=development nodemon ./src/app.js",
+    "start:dev": "cross-env NODE_ENV=development nodemon ./src/server.js",
     "test": "mocha --recursive -w"
   },
   "repository": {
@@ -30,6 +30,8 @@
   "dependencies": {
     "@hapi/hapi": "^20.1.0",
     "bcrypt": "^5.0.1",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
     "pg": "^8.5.1",
     "pg-hstore": "^2.3.3",
     "sequelize": "^6.5.0"

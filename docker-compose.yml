@@ -2,24 +2,19 @@ version: "3"
 
 services:
   database:
-    image: postgres
+    image: mysql:5.7
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-    ports: 
-      - '15432:5432'
-    volumes:
-      - ./pg-volume/:/var/lib/postgresql/data
-
-  pgadmin:
-    image: dpage/pgadmin4
-    environment:
-      PGADMIN_DEFAULT_EMAIL: "diogoagrasmsdc@gmail.com"
-      PGADMIN_DEFAULT_PASSWORD: "PgAdmin2021!"
+      MYSQL_ROOT_PASSWORD: "mysql"
+      MYSQL_DATABASE: "gamabank"
     ports:
-      - "16543:80"
-    depends_on:
-      - database
+      - "3306:3306"
+    volumes:
+      - ./mysql_volumes:/var/lib/mysql    
+
+  adminer:
+    image: adminer
+    ports:
+      - 8080:8080    
 
   app:
     build: .

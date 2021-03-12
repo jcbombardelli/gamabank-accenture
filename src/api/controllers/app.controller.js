@@ -1,9 +1,9 @@
 const status = (request, h) => {
     return {
         status: 'running',
-        timestamp: new Date()        
+        timestamp: new Date()
     }
-};
+}
 
 
-module.exports = { status };
+module.exports = { status }
