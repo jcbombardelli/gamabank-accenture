@@ -1,17 +1,20 @@
 // Hapi
 const dotenv = require('dotenv');
 
-let path;
-switch(process.env.NODE_ENV) {
-    case 'teste':
-        path = '.env.test'
-    case 'development':
-        path = '.env.development'
-    default:
-        path = '.env'
-};
+// let path;
+// switch(process.env.NODE_ENV) {
+//     case 'teste':
+//         path = '.env.test'
+//     case 'development':
+//         path = '.env.development'
+//     default:
+//         path = '.env'
+// };
 
-dotenv.config({ path });
+//TODO: Sempre da pra melhorar - Refatorem plmmdss
+dotenv.config({
+    path: process.env.NODE_ENV === 'test' ? '.env.test' : process.env.NODE_ENV === 'development' ? '.env.development' : '.env'
+});
 
 module.exports = {
     env: process.env.NODE_ENV,

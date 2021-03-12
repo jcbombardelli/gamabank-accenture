@@ -1,9 +1,12 @@
 const Hapi = require("@hapi/hapi");
 require("./configs/env");
 
-const swagger = require('./configs/swagger')
+const { swagger, inert, vision } = require('./configs/swagger');
+const sequelize = require('./configs/sequelize');
 
 const routes = require("./routes");
+
+const plugins =  [ swagger, inert, vision, sequelize ]
 
 const server = async () => {
   const hapiServer = Hapi.server({
@@ -11,7 +14,8 @@ const server = async () => {
     host: process.env.HOST || "localhost",
   });
 
-  await hapiServer.register(swagger);
+  await hapiServer.register(plugins);
+  
   hapiServer.route(routes);
 
   return hapiServer;

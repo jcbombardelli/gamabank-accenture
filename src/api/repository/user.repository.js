@@ -1,6 +1,6 @@
 const database = require('../../helpers/database')
 const crypto = require('../../helpers/mycrypto')
-const User = require('../models/user')
+const User = require('../models/User')
 
 const save = async (user) => {
     return new Promise(async (resolve, reject) => {
