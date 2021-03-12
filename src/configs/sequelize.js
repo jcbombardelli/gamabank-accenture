@@ -11,7 +11,7 @@ module.exports = {
             name: 'gamabank',
             models: [__dirname + '../api/models/*.js'],
             ignoredModels: [],
-            sequelize: new Sequelize('', 'root', 'root', { dialect, host }),
+            sequelize: new Sequelize(name, user, pass, { dialect, host }),
             sync: true,
             forceSync: false
         }
