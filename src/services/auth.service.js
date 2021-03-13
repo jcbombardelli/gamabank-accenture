@@ -31,7 +31,7 @@ const verify = async (object) => {
     })
 }
 
-const checkIfExists = async (user) => {
+const verifyPassword = async (user) => {
     return new Promise(async(resolve, reject) => {
         try {
             const {userSalt, userPassword} = await  userRepository.getUser(user)
@@ -49,6 +49,6 @@ const checkIfExists = async (user) => {
 module.exports = {
     sign,
     verify,
-    checkIfExists
+    verifyPassword
 
 }

@@ -1,0 +1,13 @@
+### Login
+POST http://localhost:3000/login HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "jcbombardelli",
+    "password": "senhaboa",
+}
+
+### Verify
+GET http://localhost:3000/login/verify HTTP/1.1
+Content-Type: application/json
+x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImpjYm9tYmFyZGVsbGkiLCJwYXNzd29yZCI6InNlbmhhYm9hIiwiaWF0IjoxNjE1NDIzMDgyLCJleHAiOjE2MTU0MjMzODJ9.li7N0JKjOOUWZOoTEbtMt6XeiBLnL7x69YisyvhJMwM
