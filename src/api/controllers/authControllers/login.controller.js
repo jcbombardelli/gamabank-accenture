@@ -1,14 +1,14 @@
-const User = require('../../../models/user')
+const Client = require('../../../models/client')
 const authService = require('../../../services/auth.service')
 
 
 
 const loginHandler = async (request, h) => {
-    const user = new User(request.payload)
-    const existance = await authService.verifyPassword(user)
+    const client = new User(request.payload)
+    const existance = await authService.verifyPassword(client)
 
     if(existance) {
-        return authService.sign({username: user.username})
+        return authService.sign({username: client.clientEmail})
     }
     return 'Falhou'
 }

@@ -1,13 +1,14 @@
 const database = require('../helpers/database.util.js')
-const User = require('../models/user')
+const Client = require('../models/client')
 
-const getUser = async (user) => {
+
+const getClient = async (client) => {
     return new Promise(async(resolve, reject) => {
         try {
-            const sqlstatement = `SELECT * FROM user WHERE userName = "${user.username}" `
+            const sqlstatement = `SELECT * FROM client WHERE userName = "${client.userName}" `
             
             const result = await database.query(sqlstatement)
-            resolve(result[0])
+            resolve(result)
 
         }catch(err) {
             console.error(err)
@@ -15,31 +16,35 @@ const getUser = async (user) => {
         }
     })
 }
-/* 
+
 const newClient = async (client) => {
-    const clientExists = await database.registerExists("client", "clientCPF", client.clientCPF)
+    const clientExists = await database.registerExists('client', 'clientCPF', client.clientCPF)
     if(clientExists){
         return "Cliente já cadastrado"
     }
-
     return new Promise(async(resolve, reject) => {
         try {
-            const {clientName, clientCPF} = client
-            const sqlstatement = `INSERT INTO client (clientName, clientCPF, clientStatus) VALUES ("${clientName}", "${clientCPF}", "Active" )`
+            const sqlstatement = `INSERT INTO client (clientEmail, clientPassword, clientSalt, clientName, 
+                clientCPF, clientStatus) VALUES ("${client.clientEmail}", "${client.clientPassword}", "${client.clientSalt}", 
+                "${client.clientName}", "${client.clientCPF}", "Active")`
             
             const result = await database.query(sqlstatement)
-            resolve(result[0])
+            resolve(`${client.clientName} cadastrado com sucesso!`)
 
         }catch(err) {
             console.error(err)
             reject(err)
         }
     })
-} */
+} 
+    const client = {
+        clientEmail : '123@gmail.com',
+        clientPassword: '12345', 
+        clientSalt: 'asflisafpwejfpo',
+        clientName: 'banana', 
+        clientCPF: '01234567899',
+        clientStatus: 'Active' 
 
-
-
-
-module.exports = { 
-    getUser
-}
+    }
+    newClient(client)
+module.exports = { getClient, newClient }
