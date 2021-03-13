@@ -1,4 +1,3 @@
-
 CREATE DATABASE /*!32312 IF NOT EXISTS*/`gamabank` /*!40100 DEFAULT CHARACTER SET latin1 */;
 
 USE `gamabank`;
@@ -160,4 +159,3 @@ CREATE TABLE `checkingaccountentry` (
   CONSTRAINT `checkingaccountentry_ibfk_2` FOREIGN KEY (`accountOperationCod`) REFERENCES `accountoperation` (`accountOperationCod`),
   CONSTRAINT `checkingaccountentry_ibfk_3` FOREIGN KEY (`bankCode`) REFERENCES `bank` (`bankCode`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
