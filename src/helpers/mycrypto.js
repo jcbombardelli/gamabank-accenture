@@ -14,3 +14,5 @@ module.exports = {
         return encryptedPassword === encryptedPasswordToCompare
     }
 }
+
+//teste de PR
