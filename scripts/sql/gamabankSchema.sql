@@ -31,8 +31,8 @@ CREATE TABLE `bank` (
 DROP TABLE IF EXISTS `client`;
 
 CREATE TABLE `client` (
+  `clientCod` int(11) NOT NULL AUTO_INCREMENT, 
   `clientEmail` varchar(120) NOT NULL,
-  `clientCod` int(11) NOT NULL AUTO_INCREMENT,
   `clientPassword` varchar(120) NOT NULL,
   `clientSalt` varchar(120) NOT NULL,
   `clientName` varchar(120) NOT NULL,
