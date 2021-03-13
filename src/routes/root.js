@@ -3,7 +3,7 @@ const root = {
     method:'GET',
     path: '/',
     handler: (req, h) => {
-        return "Olá meus amigos"
+        return "Agora vai..."
     }
 }
 
