@@ -27,40 +27,20 @@ CREATE TABLE `bank` (
 
 
 
-/*Table structure for table `state` */
-
-
-
-
 /*Table structure for table `client` */
 
 DROP TABLE IF EXISTS `client`;
 
 CREATE TABLE `client` (
+  `clientEmail` varchar(120) NOT NULL,
   `clientCod` int(11) NOT NULL AUTO_INCREMENT,
+  `clientPassword` varchar(120) NOT NULL,
+  `clientSalt` varchar(120) NOT NULL,
   `clientName` varchar(120) NOT NULL,
-  `clientCPF` int(11) NOT NULL,
+  `clientCPF` char(11) NOT NULL,
   `clientStatus` varchar(7) NOT NULL,
-  `clientCreatedDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `clientCreatedDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ,
   PRIMARY KEY (`clientCod`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-
-
-
-
-/*Table structure for table `user` */
-
-DROP TABLE IF EXISTS `user`;
-
-CREATE TABLE `user` (
-  `userName` varchar(120) NOT NULL,
-  `clientCod` int(11) NOT NULL,
-  `userPassword` varchar(120) NOT NULL,
-  `userSalt` varchar(120) NOT NULL,
-  PRIMARY KEY (`userName`),
-  KEY `clientCod` (`clientCod`),
-  CONSTRAINT `user_ibfk_1` FOREIGN KEY (`clientCod`) REFERENCES `client` (`clientCod`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
@@ -73,7 +53,7 @@ CREATE TABLE `checkingaccount` (
   `checkingAccountNumber` int(11) NOT NULL,
   `clientCod` int(11) NOT NULL,
   `checkingAccountBalance` decimal(10,0) NOT NULL,
-  `checkingAccountCreatedDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `checkingAccountCreatedDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ,
   `checkingAccountStatus` varchar(7) DEFAULT NULL,
   PRIMARY KEY (`checkingAccountNumber`),
   KEY `clientCod` (`clientCod`),
@@ -92,7 +72,7 @@ CREATE TABLE `clientcard` (
   `checkingAccountNumber` int(11) NOT NULL,
   `cardType` varchar(2) NOT NULL,
   `clientCreditCardLimit` decimal(15,2) NOT NULL,
-  `clientCardCreatedDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `clientCardCreatedDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ,
   PRIMARY KEY (`clientCardNumber`,`clientCod`,`checkingAccountNumber`),
   KEY `clientCod` (`clientCod`),
   KEY `checkingAccountNumber` (`checkingAccountNumber`),
@@ -108,7 +88,7 @@ CREATE TABLE `creditcardentrieinstallment` (
   `creditCardEntrieCod` int(11) NOT NULL,
   `creditCardEntrieInstallmentNumber` int(11) NOT NULL,
   `creditCardEntrieInstallmentValue` decimal(10,0) NOT NULL,
-  `creditCardEntrieInstallmentDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `creditCardEntrieInstallmentDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ,
   PRIMARY KEY (`creditCardEntrieCod`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -124,7 +104,7 @@ CREATE TABLE `cardentrie` (
   `clientCod` int(11) NOT NULL,
   `checkingAccountNumber` int(11) NOT NULL,
   `cardEntrieType` varchar(1) NOT NULL,
-  `cardEntrieDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `cardEntrieDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ,
   `cardEntrieValue` decimal(15,2) NOT NULL,
   `cardEntrieCreditInstallment` int(11) NOT NULL,
   PRIMARY KEY (`cardEntrieCod`,`clientCardNumber`),
@@ -145,7 +125,7 @@ CREATE TABLE `checkingaccountcheckout` (
   `checkingAccountCheckoutNumber` int(11) NOT NULL AUTO_INCREMENT,
   `checkingAccountNumber` int(11) NOT NULL,
   `accountOperationCod` int(11) NOT NULL,
-  `checkingAccountCheckoutDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `checkingAccountCheckoutDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ,
   `checkingAccountCheckoutValue` decimal(15,2) NOT NULL,
   `bankCode` int(11) DEFAULT NULL,
   `checkingAccountCheckoutCPF` int(11) DEFAULT NULL,
@@ -167,7 +147,7 @@ CREATE TABLE `checkingaccountentry` (
   `checkingAccountEntryNumber` int(11) NOT NULL,
   `checkingAccountNumber` int(11) NOT NULL,
   `accountOperationCod` int(11) NOT NULL,
-  `checkingAccountEntryDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `checkingAccountEntryDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ,
   `checkingAccountEntryValue` decimal(15,2) NOT NULL,
   `bankCode` int(11) DEFAULT NULL,
   `checkingAccountEntryCPF` int(11) DEFAULT NULL,
