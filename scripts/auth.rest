@@ -1,13 +1,10 @@
-### Login
-POST http://localhost:3000/login HTTP/1.1
+### Verify
+POST http://localhost:3001/user/deposit HTTP/1.1
 Content-Type: application/json
+x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImhlbGVuaW5oYWFhYUBnbWFpbC5jb20iLCJpYXQiOjE2MTU3Mzg3NjYsImV4cCI6MTYxNTczODg4Nn0.LU0j9GQBFGIuPEflnNkZGFpdGXO9XVLsjcfTr5wvP_g
+
 
 {
-    "username": "jcbombardelli",
-    "password": "senhaboa",
+    "name": "Bernardo",
+    "CPF": "153.770.217-38"
 }
-
-### Verify
-GET http://localhost:3000/login/verify HTTP/1.1
-Content-Type: application/json
-x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImpjYm9tYmFyZGVsbGkiLCJwYXNzd29yZCI6InNlbmhhYm9hIiwiaWF0IjoxNjE1NDIzMDgyLCJleHAiOjE2MTU0MjMzODJ9.li7N0JKjOOUWZOoTEbtMt6XeiBLnL7x69YisyvhJMwM
