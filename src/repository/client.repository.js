@@ -1,5 +1,5 @@
 const database = require('../helpers/database.util.js')
-const Client = require('../models/client')
+const { v4:uuidv4 } = require('uuid')
 
 
 const getClient = async (client) => {
@@ -25,10 +25,15 @@ const newClient = async (client) => {
     return new Promise(async(resolve, reject) => {
         try {
             const sqlstatement = `INSERT INTO client (clientEmail, clientPassword, clientSalt, clientName, 
-                clientCPF, clientStatus) VALUES ("${client.clientEmail}", "${client.clientPassword}", "${client.clientSalt}", 
-                "${client.clientName}", "${client.clientCPF}", "Active")`
+                            clientCPF, clientStatus) VALUES ("${client.clientEmail}", "${client.clientPassword}", "${client.clientSalt}", 
+                            "${client.clientName}", "${client.clientCPF}", "Active")`
             
-            const result = await database.query(sqlstatement)
+                            
+            const { insertId } = await database.query(sqlstatement)
+            const sqlstatement2 = `INSERT INTO checkingaccount (clientCod, checkingAccountBalance, checkingAccountStatus, checkingAccountNumber) VALUES (${insertId}, 0.00, "Active", "${uuidv4()}")` 
+            const result2 = await database.query(sqlstatement2)
+            console.log(result2)
+            
             resolve(`${client.clientName} cadastrado com sucesso!`)
 
         }catch(err) {
@@ -37,14 +42,5 @@ const newClient = async (client) => {
         }
     })
 } 
-    // const client = {
-    //     clientEmail : '123@gmail.com',
-    //     clientPassword: '12345', 
-    //     clientSalt: 'asflisafpwejfpo',
-    //     clientName: 'banana', 
-    //     clientCPF: '01234567899',
-    //     clientStatus: 'Active' 
-
-    // }
-    // newClient(client)
+   
 module.exports = { getClient, newClient }
