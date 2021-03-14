@@ -24,15 +24,25 @@ const newClient = async (client) => {
     }
     return new Promise(async(resolve, reject) => {
         try {
-            const sqlstatement = `INSERT INTO client (clientEmail, clientPassword, clientSalt, clientName, 
+            const clientSql = `INSERT INTO client (clientEmail, clientPassword, clientSalt, clientName, 
                             clientCPF, clientStatus) VALUES ("${client.clientEmail}", "${client.clientPassword}", "${client.clientSalt}", 
                             "${client.clientName}", "${client.clientCPF}", "Active")`
             
                             
-            const { insertId } = await database.query(sqlstatement)
-            const sqlstatement2 = `INSERT INTO checkingaccount (clientCod, checkingAccountBalance, checkingAccountStatus, checkingAccountNumber) VALUES (${insertId}, 0.00, "Active", "${uuidv4()}")` 
-            const result2 = await database.query(sqlstatement2)
-            console.log(result2)
+            const { insertId } = await database.query(clientSql)
+            const checkingaccountSql = `INSERT INTO checkingaccount (clientCod, checkingAccountBalance, checkingAccountStatus, checkingAccountNumber) VALUES (${insertId}, 0.00, "Active", "${uuidv4()}")` 
+
+            await database.query(checkingaccountSql)
+            
+            //USANDO O ID DO USUARIO PARA BUSCAR O NUMERO DA CONTA RECEM CRIADA
+            const getAccountNumber = `SELECT * FROM checkingaccount WHERE clientCod = ${insertId}`
+            const [{checkingAccountNumber}] = await database.query(getAccountNumber)
+            //USANDO ID E NUMERO DA CONTA PARA CRIAR CARTAO
+            const clientcardSql = `INSERT INTO clientcard (clientCardNumber,clientCod,checkingAccountNumber)
+                                    VALUES(${Math.floor((Math.random() * 10 ** 16))},${insertId},"${checkingAccountNumber}")`
+
+            await database.query(clientcardSql)
+            
             
             resolve(`${client.clientName} cadastrado com sucesso!`)
 
