@@ -12,18 +12,22 @@ const dotenv = require('dotenv')
 // };
 
 //TODO: Sempre da pra melhorar - Refatorem plmmdss
-dotenv.config({
-    path:
-        process.env.NODE_ENV === 'test'
-            ? '.env.test'
-            : process.env.NODE_ENV === 'development'
-            ? '.env.development'
-            : '.env'
-})
+dotenv.config(
+    dotenv.config({
+        path:
+            process.env.NODE_ENV === 'test'
+                ? '.env.test'
+                : process.env.NODE_ENV === 'development'
+                ? '.env.development'
+                : '.env'
+    })
+)
 
 module.exports = {
-    env: process.env.NODE_ENV,
-    secret: process.env.APP_SECRET, //TOKEN JWT
+    app: {
+        host: process.env.APP_HOST,
+        port: process.env.APP_PORT
+    },
     database: {
         host: process.env.DB_HOST,
         user: process.env.DB_USER,
@@ -31,5 +35,7 @@ module.exports = {
         name: process.env.DB_NAME,
         port: process.env.DB_PORT
     },
+    env: process.env.NODE_ENV,
+    secret: process.env.APP_SECRET, //TOKEN JWT
     salt: process.env.SALT
 }

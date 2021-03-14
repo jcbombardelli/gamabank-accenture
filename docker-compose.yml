@@ -1,27 +1,27 @@
 version: '3'
 
 services:
-  database:
-    image: mysql:5.7
-    environment:
-      MYSQL_ROOT_PASSWORD: 'root'
-      MYSQL_DATABASE: 'gamabank'
-    ports:
-      - '3306:3306'
-    volumes:
-      - ./mysql_volumes:/var/lib/mysql
+    database:
+        image: mysql:5.7
+        environment:
+            MYSQL_ROOT_PASSWORD: 'root'
+            MYSQL_DATABASE: 'gamabank'
+        ports:
+            - '3306:3306'
+        volumes:
+            - ./mysql_volumes:/var/lib/mysql
 
-  adminer:
-    image: adminer
-    ports:
-      - 8080:8080
+    adminer:
+        image: adminer
+        ports:
+            - 8080:8080
 
-  # app:
-  #   build: .
-  #   command: npm run start:dev
-  #   depends_on:
-  #     - database
-  #   ports:
-  #     - "3000:3000"
-  #   volumes:
-  #     - .:/opt/app
+    # app:
+    #   build: .
+    #   command: npm run start:dev
+    #   depends_on:
+    #     - database
+    #   ports:
+    #     - "3000:3000"
+    #   volumes:
+    #     - .:/opt/app
