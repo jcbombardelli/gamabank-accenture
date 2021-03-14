@@ -4,7 +4,7 @@ Content-Type: application/json
 
 {
     "clientEmail": "heleninha@gmail.com",
-    "clientPassword": "senhaboaaaa",
+    "clientPassword": "B3rn@rdo",
     "clientName": "Lenão Hurricane",
-    "clientCPF" : "12345678111"
+    "clientCPF" : "15377021738"
 }
