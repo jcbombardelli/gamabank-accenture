@@ -1,4 +1,4 @@
-const { database: dbconfig } = require('./env');
+const { database: dbconfig } = require('./env')
 const { host, user: username, pass: password, name: database } = dbconfig
 
 module.exports = {

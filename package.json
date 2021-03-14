@@ -1,44 +1,44 @@
 {
-  "name": "gamabank-accenture",
-  "version": "1.0.0",
-  "description": "<p align=\"center\">\r   <img src=\"https://media.tenor.com/images/63dc70b43a949617fdfa3447868d534d/tenor.gif\" alt=\"Hulk Smart\"/>\r </p>",
-  "main": "./src/app.js",
-  "scripts": {
-    "start:dev": "cross-env NODE_ENV=development nodemon ./src/app.js",
-    "test": "mocha --recursive -w"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/diogoalexandria/gamabank-accenture.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/diogoalexandria/gamabank-accenture/issues"
-  },
-  "homepage": "https://github.com/diogoalexandria/gamabank-accenture#readme",
-  "devDependencies": {
-    "chai": "^4.3.3",
-    "cross-env": "^7.0.3",
-    "dotenv": "^8.2.0",
-    "faker": "^5.4.0",
-    "mocha": "^8.3.1",
-    "nodemon": "^2.0.7",
-    "prettier": "2.2.1",
-    "sequelize-cli": "^6.2.0"
-  },
-  "dependencies": {
-    "@hapi/hapi": "^20.1.0",
-    "@hapi/inert": "^6.0.3",
-    "@hapi/vision": "^6.0.1",
-    "bcrypt": "^5.0.1",
-    "hapi-sequelizejs": "^4.3.0",
-    "hapi-swagger": "^14.1.0",
-    "joi": "^17.4.0",
-    "jsonwebtoken": "^8.5.1",
-    "mysql": "^2.18.1",
-    "mysql2": "^2.2.5",
-    "sequelize": "^6.5.0"
-  }
+    "name": "gamabank-accenture",
+    "version": "1.0.0",
+    "description": "<p align=\"center\">\r   <img src=\"https://media.tenor.com/images/63dc70b43a949617fdfa3447868d534d/tenor.gif\" alt=\"Hulk Smart\"/>\r </p>",
+    "main": "./src/app.js",
+    "scripts": {
+        "start:dev": "cross-env NODE_ENV=development nodemon ./src/app.js",
+        "test": "mocha --recursive -w"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/diogoalexandria/gamabank-accenture.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/diogoalexandria/gamabank-accenture/issues"
+    },
+    "homepage": "https://github.com/diogoalexandria/gamabank-accenture#readme",
+    "devDependencies": {
+        "chai": "^4.3.3",
+        "cross-env": "^7.0.3",
+        "dotenv": "^8.2.0",
+        "faker": "^5.4.0",
+        "mocha": "^8.3.1",
+        "nodemon": "^2.0.7",
+        "prettier": "2.2.1",
+        "sequelize-cli": "^6.2.0"
+    },
+    "dependencies": {
+        "@hapi/hapi": "^20.1.0",
+        "@hapi/inert": "^6.0.3",
+        "@hapi/vision": "^6.0.1",
+        "bcrypt": "^5.0.1",
+        "hapi-sequelizejs": "^4.3.0",
+        "hapi-swagger": "^14.1.0",
+        "joi": "^17.4.0",
+        "jsonwebtoken": "^8.5.1",
+        "mysql": "^2.18.1",
+        "mysql2": "^2.2.5",
+        "sequelize": "^6.5.0"
+    }
 }
