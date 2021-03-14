@@ -32,5 +32,4 @@ const registerExists = async (tableName, tableColumn, value) => {
     })
 }
 
-
 module.exports = { query, registerExists }

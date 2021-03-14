@@ -49,7 +49,7 @@ CREATE TABLE `client` (
 DROP TABLE IF EXISTS `checkingaccount`;
 
 CREATE TABLE `checkingaccount` (
-  `checkingAccountNumber` int(11) NOT NULL,
+  `checkingAccountNumber` varchar(255) NOT NULL,
   `clientCod` int(11) NOT NULL,
   `checkingAccountBalance` decimal(10,0) NOT NULL,
   `checkingAccountCreatedDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ,
@@ -68,15 +68,17 @@ DROP TABLE IF EXISTS `clientcard`;
 CREATE TABLE `clientcard` (
   `clientCardNumber` int(11) NOT NULL,
   `clientCod` int(11) NOT NULL,
-  `checkingAccountNumber` int(11) NOT NULL,
+  `checkingAccountNumber` varchar(255) NOT NULL,
   `cardType` varchar(2) NOT NULL,
   `clientCreditCardLimit` decimal(15,2) NOT NULL,
   `clientCardCreatedDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ,
   PRIMARY KEY (`clientCardNumber`,`clientCod`,`checkingAccountNumber`),
   KEY `clientCod` (`clientCod`),
   KEY `checkingAccountNumber` (`checkingAccountNumber`),
-  CONSTRAINT `clientcard_ibfk_1` FOREIGN KEY (`clientCod`) REFERENCES `client` (`clientCod`),
-  CONSTRAINT `clientcard_ibfk_2` FOREIGN KEY (`checkingAccountNumber`) REFERENCES `checkingaccount` (`checkingAccountNumber`)
+  -- CONSTRAINT `clientcard_ibfk_1` 
+  FOREIGN KEY (`clientCod`) REFERENCES `client` (`clientCod`),
+  -- CONSTRAINT `clientcard_ibfk_2` 
+  FOREIGN KEY (`checkingAccountNumber`) REFERENCES `checkingaccount` (`checkingAccountNumber`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Table structure for table `creditcardentrieinstallment` */
@@ -101,7 +103,7 @@ CREATE TABLE `cardentrie` (
   `cardEntrieCod` int(11) NOT NULL,
   `clientCardNumber` int(11) NOT NULL,
   `clientCod` int(11) NOT NULL,
-  `checkingAccountNumber` int(11) NOT NULL,
+  `checkingAccountNumber` varchar(255) NOT NULL,
   `cardEntrieType` varchar(1) NOT NULL,
   `cardEntrieDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ,
   `cardEntrieValue` decimal(15,2) NOT NULL,
@@ -122,7 +124,7 @@ DROP TABLE IF EXISTS `checkingaccountcheckout`;
 
 CREATE TABLE `checkingaccountcheckout` (
   `checkingAccountCheckoutNumber` int(11) NOT NULL AUTO_INCREMENT,
-  `checkingAccountNumber` int(11) NOT NULL,
+  `checkingAccountNumber` varchar(255) NOT NULL,
   `accountOperationCod` int(11) NOT NULL,
   `checkingAccountCheckoutDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ,
   `checkingAccountCheckoutValue` decimal(15,2) NOT NULL,
@@ -144,7 +146,7 @@ DROP TABLE IF EXISTS `checkingaccountentry`;
 
 CREATE TABLE `checkingaccountentry` (
   `checkingAccountEntryNumber` int(11) NOT NULL,
-  `checkingAccountNumber` int(11) NOT NULL,
+  `checkingAccountNumber` varchar(255) NOT NULL,
   `accountOperationCod` int(11) NOT NULL,
   `checkingAccountEntryDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ,
   `checkingAccountEntryValue` decimal(15,2) NOT NULL,
