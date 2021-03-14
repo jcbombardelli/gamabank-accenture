@@ -1,18 +1,10 @@
 const database = require('../helpers/database.util.js')
-//entrada: payload => {cpfRemetente,valor, accountNumber}
-
-//checkingAccountEntryValue,
-//checkingAccountNumber, 
-//checkingAccountEntryCPF,
-
-//accountOperationCode => Mudar pra ENUM, ('transf','deposit')
-//bankCode
 
 const newDepositQuery = async (obj) => {
     const {
-    valor:checkingAccountEntryValue,
-    destinatario:checkingAccountNumber,
-    remetente: checkingAccountEntryCPF } = obj
+    value:checkingAccountEntryValue,
+    accNumber:checkingAccountNumber,
+    userCPF: checkingAccountEntryCPF } = obj
 
     let depositSQL = `
     INSERT INTO checkingaccountentry
@@ -20,22 +12,14 @@ const newDepositQuery = async (obj) => {
     VALUES (${checkingAccountEntryValue},"${checkingAccountNumber}", "${checkingAccountEntryCPF}","deposit")
     `
 
-    let updateBalanceSQL = `
-    ALTER TABLE checkingaccount
-    `
-
     try{
         await database.query(depositSQL)
-        return `The deposit was successfully received! Value: R$ ${obj.valor}.`
+        return `The deposit was successfully received! Value: R$ ${obj.value}.`
     }catch(err){
         console.log('Error during deposit operation.')
+        throw err
     }
-    
-
 }
 
-//const getCPF 
 
-
-//checkingAccountEntryNumber, => Automático
-//checkingAccountEntryDate,  => Automático
+module.exports = {newDepositQuery}

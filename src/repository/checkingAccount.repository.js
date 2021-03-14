@@ -9,10 +9,19 @@ const getCurrentAccount = async accNumber => {
         return result[0]
     }catch(err){
         console.log(err)
+        return(false)
     }
 
 }
 
-console.log(getCurrentAccount("58f1b86e-f99a-42e1-9251-ead8f623c5c5"))
+const updateBalance = async (accNumber, value) => {
+    let sqlstatement = `UPDATE checkingaccount SET checkingAccountBalance = ${value} WHERE checkingaccount.checkingAccountNumber = "${accNumber}"`
+    try {
+         await database.query(sqlstatement)
+         return `Balance updated to ${value}`
+    } catch(err){
+        console.log(err)
+    }
+}
 
-module.exports = { getCurrentAccount }
+module.exports = { getCurrentAccount, updateBalance }

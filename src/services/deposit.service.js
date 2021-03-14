@@ -1,17 +1,19 @@
-//DADOS CHEGANDO: {idRemetente, valor, data, idDestinatario}
-//DADOS RETORNADOS:{sucesso, dados}
-//TAREFAS A FAZER: Alterar Saldo
-//
+const checkingAccount = require('../repository/checkingAccount.repository')
+const depositRepository = require('../repository/deposit.repository')
 
-//const depositRepository = require('../repository/deposit.repository')
 
-const newDeposit = async (depositRequirement)=>{
-    
-    
 
-    
-
-    return await clientRepository.newClient(client) 
+const newDeposit = async (deposit)=>{
+    const clientAccount =  await checkingAccount.getCurrentAccount(deposit.accNumber)
+    if(!clientAccount) return "Conta não encontrada"
+    const newAccountBalance = clientAccount.checkingAccountBalance + deposit.value  
+    try {
+        await depositRepository.newDepositQuery(deposit)
+        await checkingAccount.updateBalance(deposit.accNumber, newAccountBalance)
+        return "Depósito efetuado com sucesso!"
+    } catch (err) {
+        console.log(err)
+    }
 }
 
 
