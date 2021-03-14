@@ -146,7 +146,7 @@ DROP TABLE IF EXISTS `checkingaccountentry`;
 CREATE TABLE `checkingaccountentry` (
   `checkingAccountEntryNumber` int(11) NOT NULL,
   `checkingAccountNumber` varchar(255) NOT NULL,
-  `accountOperationCod` int(11) NOT NULL,
+  `checkingAccountEntryType` ENUM('deposit', 'transfer'),
   `checkingAccountEntryDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ,
   `checkingAccountEntryValue` decimal(15,2) NOT NULL,
   `bankCode` int(11) DEFAULT NULL,
