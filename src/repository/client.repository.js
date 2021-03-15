@@ -1,5 +1,4 @@
 const database = require('../helpers/database.util.js')
-const { v4:uuidv4 } = require('uuid')
 
 
 const getClient = async (client) => {
@@ -30,7 +29,7 @@ const newClient = async (client) => {
             
                             
             const { insertId } = await database.query(clientSql)
-            const checkingaccountSql = `INSERT INTO checkingaccount (clientCod, checkingAccountBalance, checkingAccountStatus, checkingAccountNumber) VALUES (${insertId}, 0.00, "Active", "${uuidv4()}")` 
+            const checkingaccountSql = `INSERT INTO checkingaccount (clientCod, checkingAccountBalance, checkingAccountStatus) VALUES (${insertId}, 0.00, "Active")` 
 
             await database.query(checkingaccountSql)
             

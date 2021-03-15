@@ -19,5 +19,9 @@ const newClient = async (client)=>{
     return await clientRepository.newClient(client) 
 }
 
+// const returnClient = async (userName)=>{
+
+// }
+
 
 module.exports = { newClient }

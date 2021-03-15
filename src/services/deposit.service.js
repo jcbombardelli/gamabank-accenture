@@ -1,11 +1,12 @@
 const checkingAccount = require('../repository/checkingAccount.repository')
 const depositRepository = require('../repository/deposit.repository')
+const {isPositiveNumber} = require('../helpers/validate')
 
 
 
 const newDeposit = async (deposit)=>{
     const clientAccount =  await checkingAccount.getCurrentAccount(deposit.accNumber)
-    if(deposit.value <= 0) return "Valor incorreto: insira um valor positivo"
+    if(isPositiveNumber(deposit.value)) return "Valor incorreto: insira um valor positivo"
     if(!clientAccount) return "Conta não encontrada"
     const newAccountBalance = clientAccount.checkingAccountBalance + deposit.value
     try {

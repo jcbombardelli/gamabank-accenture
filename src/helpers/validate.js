@@ -54,9 +54,13 @@ class ValidaCPF {
     }
   }
   
+const isPositiveNumber = (value) => {
+  if(value <= 0 || typeof value !== 'number') return false
+  return true
+}
   
 
 
 
 
-module.exports = {ValidaCPF, passwordValidator, emailValidator}
+module.exports = {ValidaCPF, passwordValidator, emailValidator, isPositiveNumber}
