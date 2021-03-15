@@ -14,9 +14,9 @@ const newDepositQuery = async (obj) => {
 
     try{
         await database.query(depositSQL)
-        return `The deposit was successfully received! Value: R$ ${obj.value}.`
+        return `O depósito foi recebido com sucesso! Valor: R$ ${obj.value}.`
     }catch(err){
-        console.log('Error during deposit operation.')
+        console.log('Erro durante a operação de depósito.')
         throw err
     }
 }

@@ -18,7 +18,7 @@ const updateBalance = async (accNumber, value) => {
     let sqlstatement = `UPDATE checkingaccount SET checkingAccountBalance = ${value} WHERE checkingaccount.checkingAccountNumber = "${accNumber}"`
     try {
          await database.query(sqlstatement)
-         return `Balance updated to ${value}`
+         return `Saldo atualizado para ${value}`
     } catch(err){
         console.log(err)
     }
