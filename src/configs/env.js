@@ -1,16 +1,6 @@
 // Hapi
 const dotenv = require('dotenv')
 
-// let path;
-// switch(process.env.NODE_ENV) {
-//     case 'teste':
-//         path = '.env.test'
-//     case 'development':
-//         path = '.env.development'
-//     default:
-//         path = '.env'
-// };
-
 //TODO: Sempre da pra melhorar - Refatorem plmmdss
 dotenv.config(
     dotenv.config({
@@ -25,8 +15,8 @@ dotenv.config(
 
 module.exports = {
     app: {
-        host: process.env.APP_HOST,
-        port: process.env.APP_PORT
+        host: process.env.HOST,
+        port: process.env.PORT
     },
     database: {
         host: process.env.DB_HOST,
