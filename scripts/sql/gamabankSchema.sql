@@ -66,7 +66,7 @@ CREATE TABLE `checkingaccount` (
 DROP TABLE IF EXISTS `clientcard`;
 
 CREATE TABLE `clientcard` (
-  `clientCardNumber` int(11) NOT NULL,
+  `clientCardNumber` varchar(16) NOT NULL,
   `clientCod` int(11) NOT NULL,
   `checkingAccountNumber` varchar(255) NOT NULL,
   `clientCreditCardLimit` decimal(15,2) NOT NULL DEFAULT 200,
@@ -100,7 +100,7 @@ DROP TABLE IF EXISTS `cardentrie`;
 
 CREATE TABLE `cardentrie` (
   `cardEntrieCod` int(11) NOT NULL,
-  `clientCardNumber` int(11) NOT NULL,
+  `clientCardNumber` varchar(16) NOT NULL,
   `clientCod` int(11) NOT NULL,
   `checkingAccountNumber` varchar(255) NOT NULL,
   `cardEntrieType` varchar(1) NOT NULL,
@@ -144,19 +144,18 @@ CREATE TABLE `checkingaccountcheckout` (
 DROP TABLE IF EXISTS `checkingaccountentry`;
 
 CREATE TABLE `checkingaccountentry` (
-  `checkingAccountEntryNumber` int(11) NOT NULL,
+  `checkingAccountEntryNumber` int(11) NOT NULL AUTO_INCREMENT,
   `checkingAccountNumber` varchar(255) NOT NULL,
-  `accountOperationCod` int(11) NOT NULL,
+  `checkingAccountEntryType` ENUM('deposit', 'transfer'),
   `checkingAccountEntryDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ,
   `checkingAccountEntryValue` decimal(15,2) NOT NULL,
   `bankCode` int(11) DEFAULT NULL,
-  `checkingAccountEntryCPF` int(11) DEFAULT NULL,
+  `checkingAccountEntryCPF` char(11) DEFAULT NULL,
   `checkingAccountEntryAccountOrigin` int(11) DEFAULT NULL,
   PRIMARY KEY (`checkingAccountEntryNumber`,`checkingAccountNumber`),
   KEY `checkingAccountNumber` (`checkingAccountNumber`),
-  KEY `accountOperationCod` (`accountOperationCod`),
   KEY `bankCode` (`bankCode`),
   CONSTRAINT `checkingaccountentry_ibfk_1` FOREIGN KEY (`checkingAccountNumber`) REFERENCES `checkingaccount` (`checkingAccountNumber`),
-  CONSTRAINT `checkingaccountentry_ibfk_2` FOREIGN KEY (`accountOperationCod`) REFERENCES `accountoperation` (`accountOperationCod`),
   CONSTRAINT `checkingaccountentry_ibfk_3` FOREIGN KEY (`bankCode`) REFERENCES `bank` (`bankCode`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
