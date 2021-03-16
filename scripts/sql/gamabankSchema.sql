@@ -130,6 +130,7 @@ CREATE TABLE `checkingaccountcheckout` (
   `bankCode` INT(11) DEFAULT NULL,
   `checkingAccountCheckoutCPF` CHAR(11) DEFAULT NULL,
   `checkingAccountCheckoutAccountDestiny` INT(11) DEFAULT NULL,
+  `checkingAccountCheckoutDescription` VARCHAR (255) DEFAULT NULL,
   PRIMARY KEY (`checkingAccountCheckoutNumber`,`checkingAccountNumber`),
   KEY `checkingAccountNumber` (`checkingAccountNumber`),
   KEY `bankCode` (`bankCode`),
