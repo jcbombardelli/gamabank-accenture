@@ -1,0 +1,23 @@
+POST http://localhost:3001/user/transfer HTTP/1.1
+Content-Type: application/json
+x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNhc2hhQGdtYWlsLmNvbSIsImlhdCI6MTYxNTg1MzUwOCwiZXhwIjoxNjE2NzE3NTA4fQ.UORXx-_6z8H4Mis4ZV3foeQDwDkF_gv7KZp3rLkb4Ss
+
+{
+    "accAnother": 2,
+    "value": 9000,
+    "CPF": "12345678909"
+}
+
+###
+POST http://localhost:3001/user/transfer HTTP/1.1
+Content-Type: application/json
+
+
+{
+    "account": 1,
+    "bank": 4,
+    "accAnother": 105,
+    "value": 10000,
+    "CPF": "06889461002"
+}
+

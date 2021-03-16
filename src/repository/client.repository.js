@@ -1,11 +1,26 @@
 const database = require('../helpers/database.util.js')
-const { v4:uuidv4 } = require('uuid')
 
 
 const getClient = async (client) => {
     return new Promise(async(resolve, reject) => {
         try {
             const sqlstatement = `SELECT * FROM client WHERE clientEmail = "${client.clientEmail}" `
+            
+            const result = await database.query(sqlstatement)
+            resolve(result[0])
+
+        }catch(err) {
+            console.error(err)
+            reject(err)
+        }
+    })
+}
+
+
+const getClientByCod = async (cod) => {
+    return new Promise(async(resolve, reject) => {
+        try {
+            const sqlstatement = `SELECT * FROM client WHERE clientCod = "${cod}" `
             
             const result = await database.query(sqlstatement)
             resolve(result[0])
@@ -30,7 +45,7 @@ const newClient = async (client) => {
             
                             
             const { insertId } = await database.query(clientSql)
-            const checkingaccountSql = `INSERT INTO checkingaccount (clientCod, checkingAccountBalance, checkingAccountStatus, checkingAccountNumber) VALUES (${insertId}, 0.00, "Active", "${uuidv4()}")` 
+            const checkingaccountSql = `INSERT INTO checkingaccount (clientCod, checkingAccountBalance, checkingAccountStatus) VALUES (${insertId}, 0.00, "Active")` 
 
             await database.query(checkingaccountSql)
             
@@ -53,4 +68,4 @@ const newClient = async (client) => {
     })
 } 
    
-module.exports = { getClient, newClient }
+module.exports = { getClient, newClient, getClientByCod }

@@ -1,11 +1,25 @@
 const database = require('../helpers/database.util.js')
 
 const getCurrentAccount = async accNumber => {
-    let acc = `SELECT * FROM checkingaccount
+    let sqlstatement = `SELECT * FROM checkingaccount
     WHERE checkingAccountNumber = "${accNumber}"
     `
     try{
-        const result = await database.query(acc)
+        const result = await database.query(sqlstatement)
+        return result[0]
+    }catch(err){
+        console.log(err)
+        return(false)
+    }
+
+}
+
+const getAccountById = async clientCod => {
+    let sqlstatement = `SELECT * FROM checkingaccount
+    WHERE clientCod = "${clientCod}"
+    `
+    try{
+        const result = await database.query(sqlstatement)
         return result[0]
     }catch(err){
         console.log(err)
@@ -24,4 +38,4 @@ const updateBalance = async (accNumber, value) => {
     }
 }
 
-module.exports = { getCurrentAccount, updateBalance }
+module.exports = { getCurrentAccount, updateBalance, getAccountById }
