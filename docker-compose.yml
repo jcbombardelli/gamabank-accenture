@@ -2,7 +2,7 @@ version: '3'
 
 services:
     database:
-        image: mysql:5.7
+        build: ./mysql_data
         environment:
             MYSQL_ROOT_PASSWORD: 'root'
             MYSQL_DATABASE: 'gamabank'
@@ -10,6 +10,7 @@ services:
             - '3306:3306'
         volumes:
             - ./mysql_volumes:/var/lib/mysql
+        restart: always
 
     adminer:
         image: adminer
