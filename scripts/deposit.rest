@@ -3,7 +3,7 @@ Content-Type: application/json
 x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFuZHJlYWJyaXR0b0BnYW1hYmFuay5jb20iLCJpYXQiOjE2MTU5MDE0MzUsImV4cCI6MTYxNjc2NTQzNX0.pZX0syGWysc7xrIBmgKWgU_yIli_BBRMcGn3LdTEEI0
 
 {
-     "account": 1, //Conta destino do depósito
-     "CPF": "12345678909", //CPF do depositante
+     "account": 7,
+     "CPF": "12345678909", 
      "value": 3000 
 }

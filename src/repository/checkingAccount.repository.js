@@ -14,6 +14,8 @@ const getCurrentAccount = async accNumber => {
 
 }
 
+
+
 const getAccountById = async clientCod => {
     let sqlstatement = `SELECT * FROM checkingaccount
     WHERE clientCod = "${clientCod}"

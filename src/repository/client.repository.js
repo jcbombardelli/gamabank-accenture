@@ -32,6 +32,22 @@ const getClientByCod = async (cod) => {
     })
 }
 
+const getClientByAccount = async (acc) => {
+    return new Promise(async(resolve, reject) => {
+        try{
+            const sqlstatement = `SELECT cl.clientCod, cl.clientName, cl.clientCPF, acc.checkingAccountNumber, acc.checkingAccountBalance FROM CLIENT AS cl
+            INNER JOIN checkingaccount AS acc ON acc.clientCod = cl.clientCod
+            WHERE acc.checkingAccountNumber = "${acc}"`
+
+            const result = await database.query(sqlstatement)
+            resolve(result[0])
+        } catch(err){
+            console.error(err)
+            reject(err)
+        }
+    })
+}
+
 const newClient = async (client) => {
     const clientExists = await database.registerExists('client', 'clientCPF', client.clientCPF)
     if(clientExists){
@@ -68,4 +84,4 @@ const newClient = async (client) => {
     })
 } 
    
-module.exports = { getClient, newClient, getClientByCod }
+module.exports = { getClient, newClient, getClientByCod, getClientByAccount }
