@@ -8,4 +8,4 @@ const generateCardNumber = () => {
 }
 
 
-module.exports = generateCardNumber
+module.exports = {generateCardNumber}
