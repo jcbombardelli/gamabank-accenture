@@ -13,9 +13,9 @@ VALUES
 INSERT INTO checkingaccount 
 (clientCod, checkingAccountBalance, checkingAccountStatus, checkingAccountNumber) 
 VALUES 
-(1, 1000.00, "Active", "4929 3084 8997 1389"),
-(2, 2000.00, "Active", "4539 1304 2967 1495"),
-(3, 3000.00, "Active", "4532 5862 9726 7392"),
-(4, 4000.00, "Active", "4716 2166 0242 4920"),
-(5, 5000.00, "Active", "4532 9653 8607 2915"),
-(6, 6000.00, "Active", "4532 1411 8596 5879");
+(1, 1000.00, "Active", "1"),
+(2, 2000.00, "Active", "2"),
+(3, 3000.00, "Active", "3"),
+(4, 4000.00, "Active", "4"),
+(5, 5000.00, "Active", "5"),
+(6, 6000.00, "Active", "6");
