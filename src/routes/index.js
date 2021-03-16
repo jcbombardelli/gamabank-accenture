@@ -2,8 +2,10 @@ const { status } = require('../api/controllers/app.controller')
 const authcontroller = require('../api/controllers/auth.controller')
 const usercontroller = require('../api/controllers/user.controller')
 
-const { LoginRequestDTO, LoginResponseDTO } = require('../api/models/dto/auth.dto')
-
+const {
+    LoginRequestDTO,
+    LoginResponseDTO
+} = require('../api/models/dto/auth.dto')
 
 const Joi = require('joi')
 
@@ -14,7 +16,8 @@ const root = {
     options: {
         tags: ['api'],
         description: 'Verificação do status da aplicação',
-        notes: 'Pode ser utilizado sempre que outra aplicação estiver monitorando'
+        notes:
+            'Pode ser utilizado sempre que outra aplicação estiver monitorando'
     }
 }
 
@@ -47,8 +50,20 @@ const validate = {
 const newaccount = {
     method: 'POST',
     path: '/signup',
-    handler: usercontroller.newAccount
+    handler: usercontroller.newAccount,
+    options: {
+        tags: ['api', 'register'],
+        description: 'Rota de Cadastro do user'
+        /*validate: {
+            payload:
+        },
+        response: {
+            status: {
+                200: ,
+                400: Joi.any()
+            }
+        }*/
+    }
 }
 
-
-module.exports = [ root, login, validate, newaccount ]
+module.exports = [root, login, validate, newaccount]
