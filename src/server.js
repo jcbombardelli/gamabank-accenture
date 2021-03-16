@@ -7,7 +7,7 @@ const sequelize = require('./configs/sequelize')
 
 const routes = require('./routes')
 
-const plugins = [swagger, inert, vision /* , sequelize */]
+const plugins = [swagger, inert, vision, sequelize]
 const { app } = require('./configs/env')
 
 const server = async () => {
