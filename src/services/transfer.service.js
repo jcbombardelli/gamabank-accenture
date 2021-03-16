@@ -2,17 +2,20 @@ const transferRepository = require('../repository/transfer.repository')
 const { getCurrentAccount, updateBalance} = require('../repository/checkingAccount.repository')
 const {isPositiveNumber} = require('../helpers/validate')
 const getBank = require('../repository/bank.repository')
+const {getClientByCod} = require('../repository/client.repository')
+
 
 
 
 const newTransferReceived = async (transferData) =>{
     if(!isPositiveNumber) return 'Valor incorreto.'
     const verifybank = await getBank(transferData.bank)
-    if(!verifybank) return 'Banco não é valido received'
+    if(!verifybank) throw new Error('Banco não é valido')
 
     const account = await getCurrentAccount(transferData.accNumber)
-    if(!account) return 'Conta não existe'
-    
+    if(!account) throw new Error('Conta não existe')
+
+    if (!(await getClientByCod(account.clientCod).clientCPF === transferData.CPF)) throw new Error("CPF não equivalente ao do usuário")
     await transferRepository.newTransferEntrie(transferData)
     const newBalance = account.checkingAccountBalance + transferData.value
 
@@ -24,12 +27,12 @@ const newTransferReceived = async (transferData) =>{
 }
 
 const newTransferCheckout = async (transferData) =>{
-    if(!isPositiveNumber) return 'Valor incorreto.'
+    if(!isPositiveNumber) throw new Error('Valor incorreto.')
     const verifybank = await getBank(transferData.bank)
-    if(!verifybank) return 'Banco não é valido checkout'
+    if(!verifybank) throw new Error('Banco não é valido') 
     const account = await getCurrentAccount(transferData.accNumber)
-    if(!account) return 'Conta não existe'
-    if(transferData.value > account.checkingAccountBalance) return 'Saldo insuficiente para realizar a transação'
+    if(!account) throw new Error ('Conta não existe')
+    if(transferData.value > account.checkingAccountBalance) throw new Error('Saldo insuficiente para realizar a transação')
     await transferRepository.newTransferCheckout(transferData)
     const newBalance = account.checkingAccountBalance - transferData.value
     await updateBalance(transferData.accNumber, newBalance)

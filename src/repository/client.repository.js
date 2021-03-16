@@ -16,6 +16,22 @@ const getClient = async (client) => {
     })
 }
 
+
+const getClientByCod = async (cod) => {
+    return new Promise(async(resolve, reject) => {
+        try {
+            const sqlstatement = `SELECT * FROM client WHERE clientCod = "${cod}" `
+            
+            const result = await database.query(sqlstatement)
+            resolve(result[0])
+
+        }catch(err) {
+            console.error(err)
+            reject(err)
+        }
+    })
+}
+
 const newClient = async (client) => {
     const clientExists = await database.registerExists('client', 'clientCPF', client.clientCPF)
     if(clientExists){
@@ -52,4 +68,4 @@ const newClient = async (client) => {
     })
 } 
    
-module.exports = { getClient, newClient }
+module.exports = { getClient, newClient, getClientByCod }

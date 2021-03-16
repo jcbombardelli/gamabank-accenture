@@ -3,8 +3,8 @@ POST http://localhost:3001/auth/signup HTTP/1.1
 Content-Type: application/json
 
 {
-    "clientEmail": "sasha@gmail.com",
+    "clientEmail": "pessoax@gmail.com",
     "clientPassword": "b4NaNaa@",
-    "clientName": "Sasha",
-    "clientCPF" : "06889461002"
+    "clientName": "Pessoa X",
+    "clientCPF" : "12345678909"
 }

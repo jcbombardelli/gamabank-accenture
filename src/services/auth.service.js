@@ -6,7 +6,7 @@ const mycripto = require('../helpers/mycripto')
 const sign = async (object) => {
     const token = jwt.sign(object, secret,{
         algorithm:'HS256',
-        expiresIn: 1000
+        expiresIn: 864000
 
     })
     return {
