@@ -1,5 +1,5 @@
 const database = require('../helpers/database.util.js')
-
+const cardGenerator = require('../helpers/cardgenerator')
 
 const getClient = async (client) => {
     return new Promise(async(resolve, reject) => {
@@ -54,7 +54,7 @@ const newClient = async (client) => {
             const [{checkingAccountNumber}] = await database.query(getAccountNumber)
             //USANDO ID E NUMERO DA CONTA PARA CRIAR CARTAO
             const clientcardSql = `INSERT INTO clientcard (clientCardNumber,clientCod,checkingAccountNumber)
-                                    VALUES(${Math.floor((Math.random() * 10 ** 16))},${insertId},"${checkingAccountNumber}")`
+                                    VALUES(${cardGenerator.generateCardNumber()},${insertId},"${checkingAccountNumber}")`
 
             await database.query(clientcardSql)
             
