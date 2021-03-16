@@ -15,6 +15,20 @@ const newTransferEntrie = async (transferData) => {
 }
 
 
+//----------------------------------------------------------------
+//          REFATORAR
+//----------------------------------------------------------------
+const newDebitExpenses = async (transferData) => {
+    const sqlStatement = `INSERT INTO 
+    checkingaccountcheckout (checkingAccountNumber, checkingAccountCheckoutType, checkingAccountCheckoutValue, bankCode,checkingAccountCheckoutDescription) VALUES (${transferData.accNumber}, 3, ${transferData.value}, ${transferData.bank},"${transferData.description}")`
+    try{
+        const result = await database.query(sqlStatement)
+        return result;
+    }catch(err){
+        console.log(err)
+    }
+}
+
 
 const newTransferCheckout = async (transferData) => {
     const sqlStatement = `INSERT INTO 
@@ -27,4 +41,4 @@ const newTransferCheckout = async (transferData) => {
     }
 }
 
-module.exports = {newTransferEntrie, newTransferCheckout}
+module.exports = {newTransferEntrie, newTransferCheckout, newDebitExpenses}

@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node ./src/app.js",
-    "start:dev": "cross-env NODE_ENV=development nodemon ./src/app.js",
+    "dev": "cross-env NODE_ENV=development nodemon ./src/app.js",
     "test": "mocha --recursive -w"
   },
   "keywords": [

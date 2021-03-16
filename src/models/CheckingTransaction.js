@@ -1,5 +1,6 @@
 class CheckingTransaction {
-    constructor({CPF, value, account, bank, accAnother}){
+    constructor({CPF, value, account, bank, accAnother, description}){
+        this.description = description
         this.userCPF= CPF, 
         this.value = value, 
         this.accNumber = account,
