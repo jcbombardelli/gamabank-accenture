@@ -1,6 +1,6 @@
 const validate  = require("../../../helpers/validate")
 const service = require("../../../services/auth.service")
-const CheckingTransaction = require('../../../models/CheckingTransaction')
+const CheckingTransaction = require('../../../models/checkingTransaction')
 const newDeposit = require('../../../services/deposit.service').newDeposit
 
 const depositHandler = async (request, h) => {

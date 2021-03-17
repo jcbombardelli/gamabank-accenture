@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node ./src/app.js",
     "start:dev": "cross-env NODE_ENV=development nodemon ./src/app.js",
-    "test": "mocha --recursive -w"
+    "test": "cross-env NODE_ENV=test mocha --recursive -w"
   },
   "keywords": [
     "bank",
@@ -28,6 +28,7 @@
   },
   "devDependencies": {
     "chai": "^4.3.3",
+    "chai-as-promised": "^7.1.1",
     "cross-env": "^7.0.3",
     "faker": "^5.4.0",
     "mocha": "^8.3.1",
