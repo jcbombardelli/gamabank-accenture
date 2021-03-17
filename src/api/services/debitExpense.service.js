@@ -10,7 +10,7 @@ const newDebitExpenses = async transferData => {
     const newBalance = account.checkingAccountBalance - transferData.value
     await updateBalance(transferData.accNumber, newBalance)
        
-    return 'Transferência realizada com sucesso'
+    return 'Pagamento realizado com sucesso'
         
         
 }
