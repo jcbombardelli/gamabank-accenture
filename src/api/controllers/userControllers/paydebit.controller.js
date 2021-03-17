@@ -1,6 +1,6 @@
-const { newDebitExpenses } = require('../../../services/debitExpense.service')
-const { getUserTokenData } = require('../../../services/userTokenData.service')
-const CheckingTransaction = require('../../../models/CheckingTransaction')
+const { newDebitExpenses } = require('../../services/debitExpense.service')
+const { getUserTokenData } = require('../../services/userTokenData.service')
+const CheckingTransaction = require('../../models/checkingTransaction')
 
 
 const paydebitHandler = async (request, h) => {

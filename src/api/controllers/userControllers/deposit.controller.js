@@ -1,7 +1,7 @@
 const validate  = require("../../../helpers/validate")
-const service = require("../../../services/auth.service")
-const CheckingTransaction = require('../../../models/CheckingTransaction')
-const newDeposit = require('../../../services/deposit.service').newDeposit
+const service = require("../../services/auth.service")
+const CheckingTransaction = require('../../models/checkingTransaction')
+const newDeposit = require('../../services/deposit.service').newDeposit
 
 const depositHandler = async (request, h) => {
 
@@ -18,6 +18,7 @@ const depositHandler = async (request, h) => {
     try{
         const {CPF} = request.payload            
         if (new validate.ValidaCPF(CPF).valida()) {
+                //console.log(CPF)
                 const deposit = new CheckingTransaction(request.payload)
                 return await newDeposit(deposit) 
         }

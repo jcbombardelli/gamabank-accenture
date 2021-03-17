@@ -1,4 +1,4 @@
-const database = require('../helpers/database.util.js')
+const database = require('../../helpers/database.util.js')
 
 const getBank = async bankNumber => {
 

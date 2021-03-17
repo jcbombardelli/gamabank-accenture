@@ -1,10 +1,10 @@
 const transferRepository = require('../repository/transfer.repository')
 const { getCurrentAccount, updateBalance} = require('../repository/checkingAccount.repository')
-const {isPositiveNumber} = require('../helpers/validate')
+const {isPositiveNumber} = require('../../helpers/validate')
 const getBank = require('../repository/bank.repository')
 const {getClientByCod, getClientByAccount} = require('../repository/client.repository')
 const {validateCheckout} = require('./validateCheckout.service')
-const validate = require('../helpers/validate')
+const validate = require('../../helpers/validate')
 
 
 

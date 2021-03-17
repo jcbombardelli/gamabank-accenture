@@ -1,5 +1,5 @@
-const database = require('../helpers/database.util.js')
-const cardGenerator = require('../helpers/cardgenerator')
+const database = require('../../helpers/database.util.js')
+const cardGenerator = require('../../helpers/cardgenerator')
 
 const getClient = async (client) => {
     return new Promise(async(resolve, reject) => {
