@@ -25,6 +25,7 @@ const save = async user => {
     })
 }
 
+// Remover o username para CPF
 const findByUsername = async username => {
     return new Promise(async (resolve, reject) => {
         try {
@@ -39,4 +40,25 @@ const findByUsername = async username => {
     })
 }
 
+<<<<<<< HEAD
+=======
+//Função para verificar se a senha possui as regras pela expressão regular em validPassword
+const checkPassword = async senha => {
+    const validPassword = new RegExp(
+        '^(?=.*[a-z])(?=.*[A-Z])(?=.*d)(?=.*[@$!%*?&])[A-Za-zd@$!%*?&]{8,}$'
+    ) //Vá mais longe do trello
+    return new Promise(async (resolve, reject) => {
+        try {
+            if (validPassword.test(senha)) {
+                console.log('Password is Valid')
+                resolve(senha)
+            }
+        } catch (error) {
+            console.log(error)
+            reject(error)
+        }
+    })
+}
+
+>>>>>>> adicionado RegExp para senha
 module.exports = { save, findByUsername }
