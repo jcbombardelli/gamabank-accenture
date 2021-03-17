@@ -1,7 +1,7 @@
 
 const root = {
     method:'GET',
-    path: '/',
+    path: '/home',
     handler: (req, h) => {
         return "Agora vai..."
     }

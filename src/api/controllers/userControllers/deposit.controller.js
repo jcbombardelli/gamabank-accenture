@@ -16,8 +16,8 @@ const depositHandler = async (request, h) => {
         }
     }
     try{
-        const {CPF} = request.payload            
-        if (new validate.ValidaCPF(CPF).valida()) {
+        const {userCPF} = request.payload            
+        if (new validate.ValidaCPF(userCPF).valida()) {
                 //console.log(CPF)
                 const deposit = new CheckingTransaction(request.payload)
                 return await newDeposit(deposit) 

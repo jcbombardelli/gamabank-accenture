@@ -2,9 +2,11 @@ const jwt = require('jsonwebtoken')
 const { secret } = require('../../configs/env')
 const clientRepository = require('../repository/client.repository')
 const mycripto = require('../../helpers/mycripto')
+const { exist } = require('joi')
 
 const sign = async (object) => {
-    const token = jwt.sign(object, secret,{
+
+    const token = jwt.sign(object, secret, {
         algorithm:'HS256',
         expiresIn: 864000
 
@@ -34,9 +36,12 @@ const verify = async (token) => {
 const verifyPassword = async (client) => {
     return new Promise(async(resolve, reject) => {
         try {
-            const {clientSalt, clientPassword} = await  clientRepository.getClient(client)
-            const existance = await mycripto.comparePassword(client.clientPassword, clientSalt, clientPassword)
-            resolve(existance)
+        const {clientSalt, clientPassword} = await clientRepository.getClient(client)
+        const existance = await mycripto.comparePassword(client.clientPassword, clientSalt, clientPassword)
+            
+          
+           console.log(existance)
+           resolve(existance)
 
         }catch(err) {
             console.error(err)

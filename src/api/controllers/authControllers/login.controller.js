@@ -8,8 +8,10 @@ const loginHandler = async (request, h) => {
     const existance = await authService.verifyPassword(client)
 
     if(existance) {
-        return authService.sign({username: client.clientEmail})
-    }
+       
+        const signFunc =  await authService.sign({username: client.clientEmail}) 
+        return signFunc
+    }   
     return 'Senha ou email inválido'
 }
 
