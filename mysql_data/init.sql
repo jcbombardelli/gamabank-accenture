@@ -9,71 +9,57 @@ CREATE TABLE users(
   create_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   update_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
-
 CREATE TABLE account_status(
     status VARCHAR(255) NOT NULL,
-    id INT NOT NULL AUTO_INCREMENT
+    id INT PRIMARY KEY AUTO_INCREMENT
 );
-
-INSERT INTO account_status (status, id)
+INSERT INTO account_status (status)
 VALUES ('pending'),('active'),('inactive');
 
 CREATE TABLE account_types(
     type VARCHAR(255) NOT NULL,
-    id INT NOT NULL AUTO_INCREMENT
+    id INT PRIMARY KEY AUTO_INCREMENT
 );
-
-INSERT INTO account_types (type, id)
+INSERT INTO account_types (type)
 VALUES ('current'),('savings');
 
 CREATE TABLE credit_status(
     status VARCHAR(255) NOT NULL,
-    id INT NOT NULL AUTO_INCREMENT
+    id INT PRIMARY KEY AUTO_INCREMENT
 );
-
-INSERT INTO credit_status (status, id)
+INSERT INTO credit_status (status)
 VALUES ('pending'),('active'),('inactive');
-
 CREATE TABLE invoice_status(
     status VARCHAR(255) NOT NULL,
-    id INT NOT NULL AUTO_INCREMENT
+    id INT PRIMARY KEY AUTO_INCREMENT
 );
-
-INSERT INTO invoice_status (status, id)
+INSERT INTO invoice_status (status)
 VALUES ('open'),('closed');
-
 CREATE TABLE transition_status(
     status VARCHAR(255) NOT NULL,
-    id INT NOT NULL AUTO_INCREMENT
+    id INT PRIMARY KEY AUTO_INCREMENT
 );
-
-INSERT INTO transition_status (status, id)
+INSERT INTO transition_status (status)
 VALUES ('done'),('canceled');
-
 CREATE TABLE transition_types(
     type VARCHAR(255) NOT NULL,
-    id INT NOT NULL AUTO_INCREMENT
+    id INT PRIMARY KEY AUTO_INCREMENT
 );
-
-INSERT INTO transition_types (status, id)
+INSERT INTO transition_types (type)
 VALUES ('deposit'),('draft'),('spend_debit'),('spend_credit');
 
 CREATE TABLE transfer_status(
     status VARCHAR(255) NOT NULL,
-    id INT NOT NULL AUTO_INCREMENT
+    id INT PRIMARY KEY AUTO_INCREMENT
 );
-
-INSERT INTO transfer_status (status, id)
+INSERT INTO transfer_status (status)
 VALUES ('pending'),('done'),('canceled');
-
 CREATE TABLE transfer_banks(
     bank VARCHAR(255) NOT NULL,
-    id INT NOT NULL
+    id INT PRIMARY KEY
 );
-
-INSERT INTO transfer_banks (status, id)
+INSERT INTO transfer_banks (bank, id)
 VALUES ('main', 000);
-
 CREATE TABLE accounts (
     id VARCHAR(255)  PRIMARY KEY,
     id_user VARCHAR(255),
@@ -89,7 +75,6 @@ CREATE TABLE accounts (
     FOREIGN KEY (status) REFERENCES account_status(id),
     FOREIGN KEY (credit_status) REFERENCES credit_status(id)
 );
-
 CREATE TABLE invoices (
     id VARCHAR(255) NOT NULL PRIMARY KEY,
     id_account VARCHAR(255),
@@ -99,8 +84,7 @@ CREATE TABLE invoices (
     FOREIGN KEY (id_account) REFERENCES accounts(id),
     FOREIGN KEY (status) REFERENCES invoice_status(id)
 );
-
-CREATE TABLE transition (
+CREATE TABLE transitions (
     id VARCHAR(255) NOT NULL PRIMARY KEY,
     id_account VARCHAR(255),
     type INT,
@@ -112,7 +96,6 @@ CREATE TABLE transition (
     FOREIGN KEY (type) REFERENCES transition_types(id),
     FOREIGN KEY (status) REFERENCES transition_status(id)
 );
-
 CREATE TABLE transfers (
     id VARCHAR(255) NOT NULL PRIMARY KEY,
     id_origin VARCHAR(255) NOT NULL,
