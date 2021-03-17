@@ -7,10 +7,10 @@ const getClient = async (client) => {
             const sqlstatement = `SELECT * FROM client WHERE clientEmail = "${client.clientEmail}" `
             
             const result = await database.query(sqlstatement)
-            resolve(result[0])
 
+            if(!result[0]) throw new Error("Usuario não existe")
+            resolve(result[0])
         }catch(err) {
-            console.error(err)
             reject(err)
         }
     })

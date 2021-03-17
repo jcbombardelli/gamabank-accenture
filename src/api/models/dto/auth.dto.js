@@ -1,16 +1,18 @@
 const Joi = require('joi');
 
 const LoginRequestDTO = Joi.object({
-    username: Joi.string().required(),
-    password: Joi.string().required()
+    clientEmail: Joi.string().required(),
+    clientPassword: Joi.string().required()
 }).label('LoginRequestDTO')
 
 
 const LoginResponseDTO = Joi.object({
-    auth: Joi.bool().required(),
-    token: Joi.string().required()
+    login: Joi.string().valid('Concluido','Invalido'),
+    auth: Joi.alternatives().conditional('login',{is:'Concluido', then: Joi.bool().required()}),
+    token: Joi.alternatives().conditional('login',{is:'Concluido', then: Joi.string().required()}),
+    error: Joi.alternatives().conditional('login',{is:'Invalido', then: Joi.string().required()})
 }).label('LoginResponseDTO')
-
+ 
 
 
 const SignUpRequestDTO = Joi.object({

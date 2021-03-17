@@ -36,15 +36,13 @@ const verify = async (token) => {
 const verifyPassword = async (client) => {
     return new Promise(async(resolve, reject) => {
         try {
-        const {clientSalt, clientPassword} = await clientRepository.getClient(client)
-        const existance = await mycripto.comparePassword(client.clientPassword, clientSalt, clientPassword)
-            
-          
-           console.log(existance)
+            const clientData = await clientRepository.getClient(client)
+            const {clientSalt, clientPassword} = clientData
+            const existance = await mycripto.comparePassword(client.clientPassword, clientSalt, clientPassword)
+
            resolve(existance)
 
         }catch(err) {
-            console.error(err)
             reject(err)
         }
 
