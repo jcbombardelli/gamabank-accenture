@@ -1,5 +1,5 @@
-const {isPositiveNumber} = require('../helpers/validate')
-const { getCurrentAccount, updateBalance} = require('../repository/checkingAccount.repository')
+const {isPositiveNumber} = require('../../helpers/validate')
+const { getCurrentAccount} = require('../repository/checkingAccount.repository')
 const getBank = require('../repository/bank.repository')
 
 

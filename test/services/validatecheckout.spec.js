@@ -1,4 +1,4 @@
-const {validateCheckout} = require('../../src/services/validateCheckout.service')
+const {validateCheckout} = require('../../src/api/services/validateCheckout.service')
 var chai = require('chai');
 const {assert, expect} = require('chai')
 const chaiAsPromised = require("chai-as-promised");

@@ -1,9 +1,9 @@
 POST http://localhost:3001/user/deposit HTTP/1.1
 Content-Type: application/json
-x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFuZHJlYWJyaXR0b0BnYW1hYmFuay5jb20iLCJpYXQiOjE2MTU5MDE0MzUsImV4cCI6MTYxNjc2NTQzNX0.pZX0syGWysc7xrIBmgKWgU_yIli_BBRMcGn3LdTEEI0
+x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImNsaWVudGVAZ2FtYWJhbmsuY29tIiwiaWF0IjoxNjE1OTQzNzcyLCJleHAiOjE2MTY4MDc3NzJ9.kLvOUMUmawOw6jKO93UigiUanoB5vVjS466wFdN3efc
 
 {
-     "account": 7,
-     "CPF": "12345678909", 
-     "value": 3000 
+     "account": 8,
+     "userCPF": "12345678909", 
+     "value": 10000 
 }

@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken')
-const { secret } = require('../configs/env')
+const { secret } = require('../../configs/env')
 const clientRepository = require('../repository/client.repository')
-const mycripto = require('../helpers/mycripto')
+const mycripto = require('../../helpers/mycripto')
 
 const sign = async (object) => {
     const token = jwt.sign(object, secret,{

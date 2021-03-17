@@ -1,8 +1,8 @@
-const CheckingTransaction = require('../../../models/checkingTransaction')
-const { newTransferCheckout, newTransferReceived, newTransfer } = require('../../../services/transfer.service')
+const CheckingTransaction = require('../../models/checkingTransaction')
+const { newTransferCheckout, newTransferReceived, newTransfer } = require('../../services/transfer.service')
 const validate = require('../../../helpers/validate')
-const { getUserTokenData } = require('../../../services/userTokenData.service')
-const {getClientByAccount} = require('../../../repository/client.repository')
+const { getUserTokenData } = require('../../services/userTokenData.service')
+const {getClientByAccount} = require('../../repository/client.repository')
 
 
 const transferHandler = async (request, h) => {

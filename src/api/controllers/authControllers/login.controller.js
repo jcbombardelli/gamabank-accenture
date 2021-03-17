@@ -1,5 +1,5 @@
-const Client = require('../../../models/client')
-const authService = require('../../../services/auth.service')
+const Client = require('../../models/client')
+const authService = require('../../services/auth.service')
 
 
 

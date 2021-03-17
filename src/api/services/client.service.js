@@ -1,6 +1,6 @@
 const clientRepository = require('../repository/client.repository')
-const mycripto = require('../helpers/mycripto')
-const validate = require('../helpers/validate')
+const mycripto = require('../../helpers/mycripto')
+const validate = require('../../helpers/validate')
 
 const newClient = async (client)=>{
     if(

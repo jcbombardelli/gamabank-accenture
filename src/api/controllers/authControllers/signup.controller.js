@@ -1,5 +1,5 @@
-const service = require('../../../services/client.service')
-const Client = require('../../../models/client')
+const service = require('../../services/client.service')
+const Client = require('../../models/client')
 
 
 const signupHandler = async (request, h) => {
