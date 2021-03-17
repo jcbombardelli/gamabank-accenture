@@ -2,7 +2,7 @@ const database = require('../../helpers/database.util.js')
 
 const getCurrentAccount = async accNumber => {
     let sqlstatement = `SELECT * FROM checkingaccount
-    WHERE checkingAccountNumber = "${accNumber}"
+    WHERE checkingAccountNumber = "${accNumber}";
     `
     try{
         const result = await database.query(sqlstatement)

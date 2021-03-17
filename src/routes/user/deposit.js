@@ -7,7 +7,7 @@ const deposit = {
     handler: depositHandler,
     options: {
         tags: ['api', 'deposit'],
-        description: 'Rota de autenticação',
+        description: 'Rota de depósito',
         notes: 'Anotações da rota...',
         validate: {
             payload: DepositRequestDTO

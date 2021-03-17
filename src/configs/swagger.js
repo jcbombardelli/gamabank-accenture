@@ -13,6 +13,7 @@ const swagger =
           description: "Projeto desenvolvido para o curso de Node.js com o propósito de simular endpoints conhecidos de um banco real.",
           version: version
         },
+        
       },
     }
 

@@ -7,7 +7,5 @@ const generateCardNumber = () => {
     return arr.join('')
 }
 
-//console.log('generateCardExample: ', generateCardNumber())
-
 
 module.exports = {generateCardNumber}
