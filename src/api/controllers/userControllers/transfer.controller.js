@@ -8,6 +8,7 @@ const {getClientByAccount} = require('../../repository/client.repository')
 const transferHandler = async (request, h) => {
 
    const token = request.headers['x-access-token']
+   console.log(request.payload)
    if (token) {
       try {
          const { clientCod, clientCPF, checkingAccountNumber } = await getUserTokenData(token) // dados out cpf e conta
@@ -38,6 +39,7 @@ const transferHandler = async (request, h) => {
       const { CPF } = request.payload
       if (new validate.ValidaCPF(CPF).valida()) {
          const transferData = new CheckingTransaction(request.payload)
+         
          return await newTransferReceived(transferData)
       }
    } catch (err) {

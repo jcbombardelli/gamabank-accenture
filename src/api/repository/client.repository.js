@@ -7,10 +7,10 @@ const getClient = async (client) => {
             const sqlstatement = `SELECT * FROM client WHERE clientEmail = "${client.clientEmail}" `
             
             const result = await database.query(sqlstatement)
-            resolve(result[0])
 
+            if(!result[0]) throw new Error("Usuario não existe")
+            resolve(result[0])
         }catch(err) {
-            console.error(err)
             reject(err)
         }
     })
@@ -35,7 +35,7 @@ const getClientByCod = async (cod) => {
 const getClientByAccount = async (acc) => {
     return new Promise(async(resolve, reject) => {
         try{
-            const sqlstatement = `SELECT cl.clientCod, cl.clientName, cl.clientCPF, acc.checkingAccountNumber, acc.checkingAccountBalance FROM CLIENT AS cl
+            const sqlstatement = `SELECT cl.clientCod, cl.clientName, cl.clientCPF, acc.checkingAccountNumber, acc.checkingAccountBalance FROM client AS cl
             INNER JOIN checkingaccount AS acc ON acc.clientCod = cl.clientCod
             WHERE acc.checkingAccountNumber = "${acc}"`
 
