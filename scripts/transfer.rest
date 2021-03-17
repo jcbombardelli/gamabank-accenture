@@ -1,11 +1,11 @@
 POST http://localhost:3001/user/transfer HTTP/1.1
 Content-Type: application/json
-x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNhc2hhQGdtYWlsLmNvbSIsImlhdCI6MTYxNTg1MzUwOCwiZXhwIjoxNjE2NzE3NTA4fQ.UORXx-_6z8H4Mis4ZV3foeQDwDkF_gv7KZp3rLkb4Ss
+x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFuZHJlYWJyaXR0b0BnYW1hYmFuay5jb20iLCJpYXQiOjE2MTU5MTIyNzcsImV4cCI6MTYxNjc3NjI3N30.MBT5IUxgrrQEy8lcoKVXjIOI3Lb5qCIjOYOCq-S7zdU
 
 {
     "accAnother": 2,
-    "value": 9000,
-    "CPF": "12345678909"
+    "value": 10.5,
+    "CPF": "83628906067"
 }
 
 ###

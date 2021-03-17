@@ -1,11 +1,8 @@
-const { getCurrentAccount } = require('../../../repository/checkingAccount.repository')
-// const { newDebitExpenses } = require('../../../services/debitExpense.service')
+const { newDebitExpenses } = require('../../../services/debitExpense.service')
 const { getUserTokenData } = require('../../../services/userTokenData.service')
 const CheckingTransaction = require('../../../models/CheckingTransaction')
-const { newDebitExpenses } = require('../../../services/transfer.service')
-//---------------------------------------------------------------//
-//--------------------------Refatorar----------------------------//
-//---------------------------------------------------------------//
+
+
 const paydebitHandler = async (request, h) => {
     const token = request.headers['x-access-token']
     if (token) {
