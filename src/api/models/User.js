@@ -11,6 +11,10 @@ class User {
     getCpf = () => {
         return this.cpf
     }
+
+    getPassword = () => {
+        return this.password
+    }
 }
 
 module.exports = User
