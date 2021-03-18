@@ -9,10 +9,10 @@ const connection = mysql.createConnection({
     port: database.port
 })
 
-const execute = (sqlStatement) => {
+const execute = sqlStatement => {
     return new Promise((resolve, reject) => {
         connection.query(sqlStatement, (err, result) => {
-            if(err) reject(err)
+            if (err) reject(err)
             else resolve(result)
             connection.end()
         })
