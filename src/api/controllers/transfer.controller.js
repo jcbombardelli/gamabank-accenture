@@ -1,4 +1,5 @@
 const Transfer = require('../models/Transfer')
+<<<<<<< HEAD
 const transferService = require('../services/transfers.service')
 const { verify } = require('../services/auth.service')
 
@@ -20,6 +21,19 @@ const execute = async (request, h) => {
         return h.response({ error: message }).code(400)
     } catch (err) {
         return h.response({ error: err.message }).code(500)
+=======
+const service = require('../services/transfers.service')
+const authController = require('../controller/auth.service')
+
+const execute = async (request, h) => {
+    try {
+        authService.verify()
+        const transfer = new Transfer(request.payload)
+
+        const result = service.createTransfer(transfer)
+    } catch (err) {
+        throw err
+>>>>>>> Configs transfers
     }
 }
 
