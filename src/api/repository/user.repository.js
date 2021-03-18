@@ -1,22 +1,36 @@
 const database = require('../../helpers/database')
-const crypto = require('../../helpers/mycrypto')
+const crypto = require('../../helpers/myCrypto')
 const User = require('../models/User')
 
 const save = async user => {
     return new Promise(async (resolve, reject) => {
         try {
             const { name, email, password, cpf } = user
+
             const { encryptedPassword, salt } = await crypto.encryptPassword(
                 password
             )
-            const id = email + encryptedPassword
+            const id = email + salt
 
             const sqlStatement = `
             INSERT INTO users (id, name, email, cpf, password, salt)
             VALUES ("${id}", "${name}", "${email}", "${cpf}", "${encryptedPassword}", "${salt}");
             `
             const result = await database.execute(sqlStatement)
+            resolve(result)
+        } catch (err) {
+            reject(err)
+        }
+    })
+}
 
+// Remover o username para CPF
+const findByCpf = async cpf => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const sqlStatement = `SELECT * FROM users WHERE cpf="${cpf}";`
+            const result = await database.execute(sqlStatement)
+            console.log("result", result)
             resolve(result)
         } catch (error) {
             console.error(error)
@@ -25,18 +39,7 @@ const save = async user => {
     })
 }
 
-const findByUsername = async username => {
-    return new Promise(async (resolve, reject) => {
-        try {
-            const sqlStatement = `SELECT * FROM users WHERE username="${username}";`
-            const result = await database.execute(sqlStatement)
+//Função para verificar se a senha possui as regras pela expressão regular em validPassword
 
-            resolve(new User(result))
-        } catch (error) {
-            console.error(error)
-            reject(error)
-        }
-    })
-}
 
-module.exports = { save }
+module.exports = { save, findByCpf }
