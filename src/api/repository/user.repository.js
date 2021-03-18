@@ -1,4 +1,5 @@
 const database = require('../../helpers/database')
+const { idGenerator } = require('../../helpers/id-generator')
 const crypto = require('../../helpers/myCrypto')
 const User = require('../models/User')
 
@@ -10,8 +11,8 @@ const save = async user => {
             const { encryptedPassword, salt } = await crypto.encryptPassword(
                 password
             )
-            const id = email + salt
 
+            const id = idGenerator.generate()
             const sqlStatement = `
             INSERT INTO users (id, name, email, cpf, password, salt)
             VALUES ("${id}", "${name}", "${email}", "${cpf}", "${encryptedPassword}", "${salt}");
