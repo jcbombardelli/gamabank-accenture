@@ -79,6 +79,5 @@ const transfers = {
         },
     }
 }
-module.exports = [ root, login, validate, newUser, transfers ]
 
 module.exports = [root, login, validate, newUser, transfers, ...transition]
