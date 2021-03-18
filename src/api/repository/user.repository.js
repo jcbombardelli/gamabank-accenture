@@ -39,4 +39,4 @@ const findByUsername = async username => {
     })
 }
 
-module.exports = { save }
+module.exports = { save, findByUsername }
