@@ -1,10 +1,10 @@
-const Sequelize = require('sequelize');
-const dbConfig = require('../configs/database');
+const Sequelize = require('sequelize')
+const dbConfig = require('../configs/database')
 
-const User = require('../models/User');
+const User = require('../models/User')
 
-const connection =  new Sequelize(dbConfig);
+// const connection = new Sequelize(dbConfig)
 
-User.init(connection);
+// User.init(connection)
 
-module.exports = connection;
+//module.exports = connection;

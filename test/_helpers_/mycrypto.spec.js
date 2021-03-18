@@ -1,4 +1,5 @@
 const { assert } = require('chai')
+const { internet } = require('faker')
 const {
     encryptPassword,
     comparePassword
@@ -6,7 +7,7 @@ const {
 
 describe('Funcionamento da ferramenta de criptografia.', () => {
     it('Senha criptografada bate com a senha fornecida.', async () => {
-        const password = 'myStr0ngP4ssw0rd'
+        const password = internet.password(32)
         const { encryptedPassword, salt } = await encryptPassword(password)
         const isValid = await comparePassword(password, salt, encryptedPassword)
 
