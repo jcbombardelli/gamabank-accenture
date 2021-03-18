@@ -1,7 +1,6 @@
 const dotenv = require('dotenv')
 
-const env = process.env.NODE_ENV
-
+const env = process.env.NODE_ENV 
 let path
 
 switch (env) {
@@ -31,6 +30,12 @@ module.exports = {
         password: process.env.DB_PASS,
         database: process.env.DB_NAME,
         port: process.env.DB_PORT,
-    }
+    },
+    mail: {
+        host: process.env.MAIL_HOST,
+        port: process.env.MAIL_PORT,
+        user: process.env.MAIL_USER,
+        pass: process.env.MAIL_PASS,
+    },
 
 }
