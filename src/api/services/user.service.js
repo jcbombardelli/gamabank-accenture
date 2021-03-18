@@ -49,7 +49,8 @@ const createAccount = async newUser => {
             statusCode: 400
         })
 
-    if (!checkCPF(cpf)) throw new CustomError({})
+    if (!checkCPF(cpf))
+        throw new customError({ name: 'ErroCpf', message:'Cpf inválido', status: 400 })
 
     const checkUser = await repository.findByCpf(cpf)
 
