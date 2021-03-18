@@ -1,23 +1,19 @@
 const service = require('../services/user.service')
 const User = require('../models/User')
+const { checkSchema } = require('../../helpers/schemaChecker')
 
 const newAccount = async (request, h) => {
     try {
         const user = new User(request.payload)
-        const payloadKeys = Object.keys(user)
 
-        payloadKeys.forEach(key => {
-            const value = request.payload[key]
+        if (checkSchema(user)) {
+            const result = await service.createAccount(user)
+            return h.response(result).code(201)
+        }
 
-            if (!value) {
-                throw new Error(`${key} obrigatório.`)
-            }
-        })
-
-        const result = await service.createAccount(user)
-        return result
     } catch (err) {
-        throw err
+        console.log(err)
+        return h.response({ error: err.message }).code(err.statusCode)
     }
 }
 

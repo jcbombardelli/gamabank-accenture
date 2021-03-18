@@ -1,17 +1,14 @@
 const service = require('../services/auth.service')
 
-
 const login = async (request, h) => {
-
     //TODO: Refatorar
-    const { username, password } = request.payload
-    return await service.sign({username, password})
-
+    const { cpf, password } = request.payload
+    return await service.sign({ cpf, password })
 }
 
 const validate = async (request, h) => {
     const token = request.headers['x-access-token']
-    if(!token) return { auth: false, message: 'No token provided'}   
+    if (!token) return { auth: false, message: 'No token provided' }
 
     try {
         const result = await service.verify(token)
@@ -21,7 +18,7 @@ const validate = async (request, h) => {
     }
 }
 
-
 module.exports = {
-    login, validate
+    login,
+    validate
 }
