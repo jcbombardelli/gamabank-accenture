@@ -16,6 +16,6 @@ describe('Fluxo do user controller.', () => {
 
         const result = await newAccount({ payload })
 
-        assert.equal(result, 0)
+        assert.equal(result, 0) //TODO: change the expected return value
     })
 })
