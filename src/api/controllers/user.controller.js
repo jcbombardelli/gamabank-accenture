@@ -5,7 +5,6 @@ const { checkSchema } = require('../../helpers/schemaChecker')
 
 const newUser = async (request, h) => {
     try {
-        console.log(h)
         const userController = new UserController(request.payload)
 
         const check = checkSchema(userController)
