@@ -1,15 +1,16 @@
-const cpfVerify = async CpfToCheck => {
-    return new Promise(async (resolve, reject) => {
-        try {
-            const result = await checkCPF(CpfToCheck)
-            console.log(result)
-            resolve(result)
-        } catch (error) {
-            console.error(error)
-            reject(error)
-        }
-    })
-}
+// const cpfVerify = async CpfToCheck => {
+//     return new Promise(async (resolve, reject) => {
+//         try {
+//             const result = await checkCPF(CpfToCheck)
+//             console.log(result)
+//             resolve(result)
+//         } catch (error) {
+//             console.error(error)
+//             reject(error)
+//         }
+//     })
+// }
+
 function checkCPF(strCPF) {
     let sum
     let rest
@@ -32,4 +33,5 @@ function checkCPF(strCPF) {
     if (rest != parseInt(strCPF.substring(10, 11))) return false
     return true
 }
-module.exports = cpfVerify
+
+module.exports = { checkCPF }

@@ -1,5 +1,5 @@
 const database = require('../../helpers/database')
-const crypto = require('../../helpers/mycrypto')
+const crypto = require('../../helpers/myCrypto')
 const User = require('../models/User')
 
 const save = async user => {

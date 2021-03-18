@@ -7,6 +7,10 @@ class User {
         (this.password = password),
         (this.salt = salt)
     }
+
+    getCpf = () => {
+        return this.cpf
+    }
 }
 
 module.exports = User

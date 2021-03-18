@@ -6,7 +6,7 @@ const createAccount = async newUser => {
         const result = await repository.save(newUser)
         return result
     } else {
-        console.log('nope, user existe')
+        console.log('nope, user já existe')
     }
 }
 

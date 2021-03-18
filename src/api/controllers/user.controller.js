@@ -1,21 +1,30 @@
 const service = require('../services/user.service')
 const User = require('../models/User')
+const { checkCPF } = require('../../helpers/cpfChecker')
 
 const newAccount = async (request, h) => {
     try {
+        console.log("Entrei no newAccount")
         const user = new User(request.payload)
-        const payloadKeys = Object.keys(user)
+        if (checkCPF(user.getCpf())) {
+            console.log("Cpf válido")
 
-        payloadKeys.forEach(key => {
-            const value = request.payload[key]
+            // const payloadKeys = Object.keys(user)
 
-            if (!value) {
-                throw new Error(`${key} obrigatório.`)
-            }
-        })
+            // payloadKeys.forEach(key => {
+            //     const value = request.payload[key]
 
-        const result = await service.createAccount(user)
-        return result
+            //     if (!value) {
+            //         throw new Error(`${key} obrigatório.`)
+            //     }
+            // }) Revisar
+
+            const result = await service.createAccount(user)
+            return result
+        } else {
+            console.log("Cpf inválido")
+            return h.response({ message: "Cpf inválido" }).code(400)
+        }
     } catch (err) {
         throw err
     }
