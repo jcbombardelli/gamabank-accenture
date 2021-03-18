@@ -40,8 +40,6 @@ const findByUsername = async username => {
     })
 }
 
-<<<<<<< HEAD
-=======
 //Função para verificar se a senha possui as regras pela expressão regular em validPassword
 const checkPassword = async senha => {
     const validPassword = new RegExp(
@@ -60,5 +58,4 @@ const checkPassword = async senha => {
     })
 }
 
->>>>>>> adicionado RegExp para senha
 module.exports = { save, findByUsername }
