@@ -158,3 +158,6 @@ CREATE TABLE `checkingaccountentry` (
   CONSTRAINT `checkingaccountentry_ibfk_3` FOREIGN KEY (`bankCode`) REFERENCES `bank` (`bankCode`)
 ) ENGINE=INNODB DEFAULT CHARSET=latin1;
 
+
+ALTER TABLE checkingaccountentry
+ADD COLUMN checkingAccountEntryDescription VARCHAR(255);
