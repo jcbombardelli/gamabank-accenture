@@ -16,30 +16,15 @@ const setup = async () => {
             user: account ? account.user : configs.mail.user,
             pass: account ? account.pass : configs.mail.pass
         },
-        //ignoreTLS: true // add this 
+        
     })
 
     return transporter
 }
 
-
-
-
 async function sendMailFunction(to, emailModel) {
 
     const transporter = await setup()
-    //   Se der errado a configuração, exclua o trecho acima dentro da função e descomente esse abaixo
-  let testAccount = await nodemailer.createTestAccount();
-
-//   let transporter = nodemailer.createTransport({
-//     host: "smtp.ethereal.email",
-//     port: 587,
-//     secure: false, // true for 465, false for other ports
-//     auth: {
-//       user: testAccount.user, // generated ethereal user
-//       pass: testAccount.pass, // generated ethereal password
-//     },
-//   });
 
   let info = await transporter.sendMail({
     from: '"HelloBank😎" <foo@example.com>', // sender address
@@ -48,28 +33,8 @@ async function sendMailFunction(to, emailModel) {
     text: emailModel.text, // plain text body
     html: emailModel.html, // html body
   });
-
-  //console.log(" \n Message sent: %s", info.messageId);
-  // Preview only available when sending through an Ethereal account
-  console.log("\n Preview URL: %s", nodemailer.getTestMessageUrl(info),"\n");
+  //A linha abaixo só roda se a função for chamada em modo teste ou desenvolvimento.
+  if(account) console.log("\n Preview URL: %s", nodemailer.getTestMessageUrl(info),"\n");
 }
 
 module.exports = {sendMailFunction}
-
-
-
-
-//###############################################
-//O trecho abaixo é apenas para testes pequenos.
-let mockdata = {
-    to: "matheuzinvaivai@gmail.com",
-    emailModel: {
-        subject: "Hello", // Subject line
-        text: "Hello world?", // plain text body
-        html: "<b>Bem vindo ao melhor banco do mundo!</b>", // html body
-    }
-}
-
-
-//sendMailFunction(mockdata.to, mockdata.emailModel).catch(console.error);
-//###############################################
