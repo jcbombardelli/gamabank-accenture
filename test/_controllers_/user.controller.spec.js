@@ -10,7 +10,7 @@ describe('Fluxo do user controller.', () => {
         const payload = {
             name: faker.name.findName(firstName, lastName, 0),
             email: faker.internet.email(firstName, lastName, 'gmail'),
-            cpf: '999.999.999-99',
+            cpf: '111.222.333-11',
             password: faker.internet.password(32)
         }
 

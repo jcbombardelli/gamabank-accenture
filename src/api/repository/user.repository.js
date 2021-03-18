@@ -9,11 +9,11 @@ const save = async user => {
             const { encryptedPassword, salt } = await crypto.encryptPassword(
                 password
             )
-            const id = email
+            const id = email + encryptedPassword
 
             const sqlStatement = `
-            INSERT INTO users (id, name, email, cpf, password)
-            VALUES ("${id}", "${name}", "${email}", "${cpf}", "${encryptedPassword}");
+            INSERT INTO users (id, name, email, cpf, password, salt)
+            VALUES ("${id}", "${name}", "${email}", "${cpf}", "${encryptedPassword}", "${salt}");
             `
             const result = await database.execute(sqlStatement)
 
