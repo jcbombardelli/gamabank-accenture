@@ -69,8 +69,6 @@ O projeto HelloBank foi desenvolvido durante o decorrer do treinamento em Node.j
 
 <br>
 
-![Logo do grupo](http://www.picturetopeople.org/out/picturetopeople.org-353ba7bf16882f0da188dfcc21f706d229b474a6129b91d469.png)
-
 ## 👨‍💻 Nossa equipe
 
 - Paulo Telles
