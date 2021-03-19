@@ -1,10 +1,11 @@
 const Joi = require('joi')
 
 const DepositDebitRequestDTO = Joi.object({
-    cpf_owner: Joi.string().required(),
-    account_id_owner: Joi.string().required(),
-    cpf_depositor: Joi.string().required(),
-    value: Joi.number().required()
+    cpf_recipient: Joi.string().required(),
+    id_account: Joi.string().required(),
+    cpf_payer: Joi.string().required(),
+    value: Joi.number().required(),
+    description: Joi.string()
 }).label('DepositDebitRequestDTO')
 
 const DepositDebitResponseDTO = Joi.object({
