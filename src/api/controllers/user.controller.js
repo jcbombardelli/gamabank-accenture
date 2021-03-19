@@ -10,7 +10,6 @@ const newAccount = async (request, h) => {
             const result = await service.createAccount(user)
             return h.response(result).code(201)
         }
-
     } catch (err) {
         console.log(err)
         return h.response({ error: err.message }).code(err.statusCode)
