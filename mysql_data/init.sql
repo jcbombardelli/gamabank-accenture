@@ -1,3 +1,4 @@
+-- last updated: 18/03-23:00
 SET GLOBAL time_zone = 'America/Sao_Paulo';
 CREATE TABLE users(
   id VARCHAR(255) NOT NULL PRIMARY KEY,
