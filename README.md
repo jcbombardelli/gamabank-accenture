@@ -71,9 +71,9 @@ O projeto HelloBank foi desenvolvido durante o decorrer do treinamento em Node.j
 
 ## 👨‍💻 Nossa equipe
 
-- Paulo Telles
-- Bernardo Aragão
-- Matheus Cardoso
-- Helena Rangel
-- Marcio Esteves
-- Gabriel Accioli
+- **[Paulo Telles](https://github.com/paulotelles)**
+- **[Bernardo Aragão](https://github.com/HDBenosx10)**
+- **[Matheus Cardoso](https://github.com/lupus-magnus)**
+- **[Helena Rangel](https://github.com/helenarangel)**
+- **[Márcio Esteves](https://github.com/marciohesteveslopes)**
+- **[Gabriel Accioli](https://github.com/gaccioli)**
