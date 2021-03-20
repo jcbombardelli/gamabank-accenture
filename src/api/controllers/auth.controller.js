@@ -2,8 +2,8 @@ const service = require('../services/auth.service')
 
 const login = async (request, h) => {
     try {
-        const { cpf, password } = request.payload
-        const result = await service.login({ cpfPayload: cpf, password })
+        const { email, password } = request.payload
+        const result = await service.login({ emailPayload: email, password })
 
         return h.response(result).code(400)
     } catch (err) {

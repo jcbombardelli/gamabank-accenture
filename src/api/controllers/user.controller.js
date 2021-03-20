@@ -8,10 +8,10 @@ const newUser = async (request, h) => {
 
         schemaChecker(userController)
 
-        const { status, message, code } = await service.createUser(userController)
-        if (status === 'success')
-            return h.response({ message }).code(code)
-
+        const { status, message, code } = await service.createUser(
+            userController
+        )
+        if (status === 'success') return h.response({ message }).code(code)
     } catch (err) {
         return h
             .response({
