@@ -20,7 +20,7 @@ const depositDebit = {
         response: {
             status: {
                 200: DepositDebitResponseDTO,
-                400: Joi.any() //TODO: check this use
+                400: Joi.any()
             }
         }
     }

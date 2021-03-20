@@ -24,7 +24,6 @@ const save = async user => {
     })
 }
 
-// Remover o username para CPF
 const findByCpf = async cpf => {
     return new Promise(async (resolve, reject) => {
         try {
@@ -38,7 +37,17 @@ const findByCpf = async cpf => {
     })
 }
 
-//Função para verificar se a senha possui as regras pela expressão regular em validPassword
+const findByEmail = async email => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const sqlStatement = `SELECT * FROM users WHERE email="${email}";`
+            const result = await database.execute(sqlStatement)
+            resolve(result)
+        } catch (error) {
+            console.error(error)
+            reject(error)
+        }
+    })
+}
 
-
-module.exports = { save, findByCpf }
+module.exports = { save, findByCpf, findByEmail }

@@ -1,7 +1,5 @@
-// Hapi
 const dotenv = require('dotenv')
 
-//TODO: Sempre da pra melhorar - Refatorem plmmdss
 dotenv.config({
     path:
         process.env.NODE_ENV === 'test'
