@@ -49,12 +49,4 @@ const verifyJWT = async (token) => {
     })
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-module.exports = { login, verifyJWT }
-=======
-module.exports = { sign, verify }
->>>>>>> Trabalhando no transfer controller
-=======
-module.exports = { login, verifyJWT }
->>>>>>> Bug estranho
+module.exports = {login, verifyJWT}

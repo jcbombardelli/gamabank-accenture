@@ -24,7 +24,7 @@ const validate = async (request, h) => {
     if (!token) return { auth: false, message: 'No token provided' }
 
     try {
-        const result = await service.verify(token)
+        const result = await service.verifyJWT(token)
         return result
     } catch (error) {
         return error

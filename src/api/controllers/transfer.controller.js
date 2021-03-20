@@ -1,13 +1,13 @@
 const Transfer = require('../models/Transfer')
 const transferService = require('../services/transfers.service')
-const { verify } = require('../services/auth.service')
+const { verifyJWT } = require('../services/auth.service')
 
 const execute = async (request, h) => {
     try {
         const token = request.headers['x-access-token']
         if (!token) return h.response({ error: 'Não foi fornecido token de autorização.' }).code(400)
 
-        const { auth, message, data } = await verify(token)
+        const { auth, message, data } = await verifyJWT(token)
         if (auth) {
             const transfer = new Transfer(request.payload)
             const check = (userController)
