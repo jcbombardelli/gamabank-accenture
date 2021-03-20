@@ -12,10 +12,8 @@ describe('Fluxo do user service.', () => {
             email: faker.internet.email(firstName, lastName, 'gmail'),
             cpf: '22506732683',
             password: '123'
-            // password: faker.internet.password(9)
         }
         const userMock = new UserController(payload)
-        console.log("userMock", userMock)
 
         const result = await createUser(userMock)
 
@@ -32,10 +30,8 @@ describe('Fluxo do user service.', () => {
             email: faker.internet.email(firstName, lastName, 'gmail'),
             cpf: '12345678910',
             password: 'SenhaTeste123'
-            // password: faker.internet.password(9)
         }
         const userMock = new UserController(payload)
-        console.log("userMock", userMock)
 
         const result = await createUser(userMock)
 
@@ -43,6 +39,4 @@ describe('Fluxo do user service.', () => {
         assert.equal(result.code, 400)
         assert.equal(result.message, 'Cpf inválido')
     })
-
-
 })
