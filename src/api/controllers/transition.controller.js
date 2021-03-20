@@ -1,11 +1,11 @@
 const service = require('../services/transition.service')
-const { checkSchema } = require('../../helpers/schemaChecker')
+const { schemaChecker } = require('../../helpers/recordCheckers')
 const TransitionController = require('../models/TransitionController')
 
 const depositDebit = async(request, h) => {
     try {
         const transitionDTO = new TransitionController(request.payload)
-        checkSchema(transitionDTO)
+        schemaChecker(transitionDTO)
 
         const serviceResult = await service.createdDepositDebit(transitionDTO)
         return h.response(serviceResult).code(201)

@@ -23,7 +23,23 @@ const valueChecker = value => {
     }
 }
 
+const schemaChecker = (object) => {
+    const payloadKeys = Object.keys(object)
+
+    payloadKeys.forEach(key => {
+        const value = object[key]
+
+        if (!value)
+            throw new CustomError({
+                name: 'Campo obrigatório',
+                message: `O campo "${key}" é obrigatório`,
+                statusCode: 406
+            })
+    })
+}
+
 module.exports = {
     cpfChecker,
-    valueChecker
+    valueChecker,
+    schemaChecker
 }

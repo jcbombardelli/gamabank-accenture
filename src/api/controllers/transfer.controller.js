@@ -10,7 +10,7 @@ const execute = async (request, h) => {
         const { auth, message, data } = await verify(token)
         if (auth) {
             const transfer = new Transfer(request.payload)
-            const check = checkSchema(userController)
+            const check = (userController)
             if (check) {
                 const result = service.makeTransfer(transfer, data)
 
