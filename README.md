@@ -20,11 +20,13 @@ Nosso momento é de cada vez mais aprender sobre como administrar nosso patrimin
     docker-compose up
 
 ### 3. Inicialização ambiente desenvolvimento
+    Fazer uma cópia da env.default chamada .env.development e atribuir os valores das variáveis APP_SECRET e SALT
 
     npm run start:dev
 
 ### 4. Inicialização ambiente testes
-
+    Fazer uma cópia da env.development chamada .env.test
+    
     npm run test
 
 ## Documentação
