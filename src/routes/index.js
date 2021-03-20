@@ -3,6 +3,10 @@ const authcontroller = require('../api/controllers/auth.controller')
 const usercontroller = require('../api/controllers/user.controller')
 const transition = require('./transition')
 const transfercontroller = require('../api/controllers/transfer.controller')
+const {
+    SignupRequestDTO,
+    SignupResponseDTO
+} = require('../api/models/dto/signup.dto')
 
 const {
     LoginRequestDTO,
@@ -50,22 +54,22 @@ const validate = {
     handler: authcontroller.validate
 }
 
-const newUser = {
+const signup = {
     method: 'POST',
     path: '/signup',
     handler: usercontroller.newUser,
     options: {
         tags: ['api', 'register'],
-        description: 'Rota de Cadastro do user'
-        /*validate: {
-            payload:
+        description: 'Rota de Cadastro do user',
+        validate: {
+            payload:SignupRequestDTO
         },
         response: {
             status: {
-                200: ,
+                200: SignupResponseDTO,
                 400: Joi.any()
             }
-        }*/
+        }
     }
 }
 
@@ -79,4 +83,4 @@ const transfers = {
         },
     }
 }
-module.exports = [root, login, validate, newUser, transfers, ...transition]
+module.exports = [root, login, validate, signup, transfers, ...transition]

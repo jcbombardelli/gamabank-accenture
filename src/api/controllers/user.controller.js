@@ -8,10 +8,9 @@ const newUser = async (request, h) => {
 
         schemaChecker(userController)
 
-        const { status, message, result, code } = await service.createUser(userController)
+        const { status, message, code } = await service.createUser(userController)
         if (status === 'success')
-            return h.response({ message, result }).code(code)
-        return h.response({ error: message }).code(code)
+            return h.response({ message }).code(code)
 
     } catch (err) {
         return h.response({ error: err.message }).code(500)
