@@ -1,19 +1,21 @@
 const service = require('../services/user.service')
-const User = require('../models/User')
-const { checkSchema } = require('../../helpers/schemaChecker')
+const UserController = require('../models/UserController')
+const { schemaChecker } = require('../../helpers/recordCheckers')
 
-const newAccount = async (request, h) => {
+const newUser = async (request, h) => {
     try {
-        const user = new User(request.payload)
+        const userController = new UserController(request.payload)
 
-        if (checkSchema(user)) {
-            const result = await service.createAccount(user)
-            return h.response(result).code(201)
-        }
+        schemaChecker(userController)
+
+        const { status, message, result, code } = await service.createUser(userController)
+        if (status === 'success')
+            return h.response({ message, result }).code(code)
+        return h.response({ error: message }).code(code)
+
     } catch (err) {
-        console.log(err)
-        return h.response({ error: err.message }).code(err.statusCode)
+        return h.response({ error: err.message }).code(500)
     }
 }
 
-module.exports = { newAccount }
+module.exports = { newUser }

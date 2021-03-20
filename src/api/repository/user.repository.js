@@ -1,7 +1,6 @@
 const database = require('../../helpers/database')
 const { idGenerator } = require('../../helpers/id-generator')
 const crypto = require('../../helpers/myCrypto')
-const User = require('../models/User')
 
 const save = async user => {
     return new Promise(async (resolve, reject) => {
@@ -31,7 +30,6 @@ const findByCpf = async cpf => {
         try {
             const sqlStatement = `SELECT * FROM users WHERE cpf="${cpf}";`
             const result = await database.execute(sqlStatement)
-            console.log("result", result)
             resolve(result)
         } catch (error) {
             console.error(error)
