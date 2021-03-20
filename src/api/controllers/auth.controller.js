@@ -4,16 +4,9 @@ const login = async (request, h) => {
     try {
         const { cpf, password } = request.payload
         const result = await service.login({ cpfPayload: cpf, password })
-        if (result.login === true) {
-            return {
-                auth: true,
-                token: result.token
-            }
-        }
-        return h.response({ error: result.message }).code(400)
 
-
-    } catch(err) {
+        return h.response(result).code(400)
+    } catch (err) {
         return h
             .response({
                 name: err.name,
