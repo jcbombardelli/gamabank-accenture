@@ -1,5 +1,5 @@
 const repository = require('../repository/user.repository')
-const { customError } = require('../../helpers/error')
+const { CustomError } = require('../../helpers/error')
 
 const checkPassword = senha => {
     const validPassword = new RegExp(
@@ -7,7 +7,6 @@ const checkPassword = senha => {
     ) //Vá mais longe do trello
 
     if (validPassword.test(senha)) {
-        console.log('Password is Valid')
         return true
     }
     return false
@@ -44,10 +43,13 @@ const createAccount = async newUser => {
     const password = newUser.getPassword()
 
     if (!checkPassword(password))
-        throw new customError({ name:'ErroSenha', message:'Senha com número de caracteres inválido', status:400 })
+        throw new CustomError({
+            name: 'ErroSenha',
+            message: 'Senha com número de caracteres inválido',
+            statusCode: 400
+        })
 
-    if (!checkCPF(cpf))
-        throw new customError({})
+    if (!checkCPF(cpf)) throw new CustomError({})
 
     const checkUser = await repository.findByCpf(cpf)
 
@@ -55,7 +57,11 @@ const createAccount = async newUser => {
         const result = await repository.save(newUser)
         return result
     } else {
-        throw new customError({ name:'ErroConflito', message:'Cpf já cadastrado', status:409 })
+        throw new CustomError({
+            name: 'ErroConflito',
+            message: 'Cpf já cadastrado',
+            statusCode: 409
+        })
     }
 }
 

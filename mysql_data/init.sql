@@ -90,8 +90,8 @@ CREATE TABLE invoices (
 CREATE TABLE transitions (
     id VARCHAR(255) NOT NULL PRIMARY KEY,
     id_account VARCHAR(255),
-    id_recipient VARCHAR(255) NOT NULL,
-    id_payer VARCHAR(255) NOT NULL,
+    cpf_recipient VARCHAR(255) NOT NULL,
+    cpf_payer VARCHAR(255) NOT NULL,
     type INT NOT NULL,
     status INT NOT NULL,
     value DOUBLE NOT NULL,
