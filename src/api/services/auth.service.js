@@ -49,4 +49,8 @@ const verifyJWT = async (token) => {
     })
 }
 
+<<<<<<< HEAD
 module.exports = { login, verifyJWT }
+=======
+module.exports = { sign, verify }
+>>>>>>> Trabalhando no transfer controller

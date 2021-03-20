@@ -4,11 +4,15 @@ const { checkSchema } = require('../../helpers/schemaChecker')
 
 const newUser = async (request, h) => {
     try {
+<<<<<<< HEAD
 
 
 
         const userController = new UserController(request.payload)
 
+=======
+        const userController = new UserController(request.payload)
+>>>>>>> Trabalhando no transfer controller
 
         const check = checkSchema(userController)
         if (check) {
