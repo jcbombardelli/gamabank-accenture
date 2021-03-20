@@ -10,7 +10,6 @@ class User extends UserController {
         (this.password = password),
         (this.salt = salt)
     }
-
 }
 
 module.exports = User

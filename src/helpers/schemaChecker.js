@@ -2,9 +2,7 @@ const { CustomError } = require('./error')
 
 const checkSchema = (object) => {
     const payloadKeys = Object.keys(object)
-
     let response
-
 
     payloadKeys.forEach(key => {
         const value = object[key]
@@ -17,5 +15,6 @@ const checkSchema = (object) => {
     })
     return response
 }
+
 
 module.exports = { checkSchema }
