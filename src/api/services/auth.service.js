@@ -1,16 +1,22 @@
 const jwt = require('jsonwebtoken')
 const config = require('../../configs/env')
-const { findByCpf } = require('../repository/user.repository')
+const { findByEmail } = require('../repository/user.repository')
 const { comparePassword } = require('../../helpers/myCrypto')
 // const UserJWTPayload = require('../models/UserJWTPayload')
 
-const login = async ({ cpfPayload, password}) => {
+const login = async ({ email, password}) => {
     try {
 
-        const userResponse = await findByCpf(cpfPayload)
+        const userResponse = await findByEmail(email)
 
         if (userResponse.length === 0)
-            return { login: false, message: "Cpf não está cadastrado" }
+        throw new CustomError({
+            name: 'ErroConflito',
+            message: 'Cpf já cadastrado',
+            statusCode: 409
+        })
+
+            return { login: false, message: "email não está cadastrado" }
 
         const { id, name, email, cpf, salt, password: passwordEncrypted } = userResponse[0]
         if (comparePassword(password, salt, passwordEncrypted)) {

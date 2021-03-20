@@ -5,7 +5,6 @@ const login = async (request, h) => {
         const { cpf, password } = request.payload
         const result = await service.login({ cpfPayload: cpf, password })
         if (result.login === true) {
-            console.log("Retorno login com sucesso")
             return {
                 auth: true,
                 token: result.token
@@ -15,7 +14,12 @@ const login = async (request, h) => {
 
 
     } catch(err) {
-        console.error(err)
+        return h
+            .response({
+                name: err.name,
+                error: err.message
+            })
+            .code(err.statusCode)
     }
 }
 

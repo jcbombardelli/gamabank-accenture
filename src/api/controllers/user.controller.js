@@ -13,7 +13,12 @@ const newUser = async (request, h) => {
             return h.response({ message }).code(code)
 
     } catch (err) {
-        return h.response({ error: err.message }).code(500)
+        return h
+            .response({
+                name: err.name,
+                error: err.message
+            })
+            .code(err.statusCode)
     }
 }
 
