@@ -26,32 +26,6 @@ const root = {
     }
 }
 
-const login = {
-    method: 'POST',
-    path: '/login',
-    handler: authcontroller.login,
-    options: {
-        tags: ['api', 'login'],
-        description: 'Rota de autenticação',
-        notes: 'Anotações da rota...',
-        validate: {
-            payload: LoginRequestDTO
-        },
-        response: {
-            status: {
-                200: LoginResponseDTO,
-                400: Joi.any()
-            }
-        }
-    }
-}
-
-const validate = {
-    method: 'GET',
-    path: '/login/verify',
-    handler: authcontroller.validate
-}
-
 const signup = {
     method: 'POST',
     path: '/signup',
@@ -71,4 +45,24 @@ const signup = {
     }
 }
 
-module.exports = [root, login, validate, signup, ...transition]
+const login = {
+    method: 'POST',
+    path: '/login',
+    handler: authcontroller.login,
+    options: {
+        tags: ['api', 'login'],
+        description: 'Rota de autenticação',
+        notes: 'Rota de login do user.',
+        validate: {
+            payload: LoginRequestDTO
+        },
+        response: {
+            status: {
+                200: LoginResponseDTO,
+                400: Joi.any()
+            }
+        }
+    }
+}
+
+module.exports = [root, login, signup, ...transition]
