@@ -17,6 +17,7 @@ const save = async user => {
             VALUES ("${id}", "${name}", "${email}", "${cpf}", "${encryptedPassword}", "${salt}");
             `
             const result = await database.execute(sqlStatement)
+
             resolve(result)
         } catch (err) {
             reject(err)

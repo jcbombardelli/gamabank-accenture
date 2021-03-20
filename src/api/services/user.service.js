@@ -23,9 +23,14 @@ const createUser = async newUser => {
         }
 
         const result = await repository.save(newUser)
-        return { status: 'success', message:'Usuário criado com sucesso.', result, code: 201 }
 
-    } catch(err) {
+        return {
+            status: 'success',
+            message: 'Usuário criado com sucesso.',
+            result,
+            code: 201
+        }
+    } catch (err) {
         throw new CustomError(err)
     }
 }
