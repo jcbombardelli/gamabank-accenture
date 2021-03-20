@@ -1,23 +1,12 @@
 const repository = require('../repository/user.repository')
 const { encryptPassword } = require('../../helpers/myCrypto')
 const { salt } = require('../../configs/env')
-const { cpfChecker } = require('../../helpers/recordCheckers')
-
-const checkPassword = password => {
-    if (password.length < 6)
-       thor
-}
+const { cpfChecker, passwordChecker } = require('../../helpers/recordCheckers')
 
 const createUser = async newUser => {
-    const cpf = newUser.cpf
-    const password = newUser.password
+    const { cpf, password } = newUser
 
-    if (!checkPassword(password))
-        throw new CustomError({
-            name: 'ErroSenha',
-            message: 'Senha com número de caracteres inválido',
-            statusCode: 400
-        })
+    passwordChecker(password)
 
     cpfChecker(cpf)
 

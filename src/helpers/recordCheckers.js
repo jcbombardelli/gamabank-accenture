@@ -38,8 +38,18 @@ const schemaChecker = (object) => {
     })
 }
 
+const passwordChecker = password => {
+    if (password.length < 6)
+        throw new CustomError({
+            name: 'ErroSenha',
+            message: 'Senha com número de caracteres inválido',
+            statusCode: 400
+        })
+}
+
 module.exports = {
     cpfChecker,
     valueChecker,
-    schemaChecker
+    schemaChecker,
+    passwordChecker
 }
