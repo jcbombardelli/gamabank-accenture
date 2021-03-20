@@ -1,5 +1,6 @@
 const repository = require('../repository/user.repository')
-const { CustomError } = require('../../helpers/error')
+const { encryptPassword } = require('../../helpers/myCrypto')
+const { salt } = require('../../configs/env')
 
 const checkPassword = password => {
     // const validPassword = new RegExp(
@@ -55,7 +56,7 @@ const createUser = async newUser => {
         })
 
     if (!checkCPF(cpf)) {
-        console.log("Erro cpf")
+        console.error("Cpf inválido")
         return { status: 'fail', message: 'Cpf inválido', result: {}, code: 400 }
     }
 

@@ -1,18 +1,39 @@
 const jwt = require('jsonwebtoken')
 const config = require('../../configs/env')
+const { findByCpf } = require('../repository/user.repository')
+const { comparePassword } = require('../../helpers/myCrypto')
+// const UserJWTPayload = require('../models/UserJWTPayload')
 
+const login = async ({ cpfPayload, password}) => {
+    try {
 
-const sign = async (object) => {
+        const userResponse = await findByCpf(cpfPayload)
 
-    const token = jwt.sign(object, config.secret, { algorithm: 'HS256', expiresIn: 300 })
+        if (userResponse.length === 0)
+            return { login: false, message: "Cpf não está cadastrado" }
 
-    return {
-        auth: true,
-        token
+        const { id, name, email, cpf, salt, password: passwordEncrypted } = userResponse[0]
+        if (comparePassword(password, salt, passwordEncrypted)) {
+            // const userJWTPayload = new UserJWTPayload({ id, name, email, cpf })
+            const userJWTPayload = { id, name, email, cpf }
+
+            const jwt = signedJWT(userJWTPayload)
+            console.log("jwt",jwt)
+            return { login: true, message: "Login e senha corretos.", token: jwt }
+
+        }
+
+        return { login: false, message: "Login ou senha errados" }
+    } catch (err) {
+        console.error(err)
     }
 }
 
-const verify = async (token) => {
+const signedJWT = (userPayload) => {
+    return jwt.sign(userPayload, config.secret, { algorithm: 'HS256', expiresIn: 300 })
+}
+
+const verifyJWT = async (token) => {
 
     // jwt.verify(token, config.secret, (err, decoded) => {
     //     if(err) return { auth: false, message: 'Failed to authenticated'}
@@ -28,4 +49,4 @@ const verify = async (token) => {
     })
 }
 
-module.exports = { sign, verify }
+module.exports = { login, verifyJWT }

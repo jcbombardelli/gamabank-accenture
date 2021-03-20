@@ -30,7 +30,6 @@ const findByCpf = async cpf => {
         try {
             const sqlStatement = `SELECT * FROM users WHERE cpf="${cpf}";`
             const result = await database.execute(sqlStatement)
-            console.log("result", result)
             resolve(result)
         } catch (error) {
             console.error(error)

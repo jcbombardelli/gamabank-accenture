@@ -1,9 +1,22 @@
 const service = require('../services/auth.service')
 
 const login = async (request, h) => {
-    //TODO: Refatorar
-    const { cpf, password } = request.payload
-    return await service.sign({ cpf, password })
+    try {
+        const { cpf, password } = request.payload
+        const result = await service.login({ cpfPayload: cpf, password })
+        if (result.login === true) {
+            console.log("Retorno login com sucesso")
+            return {
+                message: result.message,
+                token: result.token
+            }
+        }
+        return h.response({ error: result.message }).code(400)
+
+
+    } catch(err) {
+        console.error(err)
+    }
 }
 
 const validate = async (request, h) => {
