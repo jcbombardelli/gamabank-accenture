@@ -7,7 +7,7 @@ const login = async (request, h) => {
         if (result.login === true) {
             console.log("Retorno login com sucesso")
             return {
-                message: result.message,
+                auth: true,
                 token: result.token
             }
         }
