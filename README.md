@@ -1,10 +1,40 @@
-# 🏦 Gama Bank 💲 Verde de dinheiro
+# 🏦 Gama Bank Time DENO :t-rex: 💲 Verde de dinheiro
 
 <p align="center">
   <img src="https://media.tenor.com/images/63dc70b43a949617fdfa3447868d534d/tenor.gif" alt="Hulk Smart"/>
 </p>
 
 Nosso momento é de cada vez mais aprender sobre como administrar nosso patriminio pois como diz o ditado "não tá facil pra ninguém", não é mesmo ? Sendo assim, queremos começar não só querer cuidar do nosso dinheiro, mas do seu também. Criamos a Gama Bank para ser uma fintech diferente e que seja acima de tudo capaz de transformar a vida das pessoas e suas carreiras (sacoou?)
+
+
+## Passo a passo para rodar a API localmente
+
+### 1. Instalação
+
+     git clone https://github.com/diogoalexandria/gamabank-accenture
+
+     npm install
+
+### 2. Instalação e inicialização banco de dados local
+
+    docker-compose up
+
+### 3. Inicialização ambiente desenvolvimento
+
+    npm run start:dev
+
+### 4. Inicialização ambiente testes
+
+    npm run test
+
+## Documentação
+
+https://gamabank-deno.herokuapp.com/documentation
+
+## API REST
+
+https://gamabank-deno.herokuapp.com
+
 
 ## Nosso time, seu projeto de vida !
 
@@ -31,7 +61,7 @@ Construir uma aplicação web, utilizando Node.js e todas as bibliotecas e tecno
 
 
 ## Critérios de aceite
-1. Entregou a API Backend devidade documentada 
+1. Entregou a API Backend devidade documentada
 2. Cadastrou usúarios com as respectivas contas
 3. Realizou transferencia entre conta existes e/ou inexistentes
 4. Realizou lançamentos de compras feitas com crédito e débito
