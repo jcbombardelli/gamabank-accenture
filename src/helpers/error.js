@@ -1,10 +1,10 @@
-class customError {
-    constructor({ name, message, status }) {
-        this.name = name,
-        this.message = message || 'Mensagem de erro padrão',
-        this.stack = (new Error()).stack,
-        this.statusCode = status || 400
+class CustomError {
+    constructor({ name, message, statusCode }) {
+        ;(this.name = name),
+            (this.message = message || 'Mensagem de erro padrão'),
+            (this.stack = new Error().stack),
+            (this.statusCode = statusCode || 400)
     }
 }
 
-module.exports = { customError }
+module.exports = { CustomError }

@@ -9,11 +9,11 @@ const DepositDebitRequestDTO = Joi.object({
 }).label('DepositDebitRequestDTO')
 
 const DepositDebitResponseDTO = Joi.object({
+    id: Joi.string(),
     type: Joi.string(),
     status: Joi.string(),
     value: Joi.number(),
-    description: Joi.string(),
-    date: Joi.date()
+    description: Joi.string()
 }).label('DepositDebitResponseDTO')
 
 module.exports = { DepositDebitRequestDTO, DepositDebitResponseDTO }

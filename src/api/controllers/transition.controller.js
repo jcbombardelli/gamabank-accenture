@@ -1,21 +1,22 @@
-const service = require('../services/user.service')
-const User = require('../models/User')
+const service = require('../services/transition.service')
 const { checkSchema } = require('../../helpers/schemaChecker')
+const TransitionController = require('../models/TransitionController')
 
-const depositDebit = async (request, h) => {
+const depositDebit = async(request, h) => {
     try {
-        const result = { message: 'hello world' }
-        return h.response(result).code(201)
+        const transitionDTO = new TransitionController(request.payload)
+        checkSchema(transitionDTO)
 
-        // const user = new User(request.payload)
+        const serviceResult = await service.createdDepositDebit(transitionDTO)
+        return h.response(serviceResult).code(201)
 
-        // if (checkSchema(user)) {
-        //     const result = await service.createAccount(user)
-        //     return h.response(result).code(201)
-        // }
     } catch (err) {
-        console.log(err)
-        return h.response({ error: err.message }).code(err.statusCode)
+        return h
+            .response({
+                name: err.name,
+                error: err.message
+            })
+            .code(err.statusCode)
     }
 }
 
