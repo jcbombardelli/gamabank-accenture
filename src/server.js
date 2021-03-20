@@ -1,13 +1,10 @@
 require('./configs/env')
-
 const Hapi = require('@hapi/hapi')
-
+const routes = require('./routes')
+const { app } = require('./configs/env')
 const { swagger, inert, vision } = require('./configs/swagger')
 
-const routes = require('./routes')
-
 const plugins = [swagger, inert, vision]
-const { app } = require('./configs/env')
 
 const server = async () => {
     const hapiServer = Hapi.server({
