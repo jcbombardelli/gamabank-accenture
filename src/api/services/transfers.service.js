@@ -1,3 +1,3 @@
-const createTransfer = async (transfers) => {
+const makeTransfer = async (transfers) => {
 
 }

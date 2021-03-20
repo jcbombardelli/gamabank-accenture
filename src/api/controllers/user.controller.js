@@ -2,7 +2,6 @@ const service = require('../services/user.service')
 const UserController = require('../models/UserController')
 const { checkSchema } = require('../../helpers/schemaChecker')
 
-
 const newUser = async (request, h) => {
     try {
         const userController = new UserController(request.payload)
@@ -16,8 +15,7 @@ const newUser = async (request, h) => {
         }
         return h.response({ error: "Dados inválidos" }).code(400)
     } catch (err) {
-        console.log(err)
-        return h.response({ error: err.message }).code(err.statusCode)
+        return h.response({ error: err.message }).code(500)
     }
 }
 

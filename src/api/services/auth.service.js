@@ -21,9 +21,9 @@ const verify = async (token) => {
 
     return new Promise((resolve, reject) => {
         jwt.verify(token, config.secret, (err, decoded) => {
-            if(err) reject({ auth: false, message: 'Failed to authenticated'})
-    
-            resolve({auth: true, data: decoded })
+            if(err) reject({ auth: false, message: 'Failed to authenticated.', data: {}})
+
+            resolve({ auth: true, message: 'Key is valid.', data: decoded })
         })
     })
 }
