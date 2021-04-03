@@ -1,9 +1,8 @@
-const { status } = require('../controllers/app.controller')
-const authController = require('../controllers/auth.controller')
+const { status } = require('../api/controllers/app.controller')
+const authController = require('../api/controllers/auth.controller')
 
-const { LoginRequestDTO, LoginResponseDTO } = require('../models/dto/auth.dto')
+const { LoginRequestDTO, LoginResponseDTO } = require('../api/models/dto/auth.dto')
 const Joi = require('joi')
-
 
 const root = {
   method: "GET",

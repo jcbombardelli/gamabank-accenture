@@ -1,7 +1,7 @@
 const Hapi = require("@hapi/hapi");
 
 const swagger = require('./configs/swagger')
-const routes = require('./api/routes')
+const routes = require('./routes')
 
 const server = async () => {
 
