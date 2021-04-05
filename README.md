@@ -1,4 +1,4 @@
-<h1 align="center">🏦 Gama Bank 💲 NoDesign Api</h1>
+<h1 align="center">🏦 NoDesign Api</h1>
 
 ## Dispensamos o Design, porque focamos na melhor solução para sua aplicação bancária.
 
@@ -19,6 +19,7 @@ Api Server para solução rápida, segura e legível com serviços de controle p
 * Faturas
 * Depósitos
 
+[!NoDesignBank: 1.0.0]()
 ## Como Integrar?
 * Instalações necessárias:
   * [Node](https://nodejs.org/en/)
@@ -43,10 +44,10 @@ Api Server para solução rápida, segura e legível com serviços de controle p
 
 * URI Principal:
 
-    [localhost:3000](localhost:3000)
+    [localhost:3000](https://localhost:3000)
 
 * URI Documentação:
 
-    [localhost:3000/documentation](localhost:3000/documentation)
+    [localhost:3000/documentation](https://localhost:3000/documentation)
 
 Construindo...

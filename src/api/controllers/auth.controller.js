@@ -8,6 +8,9 @@ const login = async (request, h) => {
     if (login_result.isValid) return await authService.sign({username, password, cpf:login_result.cpf})
     else return await authService.noSign()
 }
+const signup = async (request, h) =>{
+    
+}
 
 module.exports = {
     login
