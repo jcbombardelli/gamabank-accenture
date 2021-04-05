@@ -1,44 +1,14 @@
-const auth_service = require('../services/auth.service')
-const database_service = require('../services/database')
+const authService = require('../services/auth.service')
+const userController = require('./user.controller')
 
 const login = async (request, h) => {
     const { username, password } = request.payload
-    // requisicao ao banco de dados
-    const retornoDoBanco = {
-        id: 1,
-        saldo: 5000
-    }
-
-    return await auth_service.sign(
-        {
-            username, 
-            password,
-            sub: retornoDoBanco.id,
-        })
-
+    const login_result = await userController.checkDatesLogin(username, password)
+    console.log(`${login_result.isValid} ${login_result.cpf} ${username} ${password}`)
+    if (login_result.isValid) return await authService.sign({username, password, cpf:login_result.cpf})
+    else return await authService.noSign()
 }
-const register = async(request, h)=>{
-    const {email, username, pass, cpf} = request.payload
-
-    return await auth_service.sign({email, username, pass, cpf})
-}
-
-
-// const validate = async (request, h) => {
-//     const token = request.headers['x-access-token']
-
-//     try {
-//         const validated = await auth_service.verify(token)
-//         return validated
-//     } catch (error) {
-//         return error
-//     }
-// }
-
-
 
 module.exports = {
-    login,
-    register
-    //validate
+    login
 }

@@ -1,26 +1,29 @@
-# 🏦 Gama Bank 💲 Verde de dinheiro
+<h1 align="center">🏦 Gama Bank 💲 NoDesign Api</h1>
 
+## Dispensamos o Design, porque focamos na melhor solução para sua aplicação bancária.
+
+<br>
 <p align="center">
-  <img src="https://media.tenor.com/images/63dc70b43a949617fdfa3447868d534d/tenor.gif" alt="Hulk Smart"/>
+  <img width=500 heigth:500 src="https://miro.medium.com/max/700/1*_JJTknJYPxJPLNEEB3jh7Q.gif" alt="Hulk Smart"/>
 </p>
 
-## **NoDesign Bank Api**
 
-Dispensamos o Design, porque focamos na melhor solução para sua aplicação bancária.
 
 ## O que é?
 
-Api com solução simples, rápida, segura e legível para seu projeto oferencendo os principais serviços necessários para controle de:
+Api Server para solução rápida, segura e legível com serviços de controle para:
 * Contas
 * Transações
 * Transferências
 * Extratos
 * Faturas
 * Depósitos
-* Outros.
 
 ## Como Integrar?
-* Tenhas as instalações do [Node](https://nodejs.org/en/) e [Git](https://git-scm.com/downloads);
+* Instalações necessárias:
+  * [Node](https://nodejs.org/en/)
+  * [Git](https://git-scm.com/downloads)
+  * [Mysql](https://www.mysql.com/downloads/) (Opcional)
 
 * Realize a cópia do projeto:
 
@@ -29,5 +32,21 @@ Api com solução simples, rápida, segura e legível para seu projeto oferencen
 * Instale todas as dependências:
 
     ```npm install```
+
+* Configure o arquivo .env com informações de acesso ao seu banco de dados e variáveis de ambiente
+
+* Crie todos os Esquemas do banco de dados executando [create_schemes.sql](https://github.com/israelblender/gamabank-accenture/blob/main/sql/create_schemes.sql)
+
+* Inicialize o projeto com o comando:
+
+    ```npm run start-dev``` ou ```node app.js```
+
+* URI Principal:
+
+    [localhost:3000](localhost:3000)
+
+* URI Documentação:
+
+    [localhost:3000/documentation](localhost:3000/documentation)
 
 Construindo...

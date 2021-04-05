@@ -1,15 +1,20 @@
 const jwt = require('jsonwebtoken')
-const { secret } = require('../../configs/env')
 const config = require('../../configs/env')
 
 
-const sign = async (object) => {
-
+const sign = async object => {
+    console.log(`config.secret ${config.secret}`)
     const token = jwt.sign(object, config.secret, { algorithm: 'HS256', expiresIn: 300 })
-
+    process.env.LOGGED = "true"
     return {
         auth: true,
         token
+    }
+}
+const noSign = async () =>{
+    return {
+        auth: false,
+        token: ''
     }
 }
 
@@ -30,4 +35,4 @@ const verify = async (token) => {
     })
 }
 
-module.exports = { sign, verify }
+module.exports = { sign, noSign, verify }

@@ -6,8 +6,8 @@ const swagger = {
     plugin: hapiswagger,
     options: {
       info: {
-        title: 'Gamabank - Grupo X',
-        description: 'Projeto desenvolvido blablalbalbalb balbal',
+        title: 'Gamabank - NoDesign',
+        description: 'Api para prestação de serviços bancários para correntistas',
         version: '1.0'
       }
     }

@@ -1,18 +1,24 @@
-const Joi = require('joi')
+const joi = require('joi')
 
-const LoginRequestDTO = Joi.object({
-    username: Joi.string().required(),
-    password: Joi.string().required()
+const LoginRequestDTO = joi.object({
+    username: joi.string().max(100).required(),
+    password: joi.string().max(200).required()
 }).label('LoginRequestDTO')
 
 
-const LoginResponseDTO = Joi.object({
-    token: Joi.string().required(),
-    auth: Joi.bool().required()
-}).label('LoginResponseDTO')
+const LoginResponseSuccessDTO = joi.object({
+    token: joi.string(),
+    auth: joi.bool()
+}).label('LoginResponseSuccessDTO')
+
+const LoginResponseErrorDTO = joi.object({
+    message: joi.string().allow('Login não permitido', 'Excedeu quantidade de caracteres'),
+    auth: joi.boolean().default(false)
+}).label('LoginResponseErrorDTO')
 
 
 module.exports = {
     LoginRequestDTO,
-    LoginResponseDTO
+    LoginResponseSuccessDTO,
+    LoginResponseErrorDTO
 }

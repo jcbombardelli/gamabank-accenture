@@ -1,21 +1,18 @@
-const conn = require('../services/database')
-
-console.log('Banco de dados inicializado')
-
-const status = (request, h) => {
+const rootController = (request, h)=>{
     return {
+        name: "NoDesign Bank Api",
+        version: "1.0.0",
+        documentation: `http://${process.env.SERVER_HOST}:${process.env.SERVER_PORT}/documentation`,
+        github: 'https://github.com/israelblender/gamabank-accenture'
+    }
+}
+
+const statusController = (request, h) => {
+    return {
+        status: 'true',
+        logged: process.env.LOGGED,
         now: Date.now(),
-        message: "This is Brazil!!",
-    };
-}
-const login = (request, h) => {
-    return {};
-}
-const register = (request, h) => {
-    return {};
+    }
 }
 
-
-module.exports = {
-    status
-}
+module.exports = {rootController, statusController}
