@@ -1,5 +1,7 @@
 const { rootController, statusController } = require('../api/controllers/app.controller')
 const authController = require('../api/controllers/auth.controller')
+const {deposiUserDTO} = requite('../api/models/dto/deposit.dto')
+const accountController = require('../api/controllers/account.controller')
 
 const { LoginRequestDTO, LoginResponseSuccessDTO, LoginResponseErrorDTO } = require('../api/models/dto/auth.dto')
 const Joi = require('joi')
@@ -59,6 +61,18 @@ const loginRoute = {
 //   }
 // }
 
+const depositRoute = {
+    method: 'PATCH',
+    path: '/deposit',
+    handler: accountController.deposit,
+    options: {
+      tags: ['api', 'deposit'],
+      description: 'Realizar deposito em conta debito',
+      validate: {
+        payload: deposiUserDTO,
+      },
+    },
+};
 
 module.exports = [ rootRoute, statusRoute, loginRoute, 
   //validate

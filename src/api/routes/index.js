@@ -1,4 +1,3 @@
-<<<<<<< HEAD:src/routes/index.js
 const { rootController, statusController } = require('../api/controllers/app.controller')
 const authController = require('../api/controllers/auth.controller')
 
@@ -6,16 +5,6 @@ const { LoginRequestDTO, LoginResponseSuccessDTO, LoginResponseErrorDTO } = requ
 const Joi = require('joi')
 
 const rootRoute = {
-=======
-const { status } = require('../controllers/app.controller')
-const authController = require('../controllers/auth.controller')
-
-const { LoginRequestDTO, LoginResponseDTO } = require('../models/dto/auth.dto')
-const Joi = require('joi')
-
-
-const root = {
->>>>>>> parent of a68334c... Ajuste pasta Routes:src/api/routes/index.js
   method: "GET",
   path: "/",
   handler: rootController,
