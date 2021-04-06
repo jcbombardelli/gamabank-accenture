@@ -1,21 +1,20 @@
-const conn = require('../services/database')
+const conn = require("../../configs/database");
 
-console.log('Banco de dados inicializado')
+console.log("Banco de dados inicializado");
 
 const status = (request, h) => {
-    return {
-        now: Date.now(),
-        message: "This is Brazil!!",
-    };
-}
+  return {
+    now: Date.now(),
+    message: "This is Brazil!!",
+  };
+};
 const login = (request, h) => {
-    return {};
-}
+  return {};
+};
 const register = (request, h) => {
-    return {};
-}
-
+  return {};
+};
 
 module.exports = {
-    status
-}
+  status,
+};

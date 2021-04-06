@@ -1,28 +1,24 @@
-const auth_service = require('../services/auth.service')
-const database_service = require('../services/database')
+const auth_service = require("../services/auth.service");
 
 const login = async (request, h) => {
-    const { username, password } = request.payload
-    // requisicao ao banco de dados
-    const retornoDoBanco = {
-        id: 1,
-        saldo: 5000
-    }
+  const { username, password } = request.payload;
+  // requisicao ao banco de dados
+  const retornoDoBanco = {
+    id: 1,
+    saldo: 5000,
+  };
 
-    return await auth_service.sign(
-        {
-            username, 
-            password,
-            sub: retornoDoBanco.id,
-        })
+  return await auth_service.sign({
+    username,
+    password,
+    sub: retornoDoBanco.id,
+  });
+};
+const register = async (request, h) => {
+  const { email, username, pass, cpf } = request.payload;
 
-}
-const register = async(request, h)=>{
-    const {email, username, pass, cpf} = request.payload
-
-    return await auth_service.sign({email, username, pass, cpf})
-}
-
+  return await auth_service.sign({ email, username, pass, cpf });
+};
 
 // const validate = async (request, h) => {
 //     const token = request.headers['x-access-token']
@@ -35,10 +31,8 @@ const register = async(request, h)=>{
 //     }
 // }
 
-
-
 module.exports = {
-    login,
-    register
-    //validate
-}
+  login,
+  register,
+  //validate
+};

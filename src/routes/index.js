@@ -1,56 +1,63 @@
-const { status } = require('../api/controllers/app.controller')
-const authController = require('../api/controllers/auth.controller')
+const { status } = require("../api/controllers/app.controller");
+const authController = require("../api/controllers/auth.controller");
+const userController = require("../api/controllers/user.controller");
 
-const { LoginRequestDTO, LoginResponseDTO } = require('../api/models/dto/auth.dto')
-const Joi = require('joi')
+const {
+  LoginRequestDTO,
+  LoginResponseDTO,
+} = require("../api/models/dto/auth.dto");
+const Joi = require("joi");
+
+const { CreateUserDTO } = require("../api/models/dto/user.dto");
 
 const root = {
   method: "GET",
   path: "/",
   handler: status,
+
   options: {
-      tags: ['api'],
-      description: 'Verificação do status da aplicação',
-      notes: 'Pode ser utilizado sempre que outra aplicação estiver monitorando'
-  }
+    tags: ["api"],
+    description: "Verificação do status da aplicação",
+    notes: "Pode ser utilizado sempre que outra aplicação estiver monitorando",
+  },
 };
 
-
 const login = {
-    method: 'POST',
-    path: '/login',
-    handler: authController.login,
-    options: {
-        tags: ['api', 'login'],
-        description: 'Rota de autenticação',
-        notes: 'Anotações da rota...',
-        validate: {
-            payload: LoginRequestDTO,
-          },
-          response: {
-            status: {
-              200: LoginResponseDTO,
-              400: Joi.any()
-            }
-        }
-    }
-}
+  method: "POST",
+  path: "/login",
+  handler: authController.login,
+  options: {
+    tags: ["api", "login"],
+    description: "Rota de autenticação",
+    notes: "Anotações da rota...",
+    validate: {
+      payload: LoginRequestDTO,
+    },
+    response: {
+      status: {
+        200: LoginResponseDTO,
+        400: Joi.any(),
+      },
+    },
+  },
+};
 
-// const validate = {
-//   method: 'GET',
-//   path: '/login/verify',
-//   handler: authController.validate,
-//   options: {
-//     tags: ["api", "login"],
-//     description: 'Rota para verificaçào do token',
-//     notes: 'blablabla blablabla',
-//     validate: {
-//         headers: Joi.object({'x-access-token': Joi.string().required()}).unknown()
-//     },
-//   }
-// }
+const createUser = {
+  method: "POST",
+  path: "/user",
+  handler: userController.store,
+  options: {
+    tags: ["api", "usuario"],
+    description: "Rota criar usuario",
+    validate: {
+      payload: CreateUserDTO,
+    },
+  },
+};
 
-
-module.exports = [ root, login, 
+module.exports = [
+  root,
+  login,
+  createUser,
   //validate
- ]
+];
