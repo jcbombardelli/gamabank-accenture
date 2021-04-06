@@ -4,8 +4,8 @@
   "description": "<p align=\"center\">\r   <img src=\"https://media.tenor.com/images/63dc70b43a949617fdfa3447868d534d/tenor.gif\" alt=\"Hulk Smart\"/>\r </p>",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
-    "start-dev": "cross-env NODE_ENV=development nodemon app.js"
+    "start": "node src/app.js",
+    "start-dev": "cross-env NODE_ENV=development nodemon src/app.js"
   },
   "repository": {
     "type": "git",

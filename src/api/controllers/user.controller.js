@@ -1,10 +1,18 @@
-const dbConnection = require('../../configs/db')
+const userService = require("../services/user.service");
 
-const checkDatesLogin = async(username, password)=>{//Chega dados se dados fornecidos de usuário são válidos
-    const query_result = await dbConnection.querySync(`select cpf from usuario where nome='${username}' and senha='${password}'`)
-    dbConnection.end()//Finaliza conexão ao banco
-    if (query_result.length > 0) return {isValid: true, cpf:query_result[0].cpf}
-    return {isValid: false}
-}
+const store = async (request, h) => {
+  const { nome, cpf, email, senha, telefone } = request.payload;
 
-module.exports = {checkDatesLogin}
+  // envio para o service dados do usuario
+  const createConta = await userService.createUser(
+    nome,
+    cpf,
+    email,
+    senha,
+    telefone
+  );
+
+  return createConta;
+};
+
+module.exports = { store };
