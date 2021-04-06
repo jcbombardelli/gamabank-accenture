@@ -6,6 +6,13 @@ const {
   LoginRequestDTO,
   LoginResponseDTO,
 } = require("../api/models/dto/auth.dto");
+
+const {
+  TransferBankHeaderDTO,
+  TransferBankRequestDTO,
+  TransferBankResponseErrorDTO,
+  TransferBankResponseDTO
+} = require("../api/models/dto/transfer.dto");
 const Joi = require("joi");
 
 const { CreateUserDTO } = require("../api/models/dto/user.dto");
@@ -65,10 +72,31 @@ const createUser = {
   },
 };
 
+const bankTransfer = {
+  method: "POST",
+  path: "/transferBank",
+  handler: userController.transfer,
+  options: {
+    tags: ["api", "transferencia"],
+    description: "Rota para realizar transferência",
+    notes: "Obs: CPF e código do banco só é obrigatório para transferência para outros bancos",
+    validate: {
+      //headers: TransferBankHeaderDTO,
+      //payload: TransferBankRequestDTO
+    },
+    response: {
+      status: {
+        //200: TransferBankResponseDTO,
+        //404: TransferBankResponseErrorDTO
+      }
+    }
+  }
+};
+
 module.exports = [
   root,
   status, 
   login,
   createUser,
-  //validate
+  bankTransfer
 ];
