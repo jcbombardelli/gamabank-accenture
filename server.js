@@ -5,8 +5,8 @@ const routes = require("./src/routes");
 
 const server = async () => {
   const hapiServer = Hapi.Server({
-    port: process.env.PORT || 3000,
-    host: process.env.HOST || "localhost",
+    host: process.env.SERVER_HOST || "localhost",
+    port: process.env.SERVER_PORT || 3000,
   });
 
   await hapiServer.register(swagger);
@@ -16,8 +16,9 @@ const server = async () => {
 };
 
 process.on("unhandledRejection", (err) => {
-  console.log("---->  Deu ruim !");
-  console.log(err);
+  console.log("########### OCORREU UM ERRO ##########");
+  console.error(err);
+  process.exit(1);
 });
 
 module.exports = server();

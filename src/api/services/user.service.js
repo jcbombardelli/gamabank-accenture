@@ -1,3 +1,4 @@
+const Boom = require("@hapi/boom");
 const userRepository = require("../repositories/user.repository");
 const contaService = require("../services/conta.service");
 const cpfHelper = require("../../helpers/cpf.helper");
