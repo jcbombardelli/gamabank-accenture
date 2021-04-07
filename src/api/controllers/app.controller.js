@@ -1,4 +1,4 @@
-const rootController = (request, h)=>{
+const rootHandler = (request, h)=>{
     return {
         name: "NoDesign Bank Api",
         version: "1.0.0",
@@ -7,7 +7,7 @@ const rootController = (request, h)=>{
     }
 }
 
-const statusController = (request, h) => {
+const statusHandler = (request, h) => {
     return {
         status: 'true',
         logged: process.env.LOGGED,
@@ -15,4 +15,4 @@ const statusController = (request, h) => {
     }
 }
 
-module.exports = {rootController, statusController}
+module.exports = {rootHandler, statusHandler}

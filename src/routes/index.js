@@ -2,66 +2,61 @@ const { rootController, statusController } = require('../api/controllers/app.con
 const authController = require('../api/controllers/auth.controller')
 const {deposiUserDTO} = requite('../api/models/dto/deposit.dto')
 const accountController = require('../api/controllers/account.controller')
+const { rootHandler, statusHandler } = require("../api/controllers/app.controller");
+const authController = require("../api/controllers/auth.controller");
+const userController = require("../api/controllers/user.controller");
 
-const { LoginRequestDTO, LoginResponseSuccessDTO, LoginResponseErrorDTO } = require('../api/models/dto/auth.dto')
-const Joi = require('joi')
+const {
+  LoginRequestDTO,
+  LoginResponseDTO,
+} = require("../api/models/dto/auth.dto");
+const Joi = require("joi");
 
-const rootRoute = {
+const { CreateUserDTO } = require("../api/models/dto/user.dto");
+
+const root = {
   method: "GET",
   path: "/",
-  handler: rootController,
+  handler: rootHandler,
   options: {
-      tags: ['api'],
-      description: 'Rota Principal',
-      notes: 'Pode ser utilizado sempre que outra aplicação estiver monitorando'
-  }
+    tags: ["api"],
+    description: "Rota principal da aplicação",
+    notes: "Alguma nota aqui",
+  },
 };
-const statusRoute = {
+
+const status = {
   method: "GET",
   path: "/status",
-  handler: statusController,
+  handler: statusHandler,
   options: {
-      tags: ['api'],
-      description: 'Verificação do status da aplicação',
-      notes: 'Pode ser utilizado sempre que outra aplicação estiver monitorando'
-  }
+    tags: ["api"],
+    description: "Verificação do status da aplicação",
+    notes: "Pode ser utilizado sempre que outra aplicação estiver monitorando",
+  },
 };
-const loginRoute = {
-    method: 'POST',
-    path: '/login',
-    handler: authController.login,
-    options: {
-        tags: ['api', 'login'],
-        description: 'Realizar Login',
-        notes: 'Retornado atributo AUTH e atributo TOKEN para utilizar nas próximas consultas internas',
-        validate: {
-            payload: LoginRequestDTO,
-        },
-        response: {
-          status: {
-            200: LoginResponseSuccessDTO,
-            400: LoginResponseErrorDTO,
-            500: LoginResponseErrorDTO//Joi.any()
-          }
-        }
-    }
-}
 
-// const validate = {
-//   method: 'GET',
-//   path: '/login/verify',
-//   handler: authController.validate,
-//   options: {
-//     tags: ["api", "login"],
-//     description: 'Rota para verificaçào do token',
-//     notes: 'blablabla blablabla',
-//     validate: {
-//         headers: Joi.object({'x-access-token': Joi.string().required()}).unknown()
-//     },
-//   }
-// }
+const login = {
+  method: "POST",
+  path: "/login",
+  handler: authController.login,
+  options: {
+    tags: ["api", "login"],
+    description: "Rota de autenticação",
+    notes: "Anotações da rota...",
+    validate: {
+      payload: LoginRequestDTO,
+    },
+    response: {
+      status: {
+        200: LoginResponseDTO,
+        400: Joi.any(),
+      },
+    },
+  },
+};
 
-const depositRoute = {
+const makeDeposit = {
     method: 'PATCH',
     path: '/deposit',
     handler: accountController.deposit,
@@ -72,8 +67,25 @@ const depositRoute = {
         payload: deposiUserDTO,
       },
     },
+  };
+const createUser = {
+  method: "POST",
+  path: "/user",
+  handler: userController.store,
+  options: {
+    tags: ["api", "usuario"],
+    description: "Rota criar usuario",
+    validate: {
+      payload: CreateUserDTO,
+    },
+  },
 };
 
-module.exports = [ rootRoute, statusRoute, loginRoute, 
+module.exports = [
+  root,
+  status, 
+  login,
+  createUser,
+  makeDeposit
   //validate
- ]
+];
