@@ -27,46 +27,4 @@ const createConta = async (idUsuario) => {
   };
 };
 
-const transferIntern = async (id, email, valor) => {
-  const findContaDestiny = await contaRepository.findContaByUserEmail(email);
-
-  if(findContaDestiny === undefined){
-    return {
-      message: 'E-mail inválido, correntista não encontrado'
-    }
-  }
-  
-  if(id === findContaDestiny.id){
-    return {
-      message: 'Transferência inválida'
-    }
-  }
-
-  const verifySaldo = await contaRepository.findContaByUserId(id);
-
-  if(verifySaldo.saldo < valor){
-    return {
-      message: 'Saldo insuficiente'
-    }
-  }
-
-
-  const saldoContaDestiny = await contaRepository.findContaByUserId(findContaDestiny.id)
-
-  let valorDebit = parseFloat(verifySaldo.saldo) - parseFloat(valor);
-  let valorCredit = parseFloat(saldoContaDestiny.saldo) + parseFloat(valor);
-
-  await contaRepository.alterSaldoConta(id, valorDebit);
-
-  await contaRepository.alterSaldoConta( saldoContaDestiny.id ,valorCredit);
-
-  return {
-    message: 'Transferencia realizada com sucesso'
-  }
-};
-
-const transferExtern = async (codigoBanco, cpf, valor) => {
-
-};
-
-module.exports = { createConta, transferIntern, transferExtern };
+module.exports = { createConta };

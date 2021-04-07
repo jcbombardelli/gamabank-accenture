@@ -15,19 +15,8 @@ const register = async (request, h) => {
   return await authService.sign({ email, username, pass, cpf });
 };
 
-// const validate = async (request, h) => {
-//     const token = request.headers['x-access-token']
-
-//     try {
-//         const validated = await authService.verify(token)
-//         return validated
-//     } catch (error) {
-//         return error
-//     }
-// }
 
 module.exports = {
   login,
-  register,
-  //validate
+  register
 };

@@ -1,6 +1,7 @@
 const { rootHandler, statusHandler } = require("../api/controllers/app.controller");
 const authController = require("../api/controllers/auth.controller");
 const userController = require("../api/controllers/user.controller");
+const bankTransferController = require("../api/controllers/transfer.controller");
 
 const {
   LoginRequestDTO,
@@ -74,20 +75,20 @@ const createUser = {
 
 const bankTransfer = {
   method: "POST",
-  path: "/transferBank",
-  handler: userController.transfer,
+  path: "/banktransfer",
+  handler: bankTransferController.banktransfer,
   options: {
     tags: ["api", "transferencia"],
     description: "Rota para realizar transferência",
     notes: "Obs: CPF e código do banco só é obrigatório para transferência para outros bancos",
     validate: {
-      //headers: TransferBankHeaderDTO,
-      //payload: TransferBankRequestDTO
+      headers: TransferBankHeaderDTO,
+      payload: TransferBankRequestDTO
     },
     response: {
       status: {
-        //200: TransferBankResponseDTO,
-        //404: TransferBankResponseErrorDTO
+        200: TransferBankResponseDTO,
+        404: TransferBankResponseErrorDTO
       }
     }
   }

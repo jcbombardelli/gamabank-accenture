@@ -1,8 +1,8 @@
 const Joi = require("joi");
 
-const TransferBankHeaderDTO = Joi.object({
-    token: Joi.string().required()
-}).label("TransferBankrHeaderDTO");
+const TransferBankHeaderDTO = Joi.object().keys({
+    'token': Joi.string().required()
+}).options({ allowUnknown: true })
 
 const TransferBankRequestDTO = Joi.object({
     email: Joi.string().required(),

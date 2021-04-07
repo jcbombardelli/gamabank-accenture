@@ -7,7 +7,6 @@ const createUser = async (nome, cpf, email, senha, telefone) => {
 
   // caso exista retorno erro
   if (findUser) {
-    console.log("CPF duplicado");
     throw new Error("CPF já cadastrado");
   }
 
