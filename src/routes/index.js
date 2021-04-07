@@ -8,7 +8,10 @@ const {
 } = require("../api/models/dto/auth.dto");
 const Joi = require("joi");
 
-const { CreateUserDTO } = require("../api/models/dto/user.dto");
+const {
+  CreateUserDTO,
+  CreateUserResponseDTO,
+} = require("../api/models/dto/user.dto");
 
 const root = {
   method: "GET",
@@ -51,6 +54,12 @@ const createUser = {
     description: "Rota criar usuario",
     validate: {
       payload: CreateUserDTO,
+    },
+    response: {
+      status: {
+        200: CreateUserResponseDTO,
+        400: Joi.any(),
+      },
     },
   },
 };

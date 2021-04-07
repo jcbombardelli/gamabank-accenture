@@ -9,10 +9,10 @@ const CreateUserDTO = Joi.object({
 }).label("CreateUserDTO");
 
 const CreateUserResponseDTO = Joi.object({
-  nome: Joi.string().required(),
-  cpf: Joi.string().required(),
-  email: Joi.string().required(),
-  senha: Joi.string().required(),
+  message: Joi.string().required(),
+  id: Joi.number().required(),
+  idConta: Joi.number().required(),
+  login: Joi.string().required(),
 }).label("CreateUserResponseDTO");
 
 module.exports = {
