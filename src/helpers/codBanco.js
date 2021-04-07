@@ -776,11 +776,16 @@ const ArraycodBank = [
 const validCodBank = async (codBank) => {
     let object = {};
     ArraycodBank.forEach(element => {
-        if(element.value === codBank){
-            object = element
-        }
-    })
-    return object
+        if(element.value == codBank){
+            object = element;
+        };
+    });
+
+    if(Object.entries(object).length === 0){
+      return false;
+    };
+
+    return object;
 }
 
 module.exports = { validCodBank }

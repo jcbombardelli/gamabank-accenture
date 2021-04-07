@@ -9,6 +9,15 @@ const findUserByCpf = async (cpf) => {
   return user[0];
 };
 
+const findUserById = async (id) => {
+  const user = await database.execute(
+    `SELECT * FROM usuario WHERE id='${id}'`
+  );
+
+  // retorna primeiro registro encontrado
+  return user[0];
+}
+
 const createUser = async (nome, cpf, email, senha, telefone) => {
   const user = await database.execute(
     `INSERT INTO usuario (nome, cpf, email, senha, telefone) VALUES ('${nome}', '${cpf}','${email}','${senha}','${telefone}');`
@@ -20,4 +29,4 @@ const createUser = async (nome, cpf, email, senha, telefone) => {
   return { id: user.insertId };
 };
 
-module.exports = { findUserByCpf, createUser };
+module.exports = { findUserByCpf, createUser, findUserById };
