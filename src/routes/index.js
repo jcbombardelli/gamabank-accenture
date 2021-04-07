@@ -1,6 +1,6 @@
 const { rootController, statusController } = require('../api/controllers/app.controller')
 const authController = require('../api/controllers/auth.controller')
-const accountController = require('../api/controllers/deposit.controller')
+const depositController = require('../api/controllers/deposit.controller')
 const { rootHandler, statusHandler } = require("../api/controllers/app.controller");
 const authController = require("../api/controllers/auth.controller");
 const userController = require("../api/controllers/user.controller");
@@ -65,7 +65,7 @@ const login = {
 const makeDeposit = {
     method: 'PATCH',
     path: '/deposit',
-    handler: accountController.deposit,
+    handler: depositController.deposit,
     options: {
       tags: ['api', 'deposit'],
       description: 'Rota para realizar deposito em conta debito',
