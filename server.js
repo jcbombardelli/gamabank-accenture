@@ -17,6 +17,7 @@ const server = async () => {
 
 process.on("unhandledRejection", (err) => {
   console.log("---->  Deu ruim !");
+  console.log(err);
 });
 
 module.exports = server();

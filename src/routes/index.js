@@ -1,6 +1,7 @@
 const { status } = require("../api/controllers/app.controller");
 const authController = require("../api/controllers/auth.controller");
 const userController = require("../api/controllers/user.controller");
+const faturaService = require("../api/services/fatura.service");
 
 const {
   LoginRequestDTO,
@@ -45,6 +46,17 @@ const login = {
   },
 };
 
+const getOpenInvoices = {
+  method: "GET",
+  path: "/invoice",
+  handler: faturaService.getOpenInvoice,
+  options: {
+    tags: ["api", "batata"],
+    description: "Verificação do status da aplicação",
+    notes: "Pode ser utilizado sempre que outra aplicação estiver monitorando",
+  },
+};
+
 const createUser = {
   method: "POST",
   path: "/user",
@@ -68,5 +80,6 @@ module.exports = [
   root,
   login,
   createUser,
+  getOpenInvoices,
   //validate
 ];

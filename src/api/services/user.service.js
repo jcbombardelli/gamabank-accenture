@@ -1,13 +1,13 @@
 const Boom = require("@hapi/boom");
 const userRepository = require("../repositories/userRepository");
 const contaService = require("../services/conta.service");
-const validadeCpf = require("../../helpers/validateCpf");
+const cpfHelper = require("../../helpers/cpf.helper");
 const checkPassword = require("../../helpers/checkPassword");
 
 const createUser = async (nome, cpf, email, senha, telefone) => {
   //valida cpf
 
-  const validaCpf = await validadeCpf.validateCpf(cpf);
+  const validaCpf = await cpfHelper.validateCpf(cpf);
 
   if (!validaCpf) {
     console.log("CPF invalido");

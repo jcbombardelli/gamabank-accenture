@@ -1,7 +1,9 @@
 const database = require("../../configs/database");
 
 const findFaturaAbertaByIdConta = async (idConta) => {
-  const fatura = database.execute(
+  console.log("hi");
+
+  const fatura = await database.execute(
     `SELECT * FROM fatura WHERE idConta='${idConta}' AND status='Aberta'`
   );
 
