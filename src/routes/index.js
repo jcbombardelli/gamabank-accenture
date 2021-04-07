@@ -4,7 +4,9 @@ const userController = require("../api/controllers/user.controller");
 
 const {
   LoginRequestDTO,
-  LoginResponseDTO,
+  LoginResponseSuccessDTO,
+  LoginResponseErrorUnauthorizedDTO,
+  LoginResponseErrorBadDTO
 } = require("../api/models/dto/auth.dto");
 const Joi = require("joi");
 
@@ -45,8 +47,9 @@ const login = {
     },
     response: {
       status: {
-        200: LoginResponseDTO,
-        400: Joi.any(),
+        200: LoginResponseSuccessDTO,
+        400: Joi.any(),//LoginResponseErrorBadDTO
+        401: LoginResponseErrorUnauthorizedDTO
       },
     },
   },
