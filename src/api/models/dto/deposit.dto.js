@@ -17,14 +17,9 @@ const DepositResponseDTO = Joi.object({
     message: Joi.string()
 }).label("DepositResponseDTO");
 
-const DepositResponseErrorDTO = Joi.object({
-    message: Joi.string()
-}).label("DepositErrorDTO");
-
 
   module.exports = (
       DepositUserRequestDTO,
       DepositHeaderDTO,
-      DepositResponseDTO,
-      DepositResponseErrorDTO
+      DepositResponseDTO
   )

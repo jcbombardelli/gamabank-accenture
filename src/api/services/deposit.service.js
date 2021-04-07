@@ -1,5 +1,6 @@
 const contaRepository = require("../repositories/contaRepository");
 const lancamentoRepository = require("../repositories/lancamento.repository");
+const validarCPF = require("validar-cpf");
 
 
 const updateBalance = async (cpf, value) => {
@@ -11,15 +12,20 @@ const updateBalance = async (cpf, value) => {
   }
 
   if(value <= 0) {
-    throw new Error('Valor não pode ser depositado')
+    throw new Error('Valor não pode ser depositado');
   }
+   if(!(validarCPF(cpf))) {
+
+     throw new Error('CPF inválido');
+
+   }
 
   await contaRepository.updateBalance(findAccount.id, value);
 
   await lancamentoRepository.createNewLaunchDebit(findAccount.id, parseFloat(valor));
   
   return {
-    message: "Deposito realizado com sucesso",
+    message: "Depósito realizado com sucesso",
     id: findAccount.id,
   };
 

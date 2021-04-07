@@ -8,16 +8,27 @@ const deposit = async (request, h) => {
     const { cpf, value, codebank } = request.payload;
     const { token } = request.headers;
 
-    if(!cpf || !codebank || !value){
-      const updateBalance = await depositService.uptadeBalance(
-        cpf,
-        value
-      );
-  
-    return updateBalance;
+    try {
+      if(!cpf || !codebank || !value){
+        const updateBalance = await depositService.uptadeBalance(
+          cpf,
+          value
+       )
+       return uptadeBalance;
+      }
+    } catch (error) {
+      console.log(error)
+      if(error.message == 'CPF inválido'){
+
+        return h.response(error.message).code(400);
+
+      } else {
+
+        return h.response(error.message).code(503)
+
+      }
   };
 }
-
   module.exports = {
     deposit
   }

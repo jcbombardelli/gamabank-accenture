@@ -77,11 +77,15 @@ const makeDeposit = {
       response: {
         status: {
           200: DepositResponseDTO,
-          404: DepositResponseErrorDTO
+          404: Joi.any(),
+          401: Joi.any(),
+          503: Joi.any()
+
         }
       },
     },
   };
+  
 const createUser = {
   method: "POST",
   path: "/user",
