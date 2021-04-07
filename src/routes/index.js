@@ -63,7 +63,7 @@ const login = {
 };
 
 const makeDeposit = {
-    method: 'PATCH',
+    method: 'PUT',
     path: '/deposit',
     handler: depositController.deposit,
     options: {
