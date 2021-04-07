@@ -1,24 +1,15 @@
-<<<<<<< HEAD:src/routes/index.js
-const { rootController, statusController } = require('../api/controllers/app.controller')
-const authController = require('../api/controllers/auth.controller')
+const AppController = require('../controllers/app.controller')
+const AuthController = require('../controllers/auth.controller')
 
-const { LoginRequestDTO, LoginResponseSuccessDTO, LoginResponseErrorDTO } = require('../api/models/dto/auth.dto')
+const { LoginRequestDTO, LoginResponseSuccessDTO, LoginResponseErrorDTO } = require('../models/dto/auth.dto')
 const Joi = require('joi')
+
 
 const rootRoute = {
-=======
-const { status } = require('../controllers/app.controller')
-const authController = require('../controllers/auth.controller')
 
-const { LoginRequestDTO, LoginResponseDTO } = require('../models/dto/auth.dto')
-const Joi = require('joi')
-
-
-const root = {
->>>>>>> parent of a68334c... Ajuste pasta Routes:src/api/routes/index.js
   method: "GET",
   path: "/",
-  handler: rootController,
+  handler: AppController.rootHandler,
   options: {
       tags: ['api'],
       description: 'Rota Principal',
@@ -28,7 +19,7 @@ const root = {
 const statusRoute = {
   method: "GET",
   path: "/status",
-  handler: statusController,
+  handler: AppController.statusHandler,
   options: {
       tags: ['api'],
       description: 'Verificação do status da aplicação',
@@ -38,7 +29,7 @@ const statusRoute = {
 const loginRoute = {
     method: 'POST',
     path: '/login',
-    handler: authController.login,
+    handler: AuthController.login,
     options: {
         tags: ['api', 'login'],
         description: 'Realizar Login',
@@ -50,7 +41,7 @@ const loginRoute = {
           status: {
             200: LoginResponseSuccessDTO,
             400: LoginResponseErrorDTO,
-            500: LoginResponseErrorDTO//Joi.any()
+            500: Joi.any()
           }
         }
     }
@@ -59,7 +50,7 @@ const loginRoute = {
 // const validate = {
 //   method: 'GET',
 //   path: '/login/verify',
-//   handler: authController.validate,
+//   handler: AuthController.validate,
 //   options: {
 //     tags: ["api", "login"],
 //     description: 'Rota para verificaçào do token',
@@ -71,6 +62,4 @@ const loginRoute = {
 // }
 
 
-module.exports = [ rootRoute, statusRoute, loginRoute, 
-  //validate
- ]
+module.exports = [ rootRoute, statusRoute, loginRoute ]
