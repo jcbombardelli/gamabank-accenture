@@ -11,9 +11,9 @@ const {
 const {
   TransferBankHeaderDTO,
   TransferBankRequestDTO,
-  TransferBankResponseErrorDTO,
   TransferBankResponseDTO
 } = require("../api/models/dto/transfer.dto");
+
 const Joi = require("joi");
 
 const { CreateUserDTO } = require("../api/models/dto/user.dto");
@@ -88,7 +88,9 @@ const bankTransfer = {
     response: {
       status: {
         200: TransferBankResponseDTO,
-        404: TransferBankResponseErrorDTO
+        400: Joi.any(),
+        401: Joi.any(),
+        503: Joi.any()
       }
     }
   }

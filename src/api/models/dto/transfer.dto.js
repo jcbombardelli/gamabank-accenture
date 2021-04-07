@@ -5,7 +5,7 @@ const TransferBankHeaderDTO = Joi.object().keys({
 }).options({ allowUnknown: true })
 
 const TransferBankRequestDTO = Joi.object({
-    email: Joi.string().required(),
+    email: Joi.string(),
     valor: Joi.string().required(),
     cpf: Joi.string(),
     codigoBanco: Joi.string()
@@ -16,13 +16,8 @@ const TransferBankResponseDTO = Joi.object({
     message: Joi.string()
 }).label("TransferBankResponseDTO");
 
-const TransferBankResponseErrorDTO = Joi.object({
-    message: Joi.string()
-}).label("TransferBankErrorDTO");
-
 module.exports = {
     TransferBankHeaderDTO,
     TransferBankRequestDTO,
-    TransferBankResponseErrorDTO,
-    TransferBankResponseDTO
+    TransferBankResponseDTO,
 }
