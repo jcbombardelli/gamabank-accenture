@@ -1,11 +1,30 @@
 const Joi = require("joi");
 
-const DepositUserDTO = Joi.object({
-    id: Joi.string().required(),
-    valor: Joi.string().required(),
-  }).label("DepositUserResponseDTO");
+const DepositUserRequestDTO = Joi.object({
+
+    cpf: Joi.string().required(),
+    value: Joi.string().required(),
+    codeBank: Joi.string.required(),
+
+}).label("DepositUserResponseDTO");
+
+const DepositHeaderDTO = Joi.object().keys({
+    'token': Joi.string().required()
+}).options({ allowUnknown: true })
+
+
+const DepositResponseDTO = Joi.object({
+    message: Joi.string()
+}).label("DepositResponseDTO");
+
+const DepositResponseErrorDTO = Joi.object({
+    message: Joi.string()
+}).label("DepositErrorDTO");
 
 
   module.exports = (
-      DepositUserDTO
+      DepositUserRequestDTO,
+      DepositHeaderDTO,
+      DepositResponseDTO,
+      DepositResponseErrorDTO
   )
