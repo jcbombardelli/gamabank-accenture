@@ -1,4 +1,5 @@
 const mysql = require("mysql");
+const Boom = require("@hapi/boom");
 require("dotenv/config");
 
 const connection = mysql.createConnection({
@@ -14,8 +15,11 @@ const execute = (sqlStatement) => {
     connection.query(sqlStatement, (err, result) => {
       if (err) {
         return reject(err);
+        reject(err.sqlMessage);
       } else return resolve(result);
     });
+  }).catch((err) => {
+    throw new Boom.badRequest(err);
   });
 };
 

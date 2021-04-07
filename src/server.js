@@ -1,27 +1,24 @@
 const Hapi = require("@hapi/hapi");
 
-const swagger = require('./configs/swagger')
-const routes = require('./routes')
+const swagger = require("./configs/swagger");
+const routes = require("./routes");
 
 const server = async () => {
+  const hapiServer = Hapi.Server({
+    host: process.env.SERVER_HOST || "localhost",
+    port: process.env.SERVER_PORT || 3000,
+  });
 
-    const hapiServer = Hapi.Server({
-        host: process.env.SERVER_HOST || 'localhost',
-        port: process.env.SERVER_PORT || 3000
-    })
+  await hapiServer.register(swagger);
+  hapiServer.route(routes);
 
-    await hapiServer.register(swagger)
-    hapiServer.route(routes)
-
-    return hapiServer
-
-}
+  return hapiServer;
+};
 
 process.on("unhandledRejection", (err) => {
-    console.log("########### OCORREU UM ERRO ##########");
-    console.error(err);
-    process.exit(1);
-  });
-  
+  console.log("########### OCORREU UM ERRO ##########");
+  console.error(err);
+  process.exit(1);
+});
 
-module.exports = server()
+module.exports = server();

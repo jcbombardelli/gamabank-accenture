@@ -1,4 +1,5 @@
 const database = require("../../configs/database");
+const crypto = require("../../helpers/mycrypto");
 
 const findUserByCpf = async (cpf) => {
   const user = await database.execute(
@@ -19,8 +20,10 @@ const findUserById = async (id) => {
 }
 
 const createUser = async (nome, cpf, email, senha, telefone) => {
+  const encrypt = await crypto.encryptPassword(senha, null);
+
   const user = await database.execute(
-    `INSERT INTO usuario (nome, cpf, email, senha, telefone) VALUES ('${nome}', '${cpf}','${email}','${senha}','${telefone}');`
+    `INSERT INTO usuario (nome, cpf, email, senha, telefone, salt) VALUES ('${nome}', '${cpf}','${email}','${encrypt.encryptedPassword}','${telefone}', '${encrypt.salt}');`
   );
 
   console.log(user.insertId);
