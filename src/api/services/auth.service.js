@@ -1,27 +1,70 @@
-const Jwt = require('jsonwebtoken')
-const Config = require('../../Configs/env')
+const JWT = require("jsonwebtoken");
+const userRepository = require("../repositories/user.repository");
+const accountRepository = require("../repositories/conta.repository");
+const bcrypt = require("../../helpers/mycrypto");
 
-const sign = async object => {
+const Boom = require("@hapi/boom");
 
-    const token = Jwt.sign(object, Config.secret, { algorithm: Config.algorithm, expiresIn: Config.token_exp })
+const generate = (userData) =>
+  new Promise((resolve) => {
+    JWT.sign(
+      userData,
+      "keytest",
+      { algorithm: "HS256", expiresIn: 30 },
+      (err, token) => {
+        if (err) {
+          console.error(err);
+          throw new Error("ERR_INVALID_TOKEN");
+        }
 
-    return { auth: true, token }
-}
-const noSign = () =>{
-    return {
-        auth: false,
-        message: 'Failed to autentication username or password'
-    }
-}
+        resolve(token);
+      }
+    );
+  });
 
-const verify = async (token) => {
-    return new Promise((resolve, reject) => {
-        Jwt.verify(token, Config.secret, (err, decoded) => {
+const signIn = async ({ email, senha }) => {
+  const findUser = await userRepository.findUserByEmail(email);
 
-            if(err) reject({ auth: false, message: 'Failed to autentication'})
-            resolve({auth: true, data: decoded })
-        })
-    })
-}
+  if (!findUser) {
+    // erro
+    throw Boom.forbidden("Usuario não encontrado");
+  }
 
-module.exports = { sign, noSign, verify }
+  const passwordIsValid = await bcrypt.comparePassword(
+    senha,
+    findUser.salt,
+    findUser.senha
+  );
+
+  if (!passwordIsValid) {
+    throw Boom.forbidden("Senha incorreta");
+  }
+
+  const userAccount = await accountRepository.findContaByUserId(findUser.id);
+
+  const userData = {
+    userId: findUser.id,
+    accountId: userAccount.id,
+  };
+
+  const token = await generate(userData);
+
+  return {
+    message: "Login efetuado com sucesso",
+    token: token,
+  };
+};
+
+const validate = async (decoded) => {
+  const { userId } = decoded;
+
+  const user = await userRepository.findUserById(userId);
+
+  if (!user) {
+    return { isValid: false };
+  } else {
+    return { isValid: true };
+  }
+};
+
+module.exports = { signIn, validate };
