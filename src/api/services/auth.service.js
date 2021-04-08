@@ -13,7 +13,6 @@ const generate = (userData) =>
       { algorithm: "HS256", expiresIn: 30 },
       (err, token) => {
         if (err) {
-          console.error(err);
           throw new Error("ERR_INVALID_TOKEN");
         }
 

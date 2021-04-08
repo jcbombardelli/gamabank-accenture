@@ -1,13 +1,14 @@
+require("./bootstrap");
 const mysql = require("mysql");
 const Boom = require("@hapi/boom");
-require("dotenv/config");
+const { object } = require("joi");
 
 const connection = mysql.createConnection({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DATABASE,
-  port: process.env.DB_PORT || 3306
+  port: process.env.DB_PORT || 3306,
 });
 
 const execute = (sqlStatement) => {
@@ -22,4 +23,18 @@ const execute = (sqlStatement) => {
   });
 };
 
-module.exports = { execute };
+const rollback = async () => {
+  const object = [
+    "usuario",
+    "conta",
+    "credito",
+    "fatura",
+    "lancamentos",
+    "transacoescredito",
+  ];
+  for (const value of object) {
+    await execute(`DELETE FROM ${process.env.DB_DATABASE}.${value}`);
+  }
+};
+
+module.exports = { rollback, execute };
