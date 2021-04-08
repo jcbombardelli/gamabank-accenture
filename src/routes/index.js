@@ -69,7 +69,7 @@ const makeDeposit = {
     options: {
       tags: ['api', 'deposit'],
       description: 'Rota para realizar deposito em conta debito',
-      notes: "Obs: Em primeiro plano, so o dono da conta pode fazer deposito, logo, precisa informar cpf do usuario",
+      notes: "Obs: Qualquer pessoa com o email do dono da conta pode depositar",
       validate: {
         headers: DepositHeaderDTO,
         payload: DepositUserRequestDTO

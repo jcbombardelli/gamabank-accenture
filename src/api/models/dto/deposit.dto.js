@@ -4,7 +4,7 @@ const DepositUserRequestDTO = Joi.object({
 
     cpf: Joi.string().required(),
     value: Joi.string().required(),
-    codeBank: Joi.string.required(),
+    email: Joi.string.required(),
 
 }).label("DepositUserResponseDTO");
 

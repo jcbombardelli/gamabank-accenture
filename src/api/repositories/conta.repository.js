@@ -9,9 +9,9 @@ const findContaByUserId = async (idUsuario) => {
   return user[0];
 };
 
-const findContaByCpf = async (cpfUsuario) => {
+const findAccountByEmail = async (email) => {
   const user = await database.execute(
-    `SELECT * FROM usuario WHERE email='${cpfUsuario}'`
+    `SELECT * FROM usuario WHERE email='${email}'`
   );
 
   return user[0];
@@ -36,4 +36,4 @@ const updateBalanceAccount = async (id, valor) => {
   return balance
 }
 
-module.exports = { createConta, findContaByUserId, findContaByCpf, updateBalanceAccount};
+module.exports = { createConta, findContaByUserId, findAccountByEmail, updateBalanceAccount};

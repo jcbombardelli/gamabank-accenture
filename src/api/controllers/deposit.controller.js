@@ -5,17 +5,19 @@ const depositService = require('../services/deposit.service')
 
 const deposit = async (request, h) => {
 
-    const { cpf, value, codebank } = request.payload;
+    const { cpf, value, email} = request.payload;
     const { token } = request.headers;
 
     try {
-      if(!cpf || !codebank || !value){
+      if(!cpf || !value){
+
         const updateBalance = await depositService.uptadeBalance(
           cpf,
-          value
-       )
-       return uptadeBalance;
+          value 
+        )
+        return updateBalance;
       }
+
     } catch (error) {
       console.log(error)
       if(error.message == 'CPF inválido'){
