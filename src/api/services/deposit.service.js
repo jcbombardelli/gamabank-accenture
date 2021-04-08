@@ -1,19 +1,34 @@
 const contaRepository = require("../repositories/conta.repository");
-const lancamentoRepository = require("../repositories/launch.repository");
-const validarCPF = require("validar-cpf");
+const launchRepository = require("../repositories/launch.repository");
+const validarCPF = require("../../helpers/cpf.helper");
 const validarEmail = require("email-validator");
+const userRepository = require("../repositories/user.repository");
 
 
-const updateBalance = async (cpf, email, value) => {
 
-  const findAccount = await contaRepository.findAccountByEmail(email);
+const updateBalance = async (userId, cpf, email, value) => {
+
+  const findAccount = await contaRepository.findContaByUserId(userId);
   const valueAdd = parseFloat(value);
 
   if(findAccount === undefined){
-    throw new Error('Não existe correntista cadastrado com esse email');
+
+    throw new Error('Id inválido. Nao existe correntista com esse Id');
+
   }
 
-  if(value <= 0) {
+  if(!(validarEmail.validate(email))) {
+
+    throw new Error('EMAIL inválido');
+  }
+  
+  const emailUser = findAccount.email;
+
+  if(!(emailUser === email)) {
+    throw new Error('Nao existe conta vinculada a esse email')
+  }
+
+  if(valueAdd <= 0) {
     throw new Error('Valor não pode ser depositado');
   }
   
@@ -22,25 +37,19 @@ const updateBalance = async (cpf, email, value) => {
      throw new Error('CPF inválido');
   }
 
-  if(!(validarEmail.validate(email))) {
-
-    throw new Error('EMAIL inválido');
-  }
-
-  await lancamentoRepository.createNewLaunchDebit(cpf, parseFloat(value));
+  await launchRepository.createNewLaunchDebit(cpf, valueAdd);
 
   const atualBalance = findAccount.saldo;
 
-  let valueForDepit = parseFloat(atualBalance) + valueAdd;
+  let valueAfterDepit = parseFloat(atualBalance) + valueAdd;
   
-  await contaRepository.updateBalance(findAccount.id, valueForDepit);
+  await contaRepository.updateBalance(userId, valueAfterDepit);
   
   return {
 
     message: "Depósito realizado com sucesso"
   
   };
-
 
 }
 module.exports = { updateBalance };
