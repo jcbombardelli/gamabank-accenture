@@ -10,7 +10,7 @@ const generate = (userData) =>
     JWT.sign(
       userData,
       "keytest",
-      { algorithm: "HS256", expiresIn: 30 },
+      { algorithm: "HS256", expiresIn: 500 },
       (err, token) => {
         if (err) {
           console.error(err);

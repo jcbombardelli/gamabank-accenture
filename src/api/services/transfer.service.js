@@ -40,44 +40,47 @@ const transferIntern = async (id, email, valor) => {
   
   await contaRepository.alterSaldoConta(saldoContaDestiny.id, valorCredit);
 
-  //await sendMessage(userAccount.email, `Transferência para ${email}, R$ ${valor}`);
+  await sendMessage(userAccount.email, `Transferência para ${email}, R$ ${valor}`);
   
-  return {message: 'Transferência realizada com sucesso'};
+  return 'Transferência realizada com sucesso';
     
 };
   
 const transferExtern = async (id, codigoBanco, cpf, valor) => {
     
-    const verifySaldo = await contaRepository.findContaByUserId(id);
-    const valorC = parseFloat(valor);
-    
-    const cpfV = await validarCPF(cpf);
+  
+  const cpfV = await validarCPF(cpf);
+  
+  if(cpfV == false){
+    return Boom.badRequest('CPF inválido');
+  };
 
-    if(cpfV == false){
-      return Boom.badRequest('CPF inválido');
-    };
+  
+  const verifyCodBanco = await validCodBank(codigoBanco);
+  
+  if(verifyCodBanco == false){
+    return Boom.badRequest('Código do banco inválido');
+  };
+  
+  const verifySaldo = await contaRepository.findContaByUserId(id);
+  
+  let valorC = parseFloat(valor);
 
-    if(verifySaldo.saldo < valorC){
-      return Boom.unauthorized('Saldo insuficiente');
-    };
+  if(verifySaldo.saldo < valorC){
+    return Boom.unauthorized('Saldo insuficiente');
+  };
 
-    const verifyCodBanco = await validCodBank(codigoBanco);
+  await lancamentoRepository.register(id, `Transferência para ${verifyCodBanco.label}`, valorC);
 
-    if(verifyCodBanco == false){
-      return Boom.badRequest('Código do banco inválido');
-    };
+  const userAccount = await userRepository.findUserById(id);
 
-    await lancamentoRepository.register(id, `Transferência para ${verifyCodBanco.label}`, valorC);
+  let valorDebit = verifySaldo.saldo - valorC;
 
-    const userAccount = await userRepository.findUserById(id);
+  await contaRepository.alterSaldoConta(id, valorDebit);
+  
+  await sendMessage(userAccount.email, `Transferência para o CPF ${cpf} no valor de R$ ${valor}`);
 
-    let valorDebit = parseFloat(verifySaldo.saldo) - valorC;
-
-    await contaRepository.alterSaldoConta(id, valorDebit);
-
-    //await sendMessage(userAccount.email, `Transferência para o CPF ${cpf} no valor de R$ ${valor}`);
-
-    return {message: 'Transferência realizada com sucesso'};
+  return 'Transferência realizada com sucesso';
 
 };
   

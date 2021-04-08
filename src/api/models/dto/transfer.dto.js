@@ -1,7 +1,7 @@
 const Joi = require("joi");
 
 const TransferBankHeaderDTO = Joi.object().keys({
-    'token': Joi.string().required()
+    'Authorization': Joi.string()
 }).options({ allowUnknown: true })
 
 const TransferBankRequestDTO = Joi.object({
@@ -12,9 +12,7 @@ const TransferBankRequestDTO = Joi.object({
 
 }).label("TransferBankRequestDTO");
 
-const TransferBankResponseDTO = Joi.object({
-    message: Joi.string()
-}).label("TransferBankResponseDTO");
+const TransferBankResponseDTO = Joi.string().label("TransferBankResponseDTO");
 
 module.exports = {
     TransferBankHeaderDTO,

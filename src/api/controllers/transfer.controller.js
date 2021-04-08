@@ -1,15 +1,17 @@
 const transferService = require("../services/transfer.service");
 
 const banktransfer = async (request, h) => {
-    const  { token } = request.headers;
+    const { userId } = await request.auth.credentials;
+    
+
     const { email, cpf, codigoBanco, valor } = request.payload;
 
     if(!cpf || !codigoBanco){
-        const bankTransferIntern = await transferService.transferIntern(1, email, valor);
+        const bankTransferIntern = await transferService.transferIntern(userId, email, valor);
         return bankTransferIntern
       }
     
-      const bankTransferExtern = await transferService.transferExtern(1, codigoBanco, cpf, valor);
+      const bankTransferExtern = await transferService.transferExtern(userId, codigoBanco, cpf, valor);
       return bankTransferExtern
 }
 

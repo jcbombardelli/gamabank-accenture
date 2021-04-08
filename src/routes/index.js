@@ -116,12 +116,13 @@ const createUser = {
 
 const bankTransfer = {
   method: "POST",
-  path: "/banktransfer",
+  path: "/transfer",
   handler: bankTransferController.banktransfer,
   options: {
+    auth: "jwt",
     tags: ["api", "transferencia"],
     description: "Rota para realizar transferência",
-    notes: "Obs: CPF e código do banco só é obrigatório para transferência para outros bancos",
+    notes: "É possível fazer transferência para correntistas do Gamabank ou correntistas de outro banco, para correntistas do mesmo banco basta informar o e-mail e valor, correntistas de outro banco basta informar um CPF válido, código do banco e valor.",
     validate: {
       headers: TransferBankHeaderDTO,
       payload: TransferBankRequestDTO

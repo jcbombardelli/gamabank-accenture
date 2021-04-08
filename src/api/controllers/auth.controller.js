@@ -8,13 +8,6 @@ const login = async (request, h) => {
   return login;
 };
 
-<<<<<<< HEAD
-
 module.exports = {
   login,
-  register
-=======
-module.exports = {
-  login,
->>>>>>> development
 };
