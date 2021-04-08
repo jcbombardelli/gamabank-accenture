@@ -1,35 +1,24 @@
-const jwt = require('jsonwebtoken')
-const config = require('../../configs/env')
-
+const Jwt = require('jsonwebtoken')
+const Config = require('../../Configs/env')
 
 const sign = async object => {
-    console.log(`config.secret ${config.secret}`)
-    const token = jwt.sign(object, config.secret, { algorithm: 'HS256', expiresIn: 300 })
-    process.env.LOGGED = "true"
-    return {
-        auth: true,
-        token
-    }
+
+    const token = Jwt.sign(object, Config.secret, { algorithm: Config.algorithm, expiresIn: Config.token_exp })
+
+    return { auth: true, token }
 }
-const noSign = async () =>{
+const noSign = () =>{
     return {
         auth: false,
-        token: ''
+        message: 'Failed to autentication username or password'
     }
 }
 
 const verify = async (token) => {
-
-    // jwt.verify(token, config.secret, (err, decoded) => {
-    //     if(err) return { auth: false, message: 'Failed to authenticated'}
-    //     return { auth: true, data: decoded}
-    // })
-
     return new Promise((resolve, reject) => {
+        Jwt.verify(token, Config.secret, (err, decoded) => {
 
-        jwt.verify(token, config.secret, (err, decoded) => {
-            if(err) reject({ auth: false, message: 'Failed to authenticated'})
-    
+            if(err) reject({ auth: false, message: 'Failed to autentication'})
             resolve({auth: true, data: decoded })
         })
     })

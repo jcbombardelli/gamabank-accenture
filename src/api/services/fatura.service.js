@@ -19,4 +19,11 @@ const createFatura = async (idConta) => {
   };
 };
 
-module.exports = { createFatura };
+const getOpenInvoice = async () => {
+  // const findFatura = await faturaRepository.findFaturaAbertaByIdConta(23);
+  // // caso exista retorno a fatura e retorno
+  // console.log(findFatura);
+  // return findFatura;
+};
+
+module.exports = { createFatura, getOpenInvoice };

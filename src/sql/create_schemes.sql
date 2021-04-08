@@ -30,6 +30,8 @@ CREATE TABLE IF NOT EXISTS `gamabank`.`usuario` (
   `telefone` VARCHAR(15) NULL DEFAULT NULL,
   `email` VARCHAR(100) NULL DEFAULT NULL,
   `senha` VARCHAR(255) NULL DEFAULT NULL,
+  `salt` INT(3) NULL DEFAULT NULL,
+  `criado_em` DATETIME NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `cpf` (`cpf` ASC),
   UNIQUE INDEX `email` (`email` ASC),

@@ -4,10 +4,13 @@ const depositController = require('../api/controllers/deposit.controller')
 const { rootHandler, statusHandler } = require("../api/controllers/app.controller");
 const authController = require("../api/controllers/auth.controller");
 const userController = require("../api/controllers/user.controller");
+const faturaService = require("../api/services/fatura.service");
 
 const {
   LoginRequestDTO,
-  LoginResponseDTO,
+  LoginResponseSuccessDTO,
+  LoginResponseErrorUnauthorizedDTO,
+  LoginResponseErrorBadDTO
 } = require("../api/models/dto/auth.dto");
 const Joi = require("joi");
 
@@ -19,6 +22,9 @@ const {
 } = require("../api/models/dto/deposit.dto");
 
 const { CreateUserDTO } = require("../api/models/dto/user.dto");
+  CreateUserDTO,
+  CreateUserResponseDTO,
+} = require("../api/models/dto/user.dto");
 
 const root = {
   method: "GET",
@@ -55,8 +61,9 @@ const login = {
     },
     response: {
       status: {
-        200: LoginResponseDTO,
-        400: Joi.any(),
+        200: LoginResponseSuccessDTO,
+        400: Joi.any(),//LoginResponseErrorBadDTO
+        401: LoginResponseErrorUnauthorizedDTO
       },
     },
   },
@@ -86,6 +93,17 @@ const makeDeposit = {
     },
   };
   
+const getOpenInvoices = {
+  method: "GET",
+  path: "/invoice",
+  handler: faturaService.getOpenInvoice,
+  options: {
+    tags: ["api", "batata"],
+    description: "Verificação do status da aplicação",
+    notes: "Pode ser utilizado sempre que outra aplicação estiver monitorando",
+  },
+};
+
 const createUser = {
   method: "POST",
   path: "/user",
@@ -96,6 +114,12 @@ const createUser = {
     validate: {
       payload: CreateUserDTO,
     },
+    response: {
+      status: {
+        200: CreateUserResponseDTO,
+        400: Joi.any(),
+      },
+    },
   },
 };
 
@@ -104,6 +128,7 @@ module.exports = [
   status, 
   login,
   createUser,
-  makeDeposit
+  makeDeposit,
+  getOpenInvoices
   //validate
 ];
