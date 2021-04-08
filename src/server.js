@@ -5,8 +5,8 @@ const routes = require("./routes");
 
 const server = async () => {
   const hapiServer = Hapi.Server({
-    host: process.env.SERVER_HOST || "localhost",
-    port: process.env.SERVER_PORT || 3000,
+    host: process.env.HOST || "localhost",
+    port: process.env.PORT || 3000,
   });
 
   await hapiServer.register(swagger);
