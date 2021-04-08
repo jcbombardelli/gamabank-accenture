@@ -20,4 +20,11 @@ const createConta = async (idUsuario) => {
   return { id: create.insertId };
 };
 
-module.exports = { createConta, findContaByUserId };
+// atualiza o saldo da conta
+const updateBalanceAccount = async (id, value) => {
+  const balance = await database.execute(
+    `UPDATE conta SET saldo = ${value} WHERE idUsuario = '${id}'`
+  )
+  return balance
+}
+module.exports = { createConta, findContaByUserId, updateBalanceAccount };

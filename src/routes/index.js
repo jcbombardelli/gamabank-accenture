@@ -12,6 +12,13 @@ const {
   LoginResponseErrorUnauthorizedDTO,
   LoginResponseErrorBadDTO
 } = require("../api/models/dto/auth.dto");
+
+const {
+  BuyDebitRequestDTO,
+  BuyDebitHeaderDTO,
+  BuyDebitResponseDTO
+} = require("../api/models/dto/pay.dto");
+
 const Joi = require("joi");
 
 const {
@@ -106,6 +113,29 @@ const createUser = {
   },
 };
 
+const payDebit = {
+  method: "PUT",
+  path: "/pay/deposit",
+  handler: bankTransferController.banktransfer,
+  options: {
+    tags: ["api", "debito", "pagamento"],
+    description: "Rota para realizar pagamento com débito",
+    notes: "Obs: CPF é obrigatorio para executar com sucesso",
+    validate: {
+      headers: BuyDebitHeaderDTO,
+      payload: BuyDebitRequestDTO
+    },
+    response: {
+      status: {
+        200: BuyDebitResponseDTO,
+        400: Joi.any(),
+        401: Joi.any(),
+        503: Joi.any()
+      }
+    }
+  }
+};
+
 module.exports = [
   root,
   status,
@@ -113,5 +143,6 @@ module.exports = [
   createUser,
   getOpenInvoices,
   status2,
+  payDebit
   //validate
 ];
