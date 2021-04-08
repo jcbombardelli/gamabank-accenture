@@ -2,7 +2,6 @@ const { rootController, statusController } = require('../api/controllers/app.con
 const authController = require('../api/controllers/auth.controller')
 const depositController = require('../api/controllers/deposit.controller')
 const { rootHandler, statusHandler } = require("../api/controllers/app.controller");
-const authController = require("../api/controllers/auth.controller");
 const userController = require("../api/controllers/user.controller");
 const faturaService = require("../api/services/fatura.service");
 
@@ -105,6 +104,7 @@ const makeDepositAsHolder = {
       validate: {
         
         payload: DepositUserRequestDTO
+
       },
       response: {
         status: {
