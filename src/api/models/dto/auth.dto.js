@@ -12,21 +12,13 @@ const LoginResponseSuccessDTO = joi.object({
 }).label('LoginResponseSuccessDTO')
 
 //Tentativa de login não autorizada com username ou pass incorreto
-//Utilização de token inválido ou vencido
-const LoginResponseErrorUnauthorizedDTO = joi.object({
+const LoginResponseErrorDTO = joi.object({
     message: joi.string().allow('Failed to autentication username or password', 'Failed to autentication'),
     auth: joi.boolean().default(false)
 }).label('LoginResponseErrorDTO')
 
-const LoginResponseErrorBadDTO = joi.object({
-    message: joi.string().default('Invalid request'),
-    auth: joi.boolean().default(false)
-}).label('LoginResponseErrorDTO')
-
-
 module.exports = {
     LoginRequestDTO,
     LoginResponseSuccessDTO,
-    LoginResponseErrorUnauthorizedDTO,
-    LoginResponseErrorBadDTO
+    LoginResponseErrorDTO
 }

@@ -1,3 +1,5 @@
+const Joi = require("joi");
+
 const {
   rootHandler,
   statusHandler,
@@ -9,10 +11,9 @@ const faturaService = require("../api/services/fatura.service");
 const {
   LoginRequestDTO,
   LoginResponseSuccessDTO,
-  LoginResponseErrorUnauthorizedDTO,
-  LoginResponseErrorBadDTO
+  LoginResponseErrorDTO
 } = require("../api/models/dto/auth.dto");
-const Joi = require("joi");
+
 
 const {
   CreateUserDTO,
@@ -41,17 +42,6 @@ const status = {
   },
 };
 
-// const login = {
-//   method: "POST",
-//   path: "/login",
-//   handler: authController.login2,
-//   options: {
-//     tags: ["api"],
-//     description: "Verificação do status da aplicação",
-//     notes: "Pode ser utilizado sempre que outra aplicação estiver monitorando",
-//   },
-// };
-
 const status2 = {
   method: "GET",
   path: "/hola",
@@ -73,6 +63,16 @@ const login = {
     tags: ["api", "login"],
     description: "Rota de autenticação",
     notes: "Anotações da rota...",
+    validate: {
+      payload: LoginRequestDTO,
+    },
+    response: {
+      status: {
+        200: LoginResponseSuccessDTO,
+        401: LoginResponseErrorDTO,
+        400: Joi.any(),
+      },
+    },
   },
 };
 
