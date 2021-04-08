@@ -34,7 +34,6 @@ const transferIntern = async (id, email, valor) => {
   
   let valorDebit = parseFloat(verifySaldo.saldo) - valorC;
   let valorCredit = parseFloat(saldoContaDestiny.saldo) + valorC;
-    
   
   await contaRepository.alterSaldoConta(id, valorDebit);
   
@@ -70,7 +69,7 @@ const transferExtern = async (id, codigoBanco, cpf, valor) => {
     return Boom.unauthorized('Saldo insuficiente');
   };
 
-  await lancamentoRepository.register(id, `Transferência para ${verifyCodBanco.label}`, valorC);
+  await lancamentoRepository.register(id, `Transferência para ${verifyCodBanco.label} CPF ${cpf}`, valorC);
 
   const userAccount = await userRepository.findUserById(id);
 

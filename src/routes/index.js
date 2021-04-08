@@ -4,7 +4,7 @@ const {
 } = require("../api/controllers/app.controller");
 const authController = require("../api/controllers/auth.controller");
 const userController = require("../api/controllers/user.controller");
-const bankTransferController = require("../api/controllers/transfer.controller");
+const transferController = require("../api/controllers/transfer.controller");
 const faturaService = require("../api/services/fatura.service");
 
 const {
@@ -15,9 +15,8 @@ const {
 } = require("../api/models/dto/auth.dto");
 
 const {
-  TransferBankHeaderDTO,
-  TransferBankRequestDTO,
-  TransferBankResponseDTO
+  TransferRequestDTO,
+  TransferResponseDTO
 } = require("../api/models/dto/transfer.dto");
 
 const Joi = require("joi");
@@ -48,17 +47,6 @@ const status = {
     notes: "Pode ser utilizado sempre que outra aplicação estiver monitorando",
   },
 };
-
-// const login = {
-//   method: "POST",
-//   path: "/login",
-//   handler: authController.login2,
-//   options: {
-//     tags: ["api"],
-//     description: "Verificação do status da aplicação",
-//     notes: "Pode ser utilizado sempre que outra aplicação estiver monitorando",
-//   },
-// };
 
 const status2 = {
   method: "GET",
@@ -114,22 +102,22 @@ const createUser = {
   },
 };
 
-const bankTransfer = {
+const Transfer = {
   method: "POST",
   path: "/transfer",
-  handler: bankTransferController.banktransfer,
+  handler: transferController.transfer,
   options: {
     auth: "jwt",
-    tags: ["api", "transferencia"],
+    tags: ["api", "transfer"],
     description: "Rota para realizar transferência",
     notes: "É possível fazer transferência para correntistas do Gamabank ou correntistas de outro banco, para correntistas do mesmo banco basta informar o e-mail e valor, correntistas de outro banco basta informar um CPF válido, código do banco e valor.",
     validate: {
-      headers: TransferBankHeaderDTO,
-      payload: TransferBankRequestDTO
+      headers: Joi.object({'authorization': Joi.string().required()}).unknown(),    
+      payload: TransferRequestDTO
     },
     response: {
       status: {
-        200: TransferBankResponseDTO,
+        200: TransferResponseDTO,
         400: Joi.any(),
         401: Joi.any(),
         503: Joi.any()
@@ -143,7 +131,7 @@ module.exports = [
   status,
   login,
   createUser,
-  bankTransfer,
+  Transfer,
   getOpenInvoices,
   status2,
 ];

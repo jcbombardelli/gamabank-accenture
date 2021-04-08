@@ -7,7 +7,7 @@ describe('Validar o service de transferencia', async() => {
 
         it('Deve retornar transferencia realizada com sucesso', async () => {
             const transfer = await transferIntern(2, 'bruno_agst@hotmail.com', 50);
-            assert.isObject(transfer, {message: 'Transferência realizada com sucesso'});
+            assert.equal(transfer, 'Transferência realizada com sucesso');
         });
 
         it('Deve retornar transferencia invalida', async () => {
@@ -30,7 +30,7 @@ describe('Validar o service de transferencia', async() => {
 
         it('Transferencia realizada com sucesso', async () => {
             const transfer = await transferExtern(1, "104", "73761560036", 200);
-            assert.isObject(transfer, {message: 'Transferência realizada com sucesso'});
+            assert.equal(transfer, 'Transferência realizada com sucesso');
         });
 
         it('Deve retornar CPF inválido', async () => {
