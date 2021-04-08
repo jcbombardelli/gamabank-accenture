@@ -10,6 +10,21 @@ const findUserByCpf = async (cpf) => {
   return user[0];
 };
 
+const findUserById = async (id) => {
+  const user = await database.execute(`SELECT * FROM usuario WHERE id='${id}'`);
+
+  // retorna primeiro registro encontrado
+  return user[0];
+};
+
+const findUserByEmail = async (email) => {
+  const user = await database.execute(
+    `SELECT * FROM usuario WHERE email='${email}'`
+  );
+
+  return user[0];
+};
+
 const createUser = async (nome, cpf, email, senha, telefone) => {
   const encrypt = await crypto.encryptPassword(senha, null);
 
@@ -23,4 +38,4 @@ const createUser = async (nome, cpf, email, senha, telefone) => {
   return { id: user.insertId };
 };
 
-module.exports = { findUserByCpf, createUser };
+module.exports = { findUserByCpf, createUser, findUserByEmail, findUserById };

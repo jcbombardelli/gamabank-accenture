@@ -1,12 +1,12 @@
 const database = require("../../configs/database");
 
 const findContaByUserId = async (idUsuario) => {
-  const user = database.execute(
+  const account = await database.execute(
     `SELECT * FROM conta WHERE idUsuario='${idUsuario}'`
   );
 
   // retorna o primeiro usuario encontrado
-  return user[0];
+  return account[0];
 };
 
 const createConta = async (idUsuario) => {

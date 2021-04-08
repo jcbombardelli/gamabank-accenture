@@ -1,4 +1,7 @@
-const { rootHandler, statusHandler } = require("../api/controllers/app.controller");
+const {
+  rootHandler,
+  statusHandler,
+} = require("../api/controllers/app.controller");
 const authController = require("../api/controllers/auth.controller");
 const userController = require("../api/controllers/user.controller");
 const faturaService = require("../api/services/fatura.service");
@@ -36,6 +39,30 @@ const status = {
   },
 };
 
+// const login = {
+//   method: "POST",
+//   path: "/login",
+//   handler: authController.login2,
+//   options: {
+//     tags: ["api"],
+//     description: "Verificação do status da aplicação",
+//     notes: "Pode ser utilizado sempre que outra aplicação estiver monitorando",
+//   },
+// };
+
+const status2 = {
+  method: "GET",
+  path: "/hola",
+
+  handler: statusHandler,
+  options: {
+    auth: "jwt",
+    tags: ["api"],
+    description: "Verificação do status da aplicação",
+    notes: "Pode ser utilizado sempre que outra aplicação estiver monitorando",
+  },
+};
+
 const login = {
   method: "POST",
   path: "/login",
@@ -44,15 +71,6 @@ const login = {
     tags: ["api", "login"],
     description: "Rota de autenticação",
     notes: "Anotações da rota...",
-    validate: {
-      payload: LoginRequestDTO,
-    },
-    response: {
-      status: {
-        200: LoginResponseDTO,
-        400: Joi.any(),
-      },
-    },
   },
 };
 
@@ -88,9 +106,10 @@ const createUser = {
 
 module.exports = [
   root,
-  status, 
+  status,
   login,
   createUser,
   getOpenInvoices,
+  status2,
   //validate
 ];

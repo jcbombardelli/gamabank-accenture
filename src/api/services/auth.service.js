@@ -1,38 +1,73 @@
-const jwt = require('jsonwebtoken')
-const config = require('../../configs/env')
+const JWT = require("jsonwebtoken");
+const config = require("../../configs/env");
+const userRepository = require("../repositories/user.repository");
+const accountRepository = require("../repositories/conta.repository");
+const bcrypt = require("../../helpers/mycrypto");
 
+const Boom = require("@hapi/boom");
 
-const sign = async object => {
-    console.log(`config.secret ${config.secret}`)
-    const token = jwt.sign(object, config.secret, { algorithm: 'HS256', expiresIn: 300 })
-    process.env.LOGGED = "true"
-    return {
-        auth: true,
-        token
-    }
-}
-const noSign = async () =>{
-    return {
-        auth: false,
-        token: ''
-    }
-}
+const generate = (userData) =>
+  new Promise((resolve) => {
+    JWT.sign(
+      userData,
+      "keytest",
+      { algorithm: "HS256", expiresIn: 30 },
+      (err, token) => {
+        if (err) {
+          console.error(err);
+          throw new Error("ERR_INVALID_TOKEN");
+        }
 
-const verify = async (token) => {
+        resolve(token);
+      }
+    );
+  });
 
-    // jwt.verify(token, config.secret, (err, decoded) => {
-    //     if(err) return { auth: false, message: 'Failed to authenticated'}
-    //     return { auth: true, data: decoded}
-    // })
+const signIn = async ({ email, senha }) => {
+  const findUser = await userRepository.findUserByEmail(email);
 
-    return new Promise((resolve, reject) => {
+  if (!findUser) {
+    // erro
+    throw Boom.forbidden("Usuario não encontrado");
+  }
 
-        jwt.verify(token, config.secret, (err, decoded) => {
-            if(err) reject({ auth: false, message: 'Failed to authenticated'})
-    
-            resolve({auth: true, data: decoded })
-        })
-    })
-}
+  const passwordIsValid = await bcrypt.comparePassword(
+    senha,
+    findUser.salt,
+    findUser.senha
+  );
 
-module.exports = { sign, noSign, verify }
+  if (!passwordIsValid) {
+    throw Boom.forbidden("Senha incorreta");
+  }
+
+  const userAccount = await accountRepository.findContaByUserId(findUser.id);
+
+  const userData = {
+    userId: findUser.id,
+    accountId: userAccount.id,
+  };
+
+  const token = await generate(userData);
+
+  return {
+    message: "Login efetuado com sucesso",
+    token: token,
+  };
+};
+
+const validate = async (decoded) => {
+  const { userId } = decoded;
+
+  console.log(decoded);
+
+  const user = await userRepository.findUserById(userId);
+
+  if (!user) {
+    return { isValid: false };
+  } else {
+    return { isValid: true };
+  }
+};
+
+module.exports = { signIn, validate };
