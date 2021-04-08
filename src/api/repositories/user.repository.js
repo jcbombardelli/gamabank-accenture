@@ -19,6 +19,14 @@ const findUserById = async (id) => {
   return user[0];
 }
 
+const findUserByEmail = async (email) => {
+  const user = await database.execute(
+    `SELECT * FROM usuario WHERE email='${email}'`
+  );
+
+  return user[0];
+};
+
 const createUser = async (nome, cpf, email, senha, telefone) => {
   const encrypt = await crypto.encryptPassword(senha, null);
 
@@ -26,10 +34,8 @@ const createUser = async (nome, cpf, email, senha, telefone) => {
     `INSERT INTO usuario (nome, cpf, email, senha, telefone, salt) VALUES ('${nome}', '${cpf}','${email}','${encrypt.encryptedPassword}','${telefone}', '${encrypt.salt}');`
   );
 
-  console.log(user.insertId);
-
   // retorna id do registro criado
   return { id: user.insertId };
 };
 
-module.exports = { findUserByCpf, createUser, findUserById };
+module.exports = { findUserByCpf, createUser, findUserByEmail, findUserById };
