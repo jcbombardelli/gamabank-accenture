@@ -68,13 +68,40 @@ const login = {
   },
 };
 
-const makeDeposit = {
+const makeDepositAsHolder = {
     method: 'PUT',
-    path: '/deposit',
+    path: '/deposit/1',
     handler: depositController.deposit,
     options: {
-      tags: ['api', 'deposit'],
-      description: 'Rota para realizar deposito em conta debito',
+      auth: "jwt",
+      tags: ['api', 'depósito'],
+      description: 'Rota para o dono da conta realizar depósito em conta debito',
+      notes: "Obs: So a pessoa dono da conta pode depositar",
+      validate: {
+
+        payload: DepositUserRequestDTO
+
+      },
+      response: {
+        status: {
+          200: DepositResponseDTO,
+          404: Joi.any(),
+          401: Joi.any(),
+          503: Joi.any()
+
+        }
+      },
+    },
+  };
+
+  const makeDepositAsNotHolder = {
+    method: 'PUT',
+    path: '/deposit/2',
+    handler: depositController.deposit,
+    options: {
+      auth: "jwt",
+      tags: ['api', 'depósito'],
+      description: 'Rota para qualquer pessoa realizar depósito em conta debito',
       notes: "Obs: Qualquer pessoa com o email do dono da conta pode depositar",
       validate: {
         headers: DepositHeaderDTO,
@@ -127,7 +154,8 @@ module.exports = [
   status, 
   login,
   createUser,
-  makeDeposit,
+  makeDepositAsHolder,
+  makeDepositAsNotHolder,
   getOpenInvoices
   //validate
 ];
