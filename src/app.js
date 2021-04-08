@@ -1,7 +1,9 @@
-console.log(`Execução em ambiente de ${process.env.NODE_ENV}`);
+const config = require('./configs/env')
+
+console.log(`Execução em ambiente de ${config.env}`);
 
 const server = require("./server");
 server.then((hapi) => {
-  console.log(`Hapi Server on`);
-  hapi.start();
+    console.log(`NoDesign Server Api on ${config.host}${config.port}`);
+    hapi.start();
 });
