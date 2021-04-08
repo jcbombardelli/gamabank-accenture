@@ -22,7 +22,7 @@ const generate = (userData) =>
     );
   });
 
-const signIn = async ({ email, senha }) => {
+const signIn = async ({email, senha}) => {
   const findUser = await userRepository.findUserByEmail(email);
 
   if (!findUser) {

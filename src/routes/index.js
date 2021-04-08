@@ -1,3 +1,5 @@
+const Joi = require("joi");
+
 const {
   rootHandler,
   statusHandler,
@@ -10,16 +12,13 @@ const faturaService = require("../api/services/fatura.service");
 const {
   LoginRequestDTO,
   LoginResponseSuccessDTO,
-  LoginResponseErrorUnauthorizedDTO,
-  LoginResponseErrorBadDTO
+  LoginResponseErrorDTO
 } = require("../api/models/dto/auth.dto");
 
 const {
   TransferRequestDTO,
   TransferResponseDTO
 } = require("../api/models/dto/transfer.dto");
-
-const Joi = require("joi");
 
 const {
   CreateUserDTO,
@@ -69,6 +68,16 @@ const login = {
     tags: ["api", "login"],
     description: "Rota de autenticação",
     notes: "Anotações da rota...",
+    validate: {
+      payload: LoginRequestDTO,
+    },
+    response: {
+      status: {
+        //200: LoginResponseSuccessDTO,
+        //401: LoginResponseErrorDTO,
+        400: Joi.any(),
+      },
+    },
   },
 };
 
