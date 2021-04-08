@@ -27,20 +27,14 @@
     "bcrypt": "^5.0.1",
     "cpf": "^2.0.1",
     "dotenv": "^8.2.0",
-<<<<<<< HEAD
     "email-validator": "^2.0.4",
-=======
     "hapi-auth-jwt2": "^10.2.0",
->>>>>>> 0317feb05f58ae4f9b54bdaf4b8a5c5f2941134c
     "hapi-swagger": "^14.1.0",
     "http-status-codes": "^2.1.4",
     "joi": "^17.4.0",
     "jsonwebtoken": "^8.5.1",
     "mysql": "^2.18.1",
-<<<<<<< HEAD
-=======
     "nodemailer": "^6.5.0",
->>>>>>> 0317feb05f58ae4f9b54bdaf4b8a5c5f2941134c
     "validar-cpf": "^2.1.2"
   },
   "devDependencies": {
