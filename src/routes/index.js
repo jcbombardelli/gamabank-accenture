@@ -78,7 +78,7 @@ const makeDepositAsHolder = {
       description: 'Rota para o dono da conta realizar depósito em conta debito',
       notes: "Obs: So a pessoa dono da conta pode depositar",
       validate: {
-
+        headers: DepositHeaderDTO,
         payload: DepositUserRequestDTO
 
       },
@@ -99,12 +99,11 @@ const makeDepositAsHolder = {
     path: '/deposit/2',
     handler: depositController.deposit,
     options: {
-      auth: "jwt",
       tags: ['api', 'depósito'],
       description: 'Rota para qualquer pessoa realizar depósito em conta debito',
       notes: "Obs: Qualquer pessoa com o email do dono da conta pode depositar",
       validate: {
-        headers: DepositHeaderDTO,
+        
         payload: DepositUserRequestDTO
       },
       response: {
