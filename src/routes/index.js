@@ -18,10 +18,9 @@ const {
   DepositUserRequestDTO,
   DepositHeaderDTO,
   DepositResponseDTO,
-  DepositResponseErrorDTO
 } = require("../api/models/dto/deposit.dto");
 
-const { CreateUserDTO } = require("../api/models/dto/user.dto");
+const {
   CreateUserDTO,
   CreateUserResponseDTO,
 } = require("../api/models/dto/user.dto");
