@@ -27,6 +27,7 @@
     "bcrypt": "^5.0.1",
     "cpf": "^2.0.1",
     "dotenv": "^8.2.0",
+    "hapi-auth-jwt2": "^10.2.0",
     "hapi-swagger": "^14.1.0",
     "http-status-codes": "^2.1.4",
     "joi": "^17.4.0",

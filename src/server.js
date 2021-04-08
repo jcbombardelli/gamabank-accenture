@@ -2,6 +2,9 @@ const Hapi = require("@hapi/hapi");
 
 const swagger = require("./configs/swagger");
 const routes = require("./routes");
+const jwtStrategy = require("./configs/jwtStrategy");
+
+
 
 const server = async () => {
   const hapiServer = Hapi.Server({
@@ -9,7 +12,15 @@ const server = async () => {
     port: process.env.SERVER_PORT || 3000,
   });
 
+  await hapiServer.register(require("hapi-auth-jwt2"));
   await hapiServer.register(swagger);
+
+  await hapiServer.auth.strategy(
+    jwtStrategy.authName,
+    jwtStrategy.authSchema,
+    jwtStrategy.authOptions
+  );
+
   hapiServer.route(routes);
 
   return hapiServer;
@@ -17,7 +28,7 @@ const server = async () => {
 
 process.on("unhandledRejection", (err) => {
   console.log("########### OCORREU UM ERRO ##########");
-  console.error(err);
+  console.log(err);
   process.exit(1);
 });
 
