@@ -1,6 +1,7 @@
 const { rootHandler, statusHandler } = require("../api/controllers/app.controller");
 const authController = require("../api/controllers/auth.controller");
 const userController = require("../api/controllers/user.controller");
+const faturaService = require("../api/services/fatura.service");
 
 const {
   LoginRequestDTO,
@@ -10,7 +11,10 @@ const {
 } = require("../api/models/dto/auth.dto");
 const Joi = require("joi");
 
-const { CreateUserDTO } = require("../api/models/dto/user.dto");
+const {
+  CreateUserDTO,
+  CreateUserResponseDTO,
+} = require("../api/models/dto/user.dto");
 
 const root = {
   method: "GET",
@@ -55,6 +59,17 @@ const login = {
   },
 };
 
+const getOpenInvoices = {
+  method: "GET",
+  path: "/invoice",
+  handler: faturaService.getOpenInvoice,
+  options: {
+    tags: ["api", "batata"],
+    description: "Verificação do status da aplicação",
+    notes: "Pode ser utilizado sempre que outra aplicação estiver monitorando",
+  },
+};
+
 const createUser = {
   method: "POST",
   path: "/user",
@@ -65,6 +80,12 @@ const createUser = {
     validate: {
       payload: CreateUserDTO,
     },
+    response: {
+      status: {
+        200: CreateUserResponseDTO,
+        400: Joi.any(),
+      },
+    },
   },
 };
 
@@ -73,5 +94,6 @@ module.exports = [
   status, 
   login,
   createUser,
+  getOpenInvoices,
   //validate
 ];
