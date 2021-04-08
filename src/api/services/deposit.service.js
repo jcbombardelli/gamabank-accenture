@@ -7,6 +7,7 @@ const validarEmail = require("email-validator");
 const updateBalance = async (cpf, email, value) => {
 
   const findAccount = await contaRepository.findAccountByEmail(email);
+  const valueAdd = parseFloat(value);
 
   if(findAccount === undefined){
     throw new Error('Não existe correntista cadastrado com esse email');
@@ -26,13 +27,18 @@ const updateBalance = async (cpf, email, value) => {
     throw new Error('EMAIL inválido');
   }
 
-  await contaRepository.updateBalance(findAccount.id, value);
+  await lancamentoRepository.createNewLaunchDebit(cpf, parseFloat(value));
 
-  await lancamentoRepository.createNewLaunchDebit(cpf, parseFloat(valor));
+  const atualBalance = findAccount.saldo;
+
+  let valueForDepit = parseFloat(atualBalance) + valueAdd;
+  
+  await contaRepository.updateBalance(findAccount.id, valueForDepit);
   
   return {
-    message: "Depósito realizado com sucesso",
-    id: findAccount.id,
+
+    message: "Depósito realizado com sucesso"
+  
   };
 
 
