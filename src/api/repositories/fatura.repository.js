@@ -11,11 +11,10 @@ const findFaturaAbertaByIdConta = async (idConta) => {
 
 const paymentFatura = async (id, valor) => {
   const fatura = await database.execute(
-    `UPDATE fatura SET valorPago = ${valor} WHERE idConta = '${id}'`
+    `UPDATE fatura SET status = 'Fechada', valorPago = ${valor} WHERE idConta = '${id}'`
   );
-
   return fatura
-}
+};
 
 const createFatura = async (idConta) => {
   const status = "Aberta";

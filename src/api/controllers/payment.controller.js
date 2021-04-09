@@ -2,9 +2,11 @@ const invoice = require('../services/payment.service');
 
 const payment = async (request, h) => {
 
-    //const {userId } = request.auth.credentials;
+    const {userId } = request.auth.credentials;
 
-    return await invoice.paymentService(1);
+    const fatura = await invoice.paymentService(userId);
+
+    return fatura;
 
 };
 

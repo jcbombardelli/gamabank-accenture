@@ -105,9 +105,10 @@ const payment = {
   handler: paymentController.payment,
   options: {
     tags: ["api", "payment"],
+    auth: 'jwt',
     description: "Rota para pagamento da fatura",
     validate: {
-      //headers: Joi.object({'authorization': Joi.string().required()}).unknown(),
+      headers: Joi.object({'authorization': Joi.string().required()}).unknown(),
     },
     response: {
       status: {
