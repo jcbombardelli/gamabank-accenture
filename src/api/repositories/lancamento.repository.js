@@ -11,7 +11,7 @@ const register = async (id, descricao ,valor) => {
     return register
 }
 
-const createNewLaunchDebit = async (cpf, value) => {
+const createNewLaunchDebit = async (id, cpf, value) => {
     const data = new Date();
     const tipo = 'DÉBITO';
     const descricao = `Déposito em conta do correntista pelo cpf: ${cpf}`;

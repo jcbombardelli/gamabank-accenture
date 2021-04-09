@@ -7,7 +7,7 @@ const { sendMessage } = require("../../helpers/nodemailer");
 const Boom = require("@hapi/boom");
 
 
-const updateBalanceAsHolder = async (userId, cpf, value) => {
+const updateBalanceAsHolder = async (userId, value) => {
 
   const findAccount = await contaRepository.findContaByUserId(userId);
 
@@ -28,7 +28,10 @@ const updateBalanceAsHolder = async (userId, cpf, value) => {
     return Boom.conflict('Valor não pode ser depositado');
   }
 
-  await lancamentoRepository.createNewLaunchDebit(cpf, valueAdd);
+  const cpfUser = await userRepository.findUserById(userId).cpf;
+  const idAccount = await findAccount.id;
+
+  await lancamentoRepository.createNewLaunchDebit(idAccount, cpfUser, valueAdd);
 
   const atualBalance = findAccount.saldo;
 
@@ -38,7 +41,7 @@ const updateBalanceAsHolder = async (userId, cpf, value) => {
 
   const findEmailByUser = await userRepository.findUserById(userId).email;
 
-  await sendMessage(findEmailByUser, `Depósito realizado com sucesso pelo cpf:${cpf} com valor de R$ ${value}`);
+  await sendMessage(findEmailByUser, `Depósito realizado com sucesso com valor de R$ ${value}`);
   
   return {
 
@@ -56,6 +59,7 @@ const updateBalanceAsNotHolder = async (cpf, email, value) => {
   }
 
   const findUser = await userRepository.findUserByEmail(email)
+  const findId = findUser.id;
 
   if(findUser === undefined) {
     return Boom.notFound('Não existe usuário com esse email cadastrado')
@@ -73,16 +77,14 @@ const updateBalanceAsNotHolder = async (cpf, email, value) => {
      return Boom.conflict('CPF inválido');
   }
 
-  await lancamentoRepository.createNewLaunchDebit(cpf, valueAdd);
+  await lancamentoRepository.createNewLaunchDebit(findId, cpf, valueAdd);
 
   const atualBalance = findAccount.saldo;
 
   let valueAfterDepit = parseFloat(atualBalance) + valueAdd;
   
-  await contaRepository.updateBalance(findUser.userId, valueAfterDepit);
-
-  const findEmailByUser = findAccount.email;
-
+  await contaRepository.updateBalance(findId, valueAfterDepit);
+  
   await sendMessage(findEmailByUser, `Depósito realizado com sucesso pelo cpf:${cpf} com valor de R$ ${value}`);
   
   return {

@@ -86,8 +86,8 @@ const login = {
 };
 
 const makeDepositAsHolder = {
-    method: 'PUT',
-    path: '/deposit/1',
+    method: 'POST',
+    path: '/deposit/holder',
     handler: depositController.depositAsHolder,
     options: {
       auth: "jwt",
@@ -112,8 +112,8 @@ const makeDepositAsHolder = {
   };
 
   const makeDepositAsNotHolder = {
-    method: 'PUT',
-    path: '/deposit/2',
+    method: 'POST',
+    path: '/deposit',
     handler: depositController.depositAsNotHolder,
     options: {
       tags: ['api', 'depósito'],
