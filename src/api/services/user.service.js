@@ -20,7 +20,7 @@ const createUser = async (nome, cpf, email, senha, telefone) => {
   // caso exista retorno erro
   if (findUser) {
     console.log("CPF duplicado");
-    throw Error("aaaaaaaa");
+    throw Boom.badRequest("CPF Duplicado");
   }
 
   const passwordIsValid = await checkPassword(senha);

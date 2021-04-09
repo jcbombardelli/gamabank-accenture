@@ -1,18 +1,24 @@
+const Joi = require("joi");
+
 const {
   rootHandler,
   statusHandler,
 } = require("../api/controllers/app.controller");
 const authController = require("../api/controllers/auth.controller");
 const userController = require("../api/controllers/user.controller");
+const transferController = require("../api/controllers/transfer.controller");
 const faturaService = require("../api/services/fatura.service");
 
 const {
   LoginRequestDTO,
   LoginResponseSuccessDTO,
-  LoginResponseErrorUnauthorizedDTO,
-  LoginResponseErrorBadDTO
+  LoginResponseErrorDTO,
 } = require("../api/models/dto/auth.dto");
-const Joi = require("joi");
+
+const {
+  TransferRequestDTO,
+  TransferResponseDTO,
+} = require("../api/models/dto/transfer.dto");
 
 const {
   CreateUserDTO,
@@ -30,41 +36,6 @@ const root = {
   },
 };
 
-const status = {
-  method: "GET",
-  path: "/status",
-  handler: statusHandler,
-  options: {
-    tags: ["api"],
-    description: "Verificação do status da aplicação",
-    notes: "Pode ser utilizado sempre que outra aplicação estiver monitorando",
-  },
-};
-
-// const login = {
-//   method: "POST",
-//   path: "/login",
-//   handler: authController.login2,
-//   options: {
-//     tags: ["api"],
-//     description: "Verificação do status da aplicação",
-//     notes: "Pode ser utilizado sempre que outra aplicação estiver monitorando",
-//   },
-// };
-
-const status2 = {
-  method: "GET",
-  path: "/hola",
-
-  handler: statusHandler,
-  options: {
-    auth: "jwt",
-    tags: ["api"],
-    description: "Verificação do status da aplicação",
-    notes: "Pode ser utilizado sempre que outra aplicação estiver monitorando",
-  },
-};
-
 const login = {
   method: "POST",
   path: "/login",
@@ -73,17 +44,17 @@ const login = {
     tags: ["api", "login"],
     description: "Rota de autenticação",
     notes: "Anotações da rota...",
-  },
-};
-
-const getOpenInvoices = {
-  method: "GET",
-  path: "/invoice",
-  handler: faturaService.getOpenInvoice,
-  options: {
-    tags: ["api", "batata"],
-    description: "Verificação do status da aplicação",
-    notes: "Pode ser utilizado sempre que outra aplicação estiver monitorando",
+    validate: {
+      payload: LoginRequestDTO,
+    },
+    response: {
+      status: {
+        200: LoginResponseSuccessDTO,
+        400: Joi.any(),
+        401: Joi.any(),
+        503: Joi.any(),
+      },
+    },
   },
 };
 
@@ -93,7 +64,8 @@ const createUser = {
   handler: userController.store,
   options: {
     tags: ["api", "usuario"],
-    description: "Rota criar usuario",
+    description: "Rota criar usuario/conta",
+    notes: "Rota principal da nossa aplicação para criação do usuario e conta",
     validate: {
       payload: CreateUserDTO,
     },
@@ -101,17 +73,47 @@ const createUser = {
       status: {
         200: CreateUserResponseDTO,
         400: Joi.any(),
+        401: Joi.any(),
+        503: Joi.any(),
       },
     },
   },
 };
 
-module.exports = [
-  root,
-  status,
-  login,
-  createUser,
-  getOpenInvoices,
-  status2,
-  //validate
-];
+const getOpenInvoices = {
+  method: "GET",
+  path: "/invoice",
+  handler: faturaService.getOpenInvoice,
+  options: {
+    tags: ["api", "Invoices"],
+    description: "Verificação do status da aplicação",
+    notes: "Pode ser utilizado sempre que outra aplicação estiver monitorando",
+  },
+};
+
+const Transfer = {
+  method: "POST",
+  path: "/transfer",
+  handler: transferController.transfer,
+  options: {
+    auth: "jwt",
+    tags: ["api", "transfer"],
+    description: "Rota para realizar transferência",
+    notes:
+      "É possível fazer transferência para correntistas do Gamabank ou correntistas de outro banco, para correntistas do mesmo banco basta informar o e-mail e valor, correntistas de outro banco basta informar um CPF válido, código do banco e valor.",
+    validate: {
+      headers: Joi.object({ authorization: Joi.string().required() }).unknown(),
+      payload: TransferRequestDTO,
+    },
+    response: {
+      status: {
+        200: TransferResponseDTO,
+        400: Joi.any(),
+        401: Joi.any(),
+        503: Joi.any(),
+      },
+    },
+  },
+};
+
+module.exports = [root, login, createUser, Transfer, getOpenInvoices];

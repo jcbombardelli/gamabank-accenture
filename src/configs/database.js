@@ -15,6 +15,7 @@ const execute = (sqlStatement) => {
   return new Promise((resolve, reject) => {
     connection.query(sqlStatement, (err, result) => {
       if (err) {
+        return reject(err);
         reject(err.sqlMessage);
       } else return resolve(result);
     });
@@ -25,12 +26,12 @@ const execute = (sqlStatement) => {
 
 const rollback = async () => {
   const object = [
-    "usuario",
-    "conta",
-    "credito",
     "fatura",
-    "lancamentos",
     "transacoescredito",
+    "lancamentos",
+    "credito",
+    "conta",
+    "usuario",
   ];
   for (const value of object) {
     await execute(`DELETE FROM ${process.env.DB_DATABASE}.${value}`);

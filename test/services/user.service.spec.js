@@ -17,71 +17,65 @@ describe("User service", async () => {
     await database.rollback();
   });
 
-  it("It's not possible to create a user with a invalid CPF", async () => {
-    const invalidCpf = "001001001-01";
-
-    const newUser = async () =>
-      await userService.createUser(
-        "Matheus Gonçalves",
-        invalidCpf,
-        "test@gmail.com",
-        "cinco",
-        "11990122568"
-      );
-
-    expect(async () => await newUser()).to.throws;
-  });
-
-  it("New users must have zero payment pending invoice", async () => {
+  it("É possivel criar um usuario", async () => {
     const newUser = await userService.createUser(
       "Matheus Gonçalves",
-      "76286455000",
-      "test@gmail.com",
+      "23640996844",
+      "test2@gmail.com",
       "Matheus2!",
       "11990122568"
     );
 
-    const getOpenInvoice = await faturaRepository.findFaturaAbertaByIdConta(
-      newUser.idConta
+    expect(newUser).to.haveOwnProperty("id");
+  });
+});
+
+it("Não é possivel criar um usuario com um cpf invalido", async () => {
+  const invalidCpf = "001001001-01";
+
+  const newUser = async () =>
+    await userService.createUser(
+      "Matheus Gonçalves",
+      invalidCpf,
+      "test@gmail.com",
+      "cinco",
+      "11990122568"
     );
 
-    await assert.equal(getOpenInvoice.valorConsolidado, 0);
-  });
+  expect(async () => await newUser()).to.throws;
+});
 
-  it("Not possible to have two users with the same CPF", async () => {
+it("Não é possivel criar 2 usuarios com o mesmo CPF", async () => {
+  await userService.createUser(
+    "Matheus Gonçalves",
+    "76286455000",
+    "test@gmail.com",
+    "Matheus2!",
+    "11990122568"
+  );
+
+  const newUser2 = async () => {
+    await userService.createUser(
+      "Douglas Gonçalves",
+      "76286455000",
+      "test2@gmail.com",
+      "Matheus3!",
+      "11990153645"
+    );
+  };
+
+  expect(async () => await newUser2()).to.throws;
+});
+
+it("Não é possivel criar um usuario se a senha não conter 8 dígitos, sendo pelo menos um deles, um caractere maiúsculo, um minúsculo, um caractere especial e um numero", async () => {
+  const newUser = async () =>
     await userService.createUser(
       "Matheus Gonçalves",
       "76286455000",
       "test@gmail.com",
-      "Matheus2!",
+      "cinco",
       "11990122568"
     );
 
-    const newUser2 = async () => {
-      await userService.createUser(
-        "Douglas Gonçalves",
-        "76286455000",
-        "test2@gmail.com",
-        "Matheus3!",
-        "11990153645"
-      );
-    };
-
-    expect(async () => await newUser2()).to.throws;
-  });
-
-  it("It is not possible to create a user if the password does not contain 8 digits, at least one of them, a capital character, a lower case character, a special character and a number", async () => {
-    const newUser = async () =>
-      await userService.createUser(
-        "Matheus Gonçalves",
-        "76286455000",
-        "test@gmail.com",
-        "cinco",
-        "11990122568"
-      );
-
-    expect(async () => await newUser()).to.throws;
-  });
-
-  it("");
+  expect(async () => await newUser()).to.throws;
 });
