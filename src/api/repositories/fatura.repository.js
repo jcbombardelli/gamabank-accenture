@@ -9,6 +9,14 @@ const findFaturaAbertaByIdConta = async (idConta) => {
   return fatura[0];
 };
 
+const paymentFatura = async (id, valor) => {
+  const fatura = await database.execute(
+    `UPDATE fatura SET valorPago = ${valor} WHERE idConta = '${id}'`
+  );
+
+  return fatura
+}
+
 const createFatura = async (idConta) => {
   const status = "Aberta";
   const diaFechamento = 20;
@@ -26,4 +34,4 @@ const createFatura = async (idConta) => {
   return { id: fatura.insertId };
 };
 
-module.exports = { createFatura, findFaturaAbertaByIdConta };
+module.exports = { createFatura, findFaturaAbertaByIdConta, paymentFatura };

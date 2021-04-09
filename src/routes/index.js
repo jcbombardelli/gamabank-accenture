@@ -2,12 +2,11 @@ const Joi = require("joi");
 
 const {
   rootHandler,
-  statusHandler,
 } = require("../api/controllers/app.controller");
 const authController = require("../api/controllers/auth.controller");
 const userController = require("../api/controllers/user.controller");
 const transferController = require("../api/controllers/transfer.controller");
-const faturaService = require("../api/services/fatura.service");
+const paymentController = require("../api/controllers/payment.controller");
 
 const {
   LoginRequestDTO,
@@ -36,30 +35,6 @@ const root = {
   },
 };
 
-const status = {
-  method: "GET",
-  path: "/status",
-  handler: statusHandler,
-  options: {
-    tags: ["api"],
-    description: "Verificação do status da aplicação",
-    notes: "Pode ser utilizado sempre que outra aplicação estiver monitorando",
-  },
-};
-
-const status2 = {
-  method: "GET",
-  path: "/hola",
-
-  handler: statusHandler,
-  options: {
-    auth: "jwt",
-    tags: ["api"],
-    description: "Verificação do status da aplicação",
-    notes: "Pode ser utilizado sempre que outra aplicação estiver monitorando",
-  },
-};
-
 const login = {
   method: "POST",
   path: "/login",
@@ -78,17 +53,6 @@ const login = {
         400: Joi.any(),
       },
     },
-  },
-};
-
-const getOpenInvoices = {
-  method: "GET",
-  path: "/invoice",
-  handler: faturaService.getOpenInvoice,
-  options: {
-    tags: ["api", "batata"],
-    description: "Verificação do status da aplicação",
-    notes: "Pode ser utilizado sempre que outra aplicação estiver monitorando",
   },
 };
 
@@ -111,7 +75,7 @@ const createUser = {
   },
 };
 
-const Transfer = {
+const transfer = {
   method: "POST",
   path: "/transfer",
   handler: transferController.transfer,
@@ -135,12 +99,30 @@ const Transfer = {
   }
 };
 
+const payment = {
+  method: "POST",
+  path: "/payment",
+  handler: paymentController.payment,
+  options: {
+    tags: ["api", "payment"],
+    description: "Rota para pagamento da fatura",
+    validate: {
+      //headers: Joi.object({'authorization': Joi.string().required()}).unknown(),
+    },
+    response: {
+      status: {
+        200: Joi.any(),
+        401: Joi.any(),
+        503: Joi.any()
+      }
+    }
+  }
+};
+
 module.exports = [
   root,
-  status,
   login,
   createUser,
-  Transfer,
-  getOpenInvoices,
-  status2,
+  transfer,
+  payment
 ];

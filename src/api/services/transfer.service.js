@@ -1,7 +1,7 @@
 const lancamentoRepository = require("../repositories/lancamento.repository");
 const contaRepository = require("../repositories/conta.repository");
 const userRepository = require("../repositories/user.repository");
-const validarCPF = require("validar-cpf");
+const { validateCpf } = require("../../helpers/cpf.helper");
 const { validCodBank } = require("../../helpers/codBanco");
 const { sendMessage } = require("../../helpers/nodemailer");
 const Boom = require("@hapi/boom");
@@ -28,7 +28,7 @@ const transferIntern = async (id, email, valor) => {
     return Boom.unauthorized('Saldo insuficiente');
   };
 
-  await lancamentoRepository.register(id, `Transferência para o ${email}`,valorC);
+  await lancamentoRepository.register(id, 'transferência',`Transferência para o ${email}`,valorC);
   
   const saldoContaDestiny = await contaRepository.findContaByUserId(findContaDestiny.id);
   
@@ -37,18 +37,19 @@ const transferIntern = async (id, email, valor) => {
   
   await contaRepository.alterSaldoConta(id, valorDebit);
   
+  await lancamentoRepository.register(findContaDestiny.id, 'transferência', `Transferência recebida do ${userAccount.email}`, valorC);
+  
   await contaRepository.alterSaldoConta(saldoContaDestiny.id, valorCredit);
-
+  
   await sendMessage(userAccount.email, `Transferência para ${email}, R$ ${valor}`);
   
   return 'Transferência realizada com sucesso';
-    
+  
 };
   
 const transferExtern = async (id, codigoBanco, cpf, valor) => {
     
-  
-  const cpfV = await validarCPF(cpf);
+  const cpfV = await validateCpf(cpf);
   
   if(cpfV == false){
     return Boom.badRequest('CPF inválido');
@@ -77,7 +78,7 @@ const transferExtern = async (id, codigoBanco, cpf, valor) => {
 
   await contaRepository.alterSaldoConta(id, valorDebit);
   
-  await sendMessage(userAccount.email, `Transferência para o CPF ${cpf} no valor de R$ ${valor}`);
+  await sendMessage(userAccount.email, 'transferência',`Transferência para o CPF ${cpf} no valor de R$ ${valor}`);
 
   return 'Transferência realizada com sucesso';
 
