@@ -84,6 +84,8 @@ const updateBalanceAsNotHolder = async (cpf, email, value) => {
   let valueAfterDepit = parseFloat(atualBalance) + valueAdd;
   
   await contaRepository.updateBalance(findId, valueAfterDepit);
+
+  const findEmailByUser = findUser.email;
   
   await sendMessage(findEmailByUser, `Depósito realizado com sucesso pelo cpf:${cpf} com valor de R$ ${value}`);
   
