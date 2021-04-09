@@ -3,12 +3,6 @@ const authController = require('../api/controllers/auth.controller')
 const depositController = require('../api/controllers/deposit.controller')
 const { rootHandler, statusHandler } = require("../api/controllers/app.controller");
 const Joi = require("joi");
-
-const {
-  rootHandler,
-  statusHandler,
-} = require("../api/controllers/app.controller");
-const authController = require("../api/controllers/auth.controller");
 const userController = require("../api/controllers/user.controller");
 const transferController = require("../api/controllers/transfer.controller");
 const faturaService = require("../api/services/fatura.service");
@@ -94,7 +88,7 @@ const login = {
 const makeDepositAsHolder = {
     method: 'PUT',
     path: '/deposit/1',
-    handler: depositController.deposit,
+    handler: depositController.depositAsHolder,
     options: {
       auth: "jwt",
       tags: ['api', 'depósito'],
@@ -110,7 +104,7 @@ const makeDepositAsHolder = {
           200: DepositResponseDTO,
           404: Joi.any(),
           401: Joi.any(),
-          503: Joi.any()
+          503: Joi.any(),
 
         }
       },
@@ -120,7 +114,7 @@ const makeDepositAsHolder = {
   const makeDepositAsNotHolder = {
     method: 'PUT',
     path: '/deposit/2',
-    handler: depositController.deposit,
+    handler: depositController.depositAsNotHolder,
     options: {
       tags: ['api', 'depósito'],
       description: 'Rota para qualquer pessoa realizar depósito em conta debito',
@@ -203,7 +197,6 @@ module.exports = [
   createUser,
   makeDepositAsHolder,
   makeDepositAsNotHolder,
-  getOpenInvoices,
   //validate
   Transfer,
   getOpenInvoices,

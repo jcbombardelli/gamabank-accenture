@@ -1,8 +1,10 @@
 const chai = require('chai');
+const { depositAsNotHolder } = require('../../src/api/controllers/deposit.controller');
+const { getInformationLogin } = require('../../src/api/repositories/login.repository');
 const assert = chai.assert;
 const { updateBalanceAsHolder, updateBalanceAsNotHolder } = require('../../src/api/services/deposit.service')
 
-describe('Validar o service de transferencia', async() => {
+describe('Validar o service de deposito', async() => {
     describe('Deposito sendo dono da conta', async () => {
 
         it('Deve retornar deposito realizada com sucesso', async () => {
@@ -10,43 +12,37 @@ describe('Validar o service de transferencia', async() => {
             assert.isObject(deposit, {message: 'Depósito realizado com sucesso'});
         });
 
-        it('Deve retornar transferencia invalida', async () => {
-            const transfer = await transferIntern(1, 'bruno_agst@hotmail.com', 50);
-            assert.equal(transfer, 'Error: Transferência inválida');
+        it('Deve retornar cpf invalido', async () => {
+            const deposit = await updateBalanceAsHolder(2, 55, 50);
+            assert.equal(deposit, 'Error: CPF inválido');
         });
 
-        it('Deve retornar e-mail invalido', async () => {
-            const transfer = await transferIntern(2, 'brno_agst@hotmail.com', 200);
-            assert.equal(transfer, 'Error: E-mail inválido, correntista não encontrado');
-        });
-
-        it('Deve retornar saldo insuficiente', async () => {
-            const transfer = await transferIntern(2, 'bruno_agst@hotmail.com', 100000000000000);
-            assert.equal(transfer, 'Error: Saldo insuficiente');
+        it('Deve retornar que o valor nao pode ser debitado', async () => {
+            const deposit = await updateBalanceAsHolder(2, 09857604576, 0);
+            assert.equal(deposit, 'Error: Valor não pode ser depositado');
         });
     });
 
-    describe('Transferencia externa', async () => {
+    describe('Deposito nao sendo o dono da conta', async () => {
 
-        it('Transferencia realizada com sucesso', async () => {
-            const transfer = await transferExtern(1, "104", "73761560036", 200);
-            assert.isObject(transfer, {message: 'Transferência realizada com sucesso'});
+        it('Deve retornar deposito realizada com sucesso', async () => {
+            const debit = await updateBalanceAsNotHolder(40783825099, "carolinavasconcelos90@gmail.com", 60 )
+            assert.isObject(debit, {message: 'Transferência realizada com sucesso'});
+        });
+
+        it('Deve retornar EMAIL inválido', async () => {
+            const debit = await updateBalanceAsNotHolder(425099, "carogmail.com", 60);
+            assert.equal(debit, 'Error: EMAIL inválido');
         });
 
         it('Deve retornar CPF inválido', async () => {
-            const transfer = await transferExtern(1, "104", "7376156006", 200);
-            assert.equal(transfer, 'Error: CPF inválido');
+            const debit = await updateBalanceAsNotHolder(425099, "carolina@gmail.com", 60);
+            assert.equal(debit, 'Error: CPF inválido');
         });
 
-        it('Deve retornar código do banco inválido', async () => {
-            const transfer = await transferExtern(1, "123123", "73761560036", 200);
-            assert.equal(transfer, 'Error: Código do banco inválido');
-        });
-
-        
-        it('Deve retornar saldo insuficiente', async () => {
-            const transfer = await transferExtern(1, "104", "73761560036", 2000000000);
-            assert.equal(transfer, 'Error: Saldo insuficiente');
+        it('Deve retornar que o valor nao pode ser debitado', async () => {
+            const debit = await updateBalanceAsNotHolder(40783825099, "carolinavasconcelos90@gmail.com", -2)
+            assert.equal(debit, 'Error: Valor não pode ser depositado');
         });
 
     });

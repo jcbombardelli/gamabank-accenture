@@ -10,8 +10,6 @@ const findUserByCpf = async (cpf) => {
   return user[0];
 };
 
-<<<<<<< HEAD
-=======
 const findUserById = async (id) => {
   const user = await database.execute(
     `SELECT * FROM usuario WHERE id='${id}'`
@@ -21,16 +19,12 @@ const findUserById = async (id) => {
   return user[0];
 }
 
->>>>>>> 0317feb05f58ae4f9b54bdaf4b8a5c5f2941134c
 const findUserByEmail = async (email) => {
   const user = await database.execute(
     `SELECT * FROM usuario WHERE email='${email}'`
   );
 
-<<<<<<< HEAD
   // retorna primeiro registro encontrado
-=======
->>>>>>> 0317feb05f58ae4f9b54bdaf4b8a5c5f2941134c
   return user[0];
 };
 
@@ -45,8 +39,4 @@ const createUser = async (nome, cpf, email, senha, telefone) => {
   return { id: user.insertId };
 };
 
-<<<<<<< HEAD
-module.exports = { findUserByCpf, createUser, findUserByEmail};
-=======
 module.exports = { findUserByCpf, createUser, findUserByEmail, findUserById };
->>>>>>> 0317feb05f58ae4f9b54bdaf4b8a5c5f2941134c

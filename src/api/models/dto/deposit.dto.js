@@ -3,8 +3,8 @@ const Joi = require("joi");
 const DepositUserRequestDTO = Joi.object({
 
     cpf: Joi.string().required(),
-    value: Joi.string().required(),
-    email: Joi.string.required(),
+    valor: Joi.string().required(),
+    email: Joi.string().required()
 
 }).label("DepositUserResponseDTO");
 
