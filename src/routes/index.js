@@ -82,7 +82,7 @@ const transfer = {
   options: {
     auth: "jwt",
     tags: ["api", "transfer"],
-    description: "Rota para realizar transferência",
+    description: "Rota para realizar transferência entre contas.",
     notes: "É possível fazer transferência para correntistas do Gamabank ou correntistas de outro banco, para correntistas do mesmo banco basta informar o e-mail e valor, correntistas de outro banco basta informar um CPF válido, código do banco e valor.",
     validate: {
       headers: Joi.object({'authorization': Joi.string().required()}).unknown(),    
@@ -90,7 +90,7 @@ const transfer = {
     },
     response: {
       status: {
-        200: TransferResponseDTO,
+        200: Joi.string(),
         400: Joi.any(),
         401: Joi.any(),
         503: Joi.any()
@@ -106,13 +106,14 @@ const payment = {
   options: {
     tags: ["api", "payment"],
     auth: 'jwt',
-    description: "Rota para pagamento da fatura",
+    description: "Rota para pagamento da fatura.",
+    notes: "Para o pagamento ser concluído com sucesso, o correntista precisa ter o saldo em conta.",
     validate: {
       headers: Joi.object({'authorization': Joi.string().required()}).unknown(),
     },
     response: {
       status: {
-        200: Joi.any(),
+        200: Joi.string(),
         401: Joi.any(),
         503: Joi.any()
       }
