@@ -59,13 +59,14 @@ const updateBalanceAsNotHolder = async (cpf, email, value) => {
   }
 
   const findUser = await userRepository.findUserByEmail(email)
-  const findId = findUser.id;
 
   if(findUser === undefined) {
     return Boom.notFound('Não existe usuário com esse email cadastrado')
   }
 
   const findAccount = await contaRepository.findContaByUserId(findUser.userId);
+  const findId = findAccount.id;
+
   const valueAdd = parseFloat(value);
 
   if(valueAdd <= 0) {
