@@ -9,21 +9,11 @@ const findFaturaAbertaByIdConta = async (idConta) => {
   return fatura[0];
 };
 
-const createFatura = async (idConta) => {
-  const status = "Aberta";
-  const diaFechamento = 20;
-  const diaVencimento = diaFechamento + 10;
-  const mesReferencia = "2021-04";
-  const valorConsolidado = 0;
-  const valorPago = 0;
-
-  const fatura = database.execute(
-    `INSERT INTO fatura ( idConta, status, diaFechamento, diaVencimento, mesReferencia, valorConsolidado, valorPago) VALUES ('${idConta}', '${status}','${diaFechamento}', '${diaVencimento}', '${mesReferencia}','${valorConsolidado}', '${valorPago}');`
+const paymentFatura = async (id, valor) => {
+  const fatura = await database.execute(
+    `UPDATE fatura SET valorPago = ${valor} WHERE idConta = '${id}'`
   );
-
-  // retorna id do registro criado
-
-  return { id: fatura.insertId };
+  return fatura
 };
 
 //Procura fatura por mes de referencia
@@ -59,6 +49,5 @@ const updateInvoiceValueConsolidation = async(invoiceId, valueConsolidation)=>{
 module.exports = { 
   findFaturaAbertaByIdConta, 
   findInvoiceSpecific, 
-  createFatura, 
   createInvoiceSpecific, 
   updateInvoiceValueConsolidation }
