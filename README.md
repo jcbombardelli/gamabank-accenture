@@ -7,7 +7,12 @@
   <img width=500 heigth:500 src="https://miro.medium.com/max/700/1*_JJTknJYPxJPLNEEB3jh7Q.gif" alt="Hulk Smart"/>
 </p>
 
-
+## CODE TEAM
+  - [Alessandro Oliveira](https://github.com/expertaoliveira)
+  - [Ana Carolina](https://github.com/anacarolinacv)
+  - [Bruno Augusto](https://github.com/BrunoAgst)
+  - [Israel Blender](https://github.com/israelblender)
+  - [Matheus Gonçalves](any)
 
 ## O que é?
 
