@@ -4,12 +4,12 @@ const { findContaByUserId, alterSaldoConta } = require('../repositories/conta.re
 const { sendMessage } = require('../../helpers/nodemailer');
 const Boom = require('@hapi/boom');
 
-const paymentService = async (id) => {
+const paymentService = async (id, accountId) => {
 
     try {
-        const fatura = await findFaturaAbertaByIdConta(id);
+        const fatura = await findFaturaAbertaByIdConta(accountId);
 
-        if(fatura === undefined){
+        if(fatura.valorConsolidado === fatura.valorPago){
             return Boom.unauthorized('Cliente não possuí fatura em aberto');
         }
     
@@ -25,7 +25,7 @@ const paymentService = async (id) => {
     
         await alterSaldoConta(id, valorDebit);
     
-        await paymentFatura(id, fatura.valorConsolidado);
+        await paymentFatura(accountId, fatura.valorConsolidado);
     
         await sendMessage(user.email, `Pagamento da fatura efetuada R$ ${fatura.valorConsolidado}`);
 

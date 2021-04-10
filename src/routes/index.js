@@ -101,7 +101,7 @@ const transfer = {
 
 const payment = {
   method: "POST",
-  path: "/payment",
+  path: "/pay/invoice",
   handler: paymentController.payment,
   options: {
     tags: ["api", "payment"],
