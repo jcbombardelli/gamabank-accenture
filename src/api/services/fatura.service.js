@@ -21,21 +21,38 @@ const createFatura = async (idConta) => {
 
 //Obtem fatura em aberto se existir
 const findInvoiceSpecific = async (accountId, referenceMonth) => {
-
   //Obtem fatura
-  invoice = await invoiceRepository.findInvoiceSpecific(accountId, referenceMonth)
-  
+  const invoice = await invoiceRepository.findInvoiceSpecific(
+    accountId,
+    referenceMonth
+  );
+
   return invoice;
 };
 
-const createInvoiceSpecific = async (accountId, referenceMonth, status)=>{
-  const invoice = await invoiceRepository.createInvoiceSpecific(accountId, referenceMonth, status)
-  return invoice
-}
+const createInvoiceSpecific = async (accountId, referenceMonth, status) => {
+  const invoice = await invoiceRepository.createInvoiceSpecific(
+    accountId,
+    referenceMonth,
+    status
+  );
+  return invoice;
+};
 
-const updateInvoiceValueConsolidation = async (invoiceId, valueConsolidation)=>{
-  const invoice = await invoiceRepository.updateInvoiceValueConsolidation(invoiceId, valueConsolidation)
-  return invoice
-}
+const updateInvoiceValueConsolidation = async (
+  invoiceId,
+  valueConsolidation
+) => {
+  const invoice = await invoiceRepository.updateInvoiceValueConsolidation(
+    invoiceId,
+    valueConsolidation
+  );
+  return invoice;
+};
 
-module.exports = { createFatura, findInvoiceSpecific, createInvoiceSpecific, updateInvoiceValueConsolidation };
+module.exports = {
+  createFatura,
+  findInvoiceSpecific,
+  createInvoiceSpecific,
+  updateInvoiceValueConsolidation,
+};

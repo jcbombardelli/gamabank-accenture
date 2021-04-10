@@ -169,7 +169,7 @@ const payCredit = {
     description: "Pagamento com crédito",
     notes: "Obs: CPF é obrigatorio para executar com sucesso",
     validate: {
-      headers: BuyCreditHeaderDTO,
+      //headers: BuyCreditHeaderDTO,
       payload: BuyCreditRequestDTO,
     },
     response: {

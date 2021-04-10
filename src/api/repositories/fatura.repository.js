@@ -13,16 +13,16 @@ const paymentFatura = async (id, valor) => {
   const fatura = await database.execute(
     `UPDATE fatura SET valorPago = ${valor} WHERE idConta = '${id}'`
   );
-  return fatura
+  return fatura;
 };
 
 //Procura fatura por mes de referencia
-const findInvoiceSpecific = async (accountId, referenceMonth)=>{
+const findInvoiceSpecific = async (accountId, referenceMonth) => {
   const invoice = await database.execute(
     `SELECT * FROM fatura WHERE idConta=${accountId} and mesReferencia='${referenceMonth}'`
-  )
-  return invoice[0]
-}
+  );
+  return invoice[0];
+};
 
 //Cria fatura para um mes especifico
 const createInvoiceSpecific = async (accountId, referenceMonth, status) => {
@@ -36,18 +36,24 @@ const createInvoiceSpecific = async (accountId, referenceMonth, status) => {
     VALUES ('${accountId}', '${status}','${diaFechamento}', '${diaVencimento}', '${referenceMonth}','${valorConsolidado}', '${valorPago}');`
   );
   return { id: fatura.insertId, valorConsolidado };
-}
+};
 
-const updateInvoiceValueConsolidation = async(invoiceId, valueConsolidation)=>{
-  console.log(`UPDATE fatura SET valorConsolidado=${valueConsolidation} WHERE id=${invoiceId}`)
+const updateInvoiceValueConsolidation = async (
+  invoiceId,
+  valueConsolidation
+) => {
+  console.log(
+    `UPDATE fatura SET valorConsolidado=${valueConsolidation} WHERE id=${invoiceId}`
+  );
   const updateInvoice = await database.execute(
     `UPDATE fatura SET valorConsolidado=${valueConsolidation} WHERE id=${invoiceId}`
-  )
-  return updateInvoice
-}
+  );
+  return updateInvoice;
+};
 
-module.exports = { 
-  findFaturaAbertaByIdConta, 
-  findInvoiceSpecific, 
-  createInvoiceSpecific, 
-  updateInvoiceValueConsolidation }
+module.exports = {
+  findFaturaAbertaByIdConta,
+  findInvoiceSpecific,
+  createInvoiceSpecific,
+  updateInvoiceValueConsolidation,
+};
