@@ -26,7 +26,6 @@ const updateBalanceAsHolder = async (userId, value) => {
   const cpfUser = await userRepository.findUserById(userId).cpf;
   const idAccount = await findAccount.id;
 
-
   if(!(validarCPF(cpf))) {
 
     return Boom.conflict('CPF inválido');
@@ -38,7 +37,7 @@ const updateBalanceAsHolder = async (userId, value) => {
 
   let valueAfterDepit = parseFloat(atualBalance) + valueAdd;
   
-  await contaRepository.updateBalance(idAccount, valueAfterDepit);
+  await contaRepository.updateBalance(userId, valueAfterDepit);
 
   const findEmailByUser = await userRepository.findUserById(userId).email;
 
