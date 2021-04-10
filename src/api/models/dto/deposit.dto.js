@@ -1,12 +1,18 @@
 const Joi = require("joi");
 
-const DepositUserRequestDTO = Joi.object({
+const DepositNotHolderRequestDTO = Joi.object({
 
     cpf: Joi.string().required(),
-    valor: Joi.string().required(),
+    value: Joi.string().required(),
     email: Joi.string().required()
 
-}).label("DepositUserResponseDTO");
+}).label("DepositNotHolderResponseDTO");
+
+const DepositHolderRequestDTO = Joi.object({
+
+    value: Joi.string().required(),
+
+}).label("DepositHolderResponseDTO");
 
 const DepositHeaderDTO = Joi.object().keys({
 
@@ -19,7 +25,8 @@ const DepositResponseDTO = Joi.string().label("DepositResponseDTO");
 
 
   module.exports = (
-      DepositUserRequestDTO,
-      DepositHeaderDTO,
-      DepositResponseDTO
+      DepositNotHolderRequestDTO,
+      DepositHolderRequestDTO,
+      DepositResponseDTO,
+      DepositHeaderDTO
   )

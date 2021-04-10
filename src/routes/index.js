@@ -19,9 +19,10 @@ const {
 } = require("../api/models/dto/transfer.dto");
 
 const {
-  DepositUserRequestDTO,
-  DepositHeaderDTO,
-  DepositResponseDTO,
+    DepositNotHolderRequestDTO,
+    DepositHolderRequestDTO,
+    DepositResponseDTO,
+    DepositHeaderDTO
 } = require("../api/models/dto/deposit.dto");
 
 const {
@@ -96,7 +97,7 @@ const makeDepositAsHolder = {
       notes: "Obs: So a pessoa dono da conta pode depositar",
       validate: {
         headers: DepositHeaderDTO,
-        payload: DepositUserRequestDTO
+        payload: DepositHolderRequestDTO
 
       },
       response: {
@@ -121,7 +122,7 @@ const makeDepositAsHolder = {
       notes: "Obs: Qualquer pessoa com o email do dono da conta pode depositar",
       validate: {
         
-        payload: DepositUserRequestDTO
+        payload: DepositNotHolderRequestDTO
 
       },
       response: {
@@ -197,7 +198,6 @@ module.exports = [
   createUser,
   makeDepositAsHolder,
   makeDepositAsNotHolder,
-  //validate
   Transfer,
   getOpenInvoices,
   status2

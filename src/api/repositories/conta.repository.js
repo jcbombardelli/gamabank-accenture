@@ -29,9 +29,9 @@ const createConta = async (idUsuario) => {
 };
 
 // atualiza o saldo da conta
-const updateBalanceAccount = async (id, valor) => {
+const updateBalanceAccount = async (userId, valor) => {
   const balance = await database.execute(
-    `UPDATE conta SET saldo = ${valor} WHERE idUsuario = '${id}'`
+    `UPDATE conta SET saldo = ${valor} WHERE idUsuario = '${userId}'`
   )
   return balance
 }

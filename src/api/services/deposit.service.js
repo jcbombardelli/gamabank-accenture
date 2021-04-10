@@ -37,7 +37,7 @@ const updateBalanceAsHolder = async (userId, value) => {
 
   let valueAfterDepit = parseFloat(atualBalance) + valueAdd;
   
-  await contaRepository.updateBalance(userId, valueAfterDepit);
+  await contaRepository.updateBalanceAccount(userId, valueAfterDepit);
 
   const findEmailByUser = await userRepository.findUserById(userId).email;
 
@@ -51,7 +51,7 @@ const updateBalanceAsHolder = async (userId, value) => {
 
 }
 
-const updateBalanceAsNotHolder = async (cpf, value, email) => {
+const updateBalanceAsNotHolder = async (cpf, email, value) => {
 
   if(!(validarEmail.validate(email))) {
 
@@ -59,13 +59,14 @@ const updateBalanceAsNotHolder = async (cpf, value, email) => {
   }
 
   const findUser = await userRepository.findUserByEmail(email)
+  const userId = findUser.id
 
   if(findUser === undefined) {
     return Boom.notFound('Não existe usuário com esse email cadastrado')
   }
 
-  const findAccount = await contaRepository.findContaByUserId(findUser.userId);
-  const findId = findAccount.id;
+  const findAccount = await contaRepository.findContaByUserId(userId);
+  const idAccount = findAccount.id;
 
   const valueAdd = parseFloat(value);
 
@@ -78,19 +79,19 @@ const updateBalanceAsNotHolder = async (cpf, value, email) => {
      return Boom.conflict('CPF inválido');
   }
 
-  await lancamentoRepository.createNewLaunchDebit(findId, cpf, valueAdd);
+  await lancamentoRepository.createNewLaunchDebit(idAccount, cpf, valueAdd);
 
   const atualBalance = findAccount.saldo;
 
   let valueAfterDepit = parseFloat(atualBalance) + valueAdd;
 
-  const findUserId= findAccount.id;
-
-  await contaRepository.updateBalance(findUserId, valueAfterDepit);
+  await contaRepository.updateBalanceAccount(userId, valueAfterDepit);
 
   const findEmailByUser = findUser.email;
-  
+  // enviar email p avisar q deposito chegou
   await sendMessage(findEmailByUser, `Depósito realizado com sucesso pelo cpf:${cpf} com valor de R$ ${value}`);
+  // avisar q o deposito ocooreu bem
+  await sendMessage(email, `Depósito realizado com sucesso com valor de R$ ${value}`);
   
   return {
 
