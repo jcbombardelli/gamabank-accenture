@@ -38,7 +38,7 @@ const updateBalanceAsHolder = async (userId, value) => {
 
   let valueAfterDepit = parseFloat(atualBalance) + valueAdd;
   
-  await contaRepository.updateBalance(userId, valueAfterDepit);
+  await contaRepository.updateBalance(idAccount, valueAfterDepit);
 
   const findEmailByUser = await userRepository.findUserById(userId).email;
 
