@@ -45,9 +45,9 @@ const transferIntern = async (id, email, valor) => {
     
     await contaRepository.alterSaldoConta(saldoContaDestiny.id, valorCredit);
     
-    const sendDebit = await sendMessage(userAccount.email, `Transferência para ${email}, R$ ${valor}`);
+    await sendMessage(userAccount.email, `Transferência para ${email}, R$ ${valor}`);
     
-    const sendCredit = await sendMessage(email, `Transferência recebida do ${userAccount.email}, R$ ${valor}`);
+    await sendMessage(email, `Transferência recebida do ${userAccount.email}, R$ ${valor}`);
 
     
     return 'Transferência realizada com sucesso';
