@@ -20,9 +20,9 @@ const findAccountByEmail = async (email) => {
 const createConta = async (idUsuario) => {
   const saldo = 0;
   const dateAbertura = new Date();
-
+  const dateAberturaFormated = dateAbertura.toISOString().split('T')[0]
   const create = await database.execute(
-    `INSERT INTO conta ( idUsuario, saldo, dateAbertura) VALUES ('${idUsuario}', ${saldo},'${dateAbertura.toLocaleDateString('en-CA')}');`
+    `INSERT INTO conta ( idUsuario, saldo, dateAbertura) VALUES ('${idUsuario}', ${saldo},'${dateAberturaFormated}');`
   );
 
   return { id: create.insertId };
