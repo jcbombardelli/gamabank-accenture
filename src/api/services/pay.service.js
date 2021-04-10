@@ -69,9 +69,9 @@ const payWithCredit = async (userId, description, value, installments = 1) => {
   let indexInstallment = 1; //Index inicial da Parcela
 
   //Se dia atual for maior que data de fechamento
-  if (indexMonthReference == 0) {
-    indexMonthReference = 1; //Index inicial do mesReferencia seguinte
-  }
+  // if (indexMonthReference == 0) {
+  //   indexMonthReference = 1; //Index inicial do mesReferencia seguinte
+  // }
   let infoNewInvoice = { status: "Aberta" };
   while (indexInstallment <= installments) {
     await createInstallment(
