@@ -1,11 +1,12 @@
 const Joi = require("joi");
 
-const {rootHandler} = require("../api/controllers/app.controller");
+const { rootHandler } = require("../api/controllers/app.controller");
 const authController = require("../api/controllers/auth.controller");
 const userController = require("../api/controllers/user.controller");
 const transferController = require("../api/controllers/transfer.controller");
-const payController = require("../api/controllers/pay.controller")
+const payController = require("../api/controllers/pay.controller");
 const invoiceController = require("../api/controllers/fatura.controller");
+const paymentController = require("../api/controllers/payment.controller");
 
 const {
   LoginRequestDTO,
@@ -24,7 +25,7 @@ const {
   BuyDebitResponseDTO,
   BuyCreditRequestDTO,
   BuyCreditHeaderDTO,
-  BuyCreditResponseDTO
+  BuyCreditResponseDTO,
 } = require("../api/models/dto/pay.dto");
 
 const {
@@ -95,7 +96,8 @@ const transfer = {
     auth: "jwt",
     tags: ["api", "transfer"],
     description: "Realização de transferência entre contas",
-    notes: "É possível fazer transferência para correntistas do Gamabank ou correntistas de outro banco, para correntistas do mesmo banco basta informar o e-mail e valor, correntistas de outro banco basta informar um CPF válido, código do banco e valor.",
+    notes:
+      "É possível fazer transferência para correntistas do Gamabank ou correntistas de outro banco, para correntistas do mesmo banco basta informar o e-mail e valor, correntistas de outro banco basta informar um CPF válido, código do banco e valor.",
     validate: {
       headers: Joi.object({ authorization: Joi.string().required() }).unknown(),
       payload: TransferRequestDTO,
@@ -117,20 +119,21 @@ const payment = {
   handler: paymentController.payment,
   options: {
     tags: ["api", "payment"],
-    auth: 'jwt',
+    auth: "jwt",
     description: "Rota para pagamento da fatura.",
-    notes: "Para o pagamento ser concluído com sucesso, o correntista precisa ter o saldo em conta.",
+    notes:
+      "Para o pagamento ser concluído com sucesso, o correntista precisa ter o saldo em conta.",
     validate: {
-      headers: Joi.object({'authorization': Joi.string().required()}).unknown(),
+      headers: Joi.object({ authorization: Joi.string().required() }).unknown(),
     },
     response: {
       status: {
         200: Joi.string(),
         401: Joi.any(),
-        503: Joi.any()
-      }
-    }
-  }
+        503: Joi.any(),
+      },
+    },
+  },
 };
 
 const payDebit = {
@@ -143,17 +146,17 @@ const payDebit = {
     notes: "Obs: CPF é obrigatorio para executar com sucesso",
     validate: {
       // headers: BuyDebitHeaderDTO,
-      payload: BuyDebitRequestDTO
+      payload: BuyDebitRequestDTO,
     },
     response: {
       status: {
         200: BuyDebitResponseDTO,
         400: Joi.any(),
         401: Joi.any(),
-        503: Joi.any()
-      }
-    }
-  }
+        503: Joi.any(),
+      },
+    },
+  },
 };
 
 const payCredit = {
@@ -167,7 +170,7 @@ const payCredit = {
     notes: "Obs: CPF é obrigatorio para executar com sucesso",
     validate: {
       headers: BuyCreditHeaderDTO,
-      payload: BuyCreditRequestDTO
+      payload: BuyCreditRequestDTO,
     },
     response: {
       status: {
@@ -175,9 +178,9 @@ const payCredit = {
         // 400: Joi.any(),
         // 401: Joi.any(),
         // 503: Joi.any()
-      }
-    }
-  }
+      },
+    },
+  },
 };
 
 const getOpenInvoices = {
@@ -198,5 +201,5 @@ module.exports = [
   transfer,
   payDebit,
   payCredit,
-  getOpenInvoices
+  getOpenInvoices,
 ];
