@@ -17,11 +17,6 @@ const updateBalanceAsHolder = async (userId, value) => {
 
   }
 
-  if(!(validarCPF(cpf))) {
-
-    return Boom.conflict('CPF inválido');
- }
-
   const valueAdd = parseFloat(value);
 
   if(valueAdd <= 0) {
@@ -30,6 +25,12 @@ const updateBalanceAsHolder = async (userId, value) => {
 
   const cpfUser = await userRepository.findUserById(userId).cpf;
   const idAccount = await findAccount.id;
+
+
+  if(!(validarCPF(cpf))) {
+
+    return Boom.conflict('CPF inválido');
+  }
 
   await lancamentoRepository.createNewLaunchDebit(idAccount, cpfUser, valueAdd);
 
@@ -51,7 +52,7 @@ const updateBalanceAsHolder = async (userId, value) => {
 
 }
 
-const updateBalanceAsNotHolder = async (cpf, email, value) => {
+const updateBalanceAsNotHolder = async (cpf, value, email) => {
 
   if(!(validarEmail.validate(email))) {
 
@@ -83,8 +84,10 @@ const updateBalanceAsNotHolder = async (cpf, email, value) => {
   const atualBalance = findAccount.saldo;
 
   let valueAfterDepit = parseFloat(atualBalance) + valueAdd;
-  
-  await contaRepository.updateBalance(findId, valueAfterDepit);
+
+  const findUserId= findAccount.id;
+
+  await contaRepository.updateBalance(findUserId, valueAfterDepit);
 
   const findEmailByUser = findUser.email;
   
