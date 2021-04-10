@@ -87,11 +87,8 @@ const updateBalanceAsNotHolder = async (cpf, email, value) => {
 
   await contaRepository.updateBalanceAccount(userId, valueAfterDepit);
 
-  const findEmailByUser = findUser.email;
   // enviar email p avisar q deposito chegou
-  await sendMessage(findEmailByUser, `Depósito realizado com sucesso pelo cpf:${cpf} com valor de R$ ${value}`);
-  // avisar q o deposito ocooreu bem
-  await sendMessage(email, `Depósito realizado com sucesso com valor de R$ ${value}`);
+  await sendMessage(email, `Depósito realizado com sucesso pelo cpf:${cpf} com valor de R$ ${value}`);
   
   return {
 
