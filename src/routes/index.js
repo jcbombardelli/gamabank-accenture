@@ -11,12 +11,12 @@ const paymentController = require("../api/controllers/payment.controller");
 const {
   LoginRequestDTO,
   LoginResponseSuccessDTO,
-  LoginResponseErrorDTO
+  LoginResponseErrorDTO,
 } = require("../api/models/dto/auth.dto");
 
 const {
   TransferRequestDTO,
-  TransferResponseDTO
+  TransferResponseDTO,
 } = require("../api/models/dto/transfer.dto");
 
 const {
@@ -48,9 +48,10 @@ const login = {
     },
     response: {
       status: {
-        //200: LoginResponseSuccessDTO,
-        //401: LoginResponseErrorDTO,
+        200: LoginResponseSuccessDTO,
         400: Joi.any(),
+        401: Joi.any(),
+        503: Joi.any(),
       },
     },
   },
@@ -62,7 +63,8 @@ const createUser = {
   handler: userController.store,
   options: {
     tags: ["api", "usuario"],
-    description: "Rota criar usuario",
+    description: "Rota criar usuario/conta",
+    notes: "Rota principal da nossa aplicação para criação do usuario e conta",
     validate: {
       payload: CreateUserDTO,
     },
@@ -70,6 +72,8 @@ const createUser = {
       status: {
         200: CreateUserResponseDTO,
         400: Joi.any(),
+        401: Joi.any(),
+        503: Joi.any(),
       },
     },
   },
@@ -85,18 +89,18 @@ const transfer = {
     description: "Rota para realizar transferência entre contas.",
     notes: "É possível fazer transferência para correntistas do Gamabank ou correntistas de outro banco, para correntistas do mesmo banco basta informar o e-mail e valor, correntistas de outro banco basta informar um CPF válido, código do banco e valor.",
     validate: {
-      headers: Joi.object({'authorization': Joi.string().required()}).unknown(),    
-      payload: TransferRequestDTO
+      headers: Joi.object({ authorization: Joi.string().required() }).unknown(),
+      payload: TransferRequestDTO,
     },
     response: {
       status: {
         200: Joi.string(),
         400: Joi.any(),
         401: Joi.any(),
-        503: Joi.any()
-      }
-    }
-  }
+        503: Joi.any(),
+      },
+    },
+  },
 };
 
 const payment = {

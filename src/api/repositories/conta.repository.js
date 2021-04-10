@@ -20,19 +20,24 @@ const findContaByUserEmail = async (emailUsuario) => {
 const alterSaldoConta = async (id, valor) => {
   const saldo = await database.execute(
     `UPDATE conta SET saldo = ${valor} WHERE idUsuario = '${id}'`
-  )
-  return saldo
-}
+  );
+  return saldo;
+};
 
 const createConta = async (idUsuario) => {
   const saldo = 0;
   const dateAbertura = new Date();
 
   const create = await database.execute(
-    `INSERT INTO conta ( idUsuario, saldo, dateAbertura) VALUES ('${idUsuario}', ${saldo},'${dateAbertura.toLocaleDateString('en-CA')}');`
+    `INSERT INTO conta ( idUsuario, saldo, dateAbertura) VALUES ('${idUsuario}', ${saldo},'${dateAbertura.toLocaleDateString()}');`
   );
 
   return { id: create.insertId };
 };
 
-module.exports = { createConta, findContaByUserId, findContaByUserEmail, alterSaldoConta };
+module.exports = {
+  createConta,
+  findContaByUserId,
+  findContaByUserEmail,
+  alterSaldoConta,
+};
