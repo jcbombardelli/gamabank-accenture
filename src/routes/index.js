@@ -1,13 +1,11 @@
 const Joi = require("joi");
 
-const {
-  rootHandler,
-  statusHandler,
-} = require("../api/controllers/app.controller");
+const {rootHandler} = require("../api/controllers/app.controller");
 const authController = require("../api/controllers/auth.controller");
 const userController = require("../api/controllers/user.controller");
 const transferController = require("../api/controllers/transfer.controller");
-const faturaService = require("../api/services/fatura.service");
+const payController = require("../api/controllers/pay.controller")
+const invoiceController = require("../api/controllers/fatura.controller");
 
 const {
   LoginRequestDTO,
@@ -21,6 +19,15 @@ const {
 } = require("../api/models/dto/transfer.dto");
 
 const {
+  BuyDebitRequestDTO,
+  BuyDebitHeaderDTO,
+  BuyDebitResponseDTO,
+  BuyCreditRequestDTO,
+  BuyCreditHeaderDTO,
+  BuyCreditResponseDTO
+} = require("../api/models/dto/pay.dto");
+
+const {
   CreateUserDTO,
   CreateUserResponseDTO,
 } = require("../api/models/dto/user.dto");
@@ -31,32 +38,8 @@ const root = {
   handler: rootHandler,
   options: {
     tags: ["api"],
-    description: "Rota principal da aplicação",
+    description: "Informações da Api",
     notes: "Alguma nota aqui",
-  },
-};
-
-const status = {
-  method: "GET",
-  path: "/status",
-  handler: statusHandler,
-  options: {
-    tags: ["api"],
-    description: "Verificação do status da aplicação",
-    notes: "Pode ser utilizado sempre que outra aplicação estiver monitorando",
-  },
-};
-
-const status2 = {
-  method: "GET",
-  path: "/hola",
-
-  handler: statusHandler,
-  options: {
-    auth: "jwt",
-    tags: ["api"],
-    description: "Verificação do status da aplicação",
-    notes: "Pode ser utilizado sempre que outra aplicação estiver monitorando",
   },
 };
 
@@ -66,39 +49,27 @@ const login = {
   handler: authController.login,
   options: {
     tags: ["api", "login"],
-    description: "Rota de autenticação",
+    description: "Autenticação de usuário",
     notes: "Anotações da rota...",
     validate: {
       payload: LoginRequestDTO,
     },
     response: {
       status: {
-        //200: LoginResponseSuccessDTO,
-        //401: LoginResponseErrorDTO,
+        // 200: LoginResponseSuccessDTO,
+        // 401: LoginResponseErrorDTO,
         400: Joi.any(),
       },
     },
   },
 };
-
-const getOpenInvoices = {
-  method: "GET",
-  path: "/invoice",
-  handler: faturaService.getOpenInvoice,
-  options: {
-    tags: ["api", "batata"],
-    description: "Verificação do status da aplicação",
-    notes: "Pode ser utilizado sempre que outra aplicação estiver monitorando",
-  },
-};
-
 const createUser = {
   method: "POST",
   path: "/user",
   handler: userController.store,
   options: {
     tags: ["api", "usuario"],
-    description: "Rota criar usuario",
+    description: "Criação de usuario",
     validate: {
       payload: CreateUserDTO,
     },
@@ -111,14 +82,14 @@ const createUser = {
   },
 };
 
-const Transfer = {
+const transfer = {
   method: "POST",
   path: "/transfer",
   handler: transferController.transfer,
   options: {
     auth: "jwt",
     tags: ["api", "transfer"],
-    description: "Rota para realizar transferência",
+    description: "Realização de transferência",
     notes: "É possível fazer transferência para correntistas do Gamabank ou correntistas de outro banco, para correntistas do mesmo banco basta informar o e-mail e valor, correntistas de outro banco basta informar um CPF válido, código do banco e valor.",
     validate: {
       headers: Joi.object({'authorization': Joi.string().required()}).unknown(),    
@@ -135,12 +106,70 @@ const Transfer = {
   }
 };
 
+const payDebit = {
+  method: "POST",
+  path: "/pay/debit",
+  handler: payController.payWithDebit,
+  options: {
+    tags: ["api", "debito", "pagamento"],
+    description: "Pagamento com débito",
+    notes: "Obs: CPF é obrigatorio para executar com sucesso",
+    validate: {
+      // headers: BuyDebitHeaderDTO,
+      payload: BuyDebitRequestDTO
+    },
+    response: {
+      status: {
+        200: BuyDebitResponseDTO,
+        400: Joi.any(),
+        401: Joi.any(),
+        503: Joi.any()
+      }
+    }
+  }
+};
+
+const payCredit = {
+  method: "POST",
+  path: "/pay/credit",
+  handler: payController.payWithCredit,
+  options: {
+    auth: "jwt",
+    tags: ["api", "crédito", "pagamento"],
+    description: "Pagamento com crédito",
+    notes: "Obs: CPF é obrigatorio para executar com sucesso",
+    validate: {
+      headers: BuyCreditHeaderDTO,
+      payload: BuyCreditRequestDTO
+    },
+    response: {
+      status: {
+        // 200: BuyCreditResponseDTO,
+        // 400: Joi.any(),
+        // 401: Joi.any(),
+        // 503: Joi.any()
+      }
+    }
+  }
+};
+
+const getOpenInvoices = {
+  method: "GET",
+  path: "/invoice",
+  handler: invoiceController.openInvoices,
+  options: {
+    tags: ["api"],
+    description: "Verificação de faturas em aberto",
+    notes: "...",
+  },
+};
+
 module.exports = [
   root,
-  status,
   login,
   createUser,
-  Transfer,
-  getOpenInvoices,
-  status2,
+  transfer,
+  payDebit,
+  payCredit,
+  getOpenInvoices
 ];

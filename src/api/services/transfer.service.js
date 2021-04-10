@@ -6,7 +6,6 @@ const { validCodBank } = require("../../helpers/codBanco");
 const { sendMessage } = require("../../helpers/nodemailer");
 const Boom = require("@hapi/boom");
 
-
 const transferIntern = async (id, email, valor) => {
     
   const findContaDestiny = await contaRepository.findContaByUserEmail(email);
